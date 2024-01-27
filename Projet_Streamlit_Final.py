@@ -7,9 +7,9 @@ import plotly.express as px
 from io import StringIO
 
 
-df_2021 = pd.read_csv("/Users/bapt/Library/Mobile Documents/com~apple~CloudDocs/DataAnalyst:Scientist/DataScientest_cours/Projet_fil_rouge_Hapiness/world-happiness-report-2021.csv", sep = ",")
-df_all = pd.read_csv("/Users/bapt/Library/Mobile Documents/com~apple~CloudDocs/DataAnalyst:Scientist/DataScientest_cours/Projet_fil_rouge_Hapiness/world-happiness-report.csv", sep =",")
-df_2021_bis = pd.read_csv("/Users/bapt/Library/Mobile Documents/com~apple~CloudDocs/DataAnalyst:Scientist/DataScientest_cours/Projet_fil_rouge_Hapiness/world-happiness-report-2021.csv", sep = ",")
+df_2021 = pd.read_csv("world-happiness-report-2021.csv", sep = ",")
+df_all = pd.read_csv("world-happiness-report.csv", sep =",")
+df_2021_bis = pd.read_csv("world-happiness-report-2021.csv", sep = ",")
 
 
 print(df_all.head())
