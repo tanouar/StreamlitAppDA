@@ -825,7 +825,7 @@ if page == pages[4]:
 
     def charger_modele():
         # Charger le modèle à partir du fichier Pickle
-        with open('/Users/bapt/Library/Mobile Documents/com~apple~CloudDocs/DataAnalyst:Scientist/DataScientest_cours/Projet_fil_rouge_Hapiness/modele_rfr.pkl', 
+        with open('modele_rfr.pkl', 
                   'rb') as fichier_modele:
             modele = pickle.load(fichier_modele)
         return modele
