@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import seaborn as sns
 import plotly.express as px
 from io import StringIO
-
+import sklearn
 
 df_2021 = pd.read_csv("world-happiness-report-2021.csv", sep = ",")
 df_all = pd.read_csv("world-happiness-report.csv", sep =",")
