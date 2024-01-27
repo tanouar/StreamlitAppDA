@@ -6,6 +6,13 @@ import seaborn as sns
 import plotly.express as px
 from io import StringIO
 import sklearn
+from scipy.stats import normaltest
+from scipy.stats import norm
+import pickle
+import requests
+from io import BytesIO
+from PIL import Image
+
 
 df_2021 = pd.read_csv("world-happiness-report-2021.csv", sep = ",")
 df_all = pd.read_csv("world-happiness-report.csv", sep =",")
@@ -115,8 +122,6 @@ df.head()
 
 
 #On test la normalité des échnatillons
-from scipy.stats import normaltest
-
 stat, p_value = normaltest(df["Ladder_score"])
 
     # Interpréter les résultats
@@ -305,9 +310,6 @@ if page == pages[2] :
 
     st.header("📊 Data Visualisation")
     st.subheader("1. Distribution et loi normale de Ladder Score")
-
-
-    from scipy.stats import norm
 
     ladder_scores = df["Ladder_score"]
     hist_fig = go.Figure()
@@ -821,8 +823,6 @@ if page == pages[4]:
     # Interface utilisateur Streamlit
     st.subheader('Simulation de Prédiction avec Random Forest Regressor')
 
-    import pickle
-
     def charger_modele():
         # Charger le modèle à partir du fichier Pickle
         with open('modele_rfr.pkl', 'rb') as fichier_modele:
@@ -897,10 +897,6 @@ if page == pages[5]:
     if st.checkbox("Peut-être"):
         st.write("### En synthèse :")
         st.write("Cette analyse du bien-être mondial met en lumière des corrélations significatives, notamment avec l'espérance de vie en bonne santé, le PIB par habitant et la perception du soutien social.")
-        
-        import requests
-        from io import BytesIO
-        from PIL import Image
 
         image_urls = [
         "https://i.pinimg.com/474x/18/76/94/1876949407d8edf95aac2afbf07374b9.jpg",
