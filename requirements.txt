@@ -12,4 +12,4 @@ pickleshare==0.7.5
 cloudpickle==2.2.1
 scikit-image==0.20.0
 scikit-learn
-sklearn
+
