@@ -5,7 +5,6 @@ import plotly.graph_objects as go
 import seaborn as sns
 import plotly.express as px
 from io import StringIO
-import sklearn
 from scipy.stats import normaltest
 from scipy.stats import norm
 import pickle
