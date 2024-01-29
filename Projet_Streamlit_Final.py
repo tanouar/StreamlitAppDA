@@ -861,6 +861,12 @@ if page == pages[4]:
     caracteristiques = np.array([[caracteristique1, caracteristique2, caracteristique3, caracteristique4,]+region_values_list])
 
 
+    def charger_modele():
+        # Charger le modèle à partir du fichier Pickle
+        with open('modele_rfr.pkl', 'rb') as fichier_modele:
+            model = pickle.load(fichier_modele)
+        return model
+      
     # Prévoir la classe avec le modèle
     modele = charger_modele()
     prediction = modele.predict(caracteristiques)
