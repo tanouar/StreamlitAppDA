@@ -863,7 +863,7 @@ if page == pages[4]:
 
     def charger_modele():
         # Charger le modèle à partir du fichier Pickle
-        with open('modele_rfr.pkl', 'rb') as fichier_modele:
+        with open('modele_rfr_up.pkl', 'rb') as fichier_modele:
             model = pickle.load(fichier_modele)
         return model
       
