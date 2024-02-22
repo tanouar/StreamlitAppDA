@@ -13,6 +13,7 @@ from io import BytesIO
 from PIL import Image
 
 
+
 df_2021 = pd.read_csv("world-happiness-report-2021.csv", sep = ",")
 df_all = pd.read_csv("world-happiness-report.csv", sep =",")
 df_2021_bis = pd.read_csv("world-happiness-report-2021.csv", sep = ",")
