@@ -10,7 +10,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import confusion_matrix
 
-df=pd.read_csv("G:\Mon Drive\Formation DA\ExosStreamlit\\titanic_train.csv")
+df=pd.read_csv(".\\titanic_train.csv")
 
 st.title("Projet de classification binaire Titanic")
 st.sidebar.title("Sommaire")
