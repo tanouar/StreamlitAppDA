@@ -3,12 +3,12 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.svm import SVC
-from sklearn.metrics import confusion_matrix
+from scikit-learn.model_selection import train_test_split
+from scikit-learn.preprocessing import StandardScaler
+from scikit-learn.linear_model import LogisticRegression
+from scikit-learn.ensemble import RandomForestClassifier
+from scikit-learn.svm import SVC
+from scikit-learn.metrics import confusion_matrix
 
 df=pd.read_csv("G:\Mon Drive\Formation DA\ExosStreamlit\\titanic_train.csv")
 
