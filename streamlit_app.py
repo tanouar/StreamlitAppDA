@@ -31,7 +31,7 @@ if page == pages[0] :
 if page == pages[1] : 
     st.write("### DataVizualization")
 # ### Émission mondiale de CO2 ###
-# world_co2=df.loc[df['year']>=1950] #Pour avoir le minimum de valeurs manquantes
+world_co2=df.loc[df['year']>=1950] #Pour avoir le minimum de valeurs manquantes
 # fig = px.choropleth(world_co2, locations='iso_code',color= 'co2',
 #                     animation_frame= 'year',
 #                     hover_name= 'country',
@@ -45,7 +45,6 @@ if page == pages[1] :
 # fig.show()
 
 #Choix des top 15 pays les plus polluants
-
 df_moy=world_co2.groupby('country')['co2'].mean().reset_index()
 df_moy=df_moy.sort_values(by='co2', ascending=False)
 liste_regions=['World', 'Asia', 'Africa', 'North America', 'South America',
