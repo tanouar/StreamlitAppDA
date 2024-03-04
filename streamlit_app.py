@@ -10,7 +10,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import confusion_matrix
 
-df=pd.read_csv("merged_owid_temp.csv")  
+df=pd.read_csv("merged_owid_temp.csv", index_col=0)  
 
 st.title("Les températures terrestres")
 st.sidebar.title("Sommaire")
@@ -29,6 +29,21 @@ if page == pages[0] :
 
 if page == pages[1] : 
     st.write("### DataVizualization")
+### Émission mondiale de CO2 ###
+world_co2=df.loc[df['year']>=1950] #Pour avoir le minimum de valeurs manquantes
+fig = px.choropleth(world_co2, locations='iso_code',color= 'co2',
+                    animation_frame= 'year',
+                    hover_name= 'country',
+                    color_continuous_scale='pubu', # couleurs à tester : amp, Blues, Reds, pubu, bluered, orrd, ylorrd
+                    projection ='natural earth',
+                    title='Émissions mondiales de CO2',
+                    range_color=(0, 12000))
+fig. update_layout(geo=dict(showframe=False, showcoastlines=False), title=dict(x=0.5,font=dict(size=20)), height=600, width=800)
+fig.update_coloraxes(colorbar=dict(x=1, y=0.5,len=1, tickfont=dict(size=10),title = "CO2 (MT)"))
+
+fig.show()
+
+
 #     fig = plt.figure()
 #     sns.countplot(x = 'Survived', data = df)
 #     st.pyplot(fig)
