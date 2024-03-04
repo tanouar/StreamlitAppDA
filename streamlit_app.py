@@ -10,7 +10,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import confusion_matrix
 
-df=pd.read_csv("merged_owid_temp.csv")
+df=pd.read_csv("merged_owid_temp.csv")  
 
 st.title("Les températures terrestres")
 st.sidebar.title("Sommaire")
