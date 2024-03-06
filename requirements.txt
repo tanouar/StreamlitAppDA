@@ -5,3 +5,12 @@ matplotlib
 seaborn
 scikit-learn
 plotly.express
+numpy
+Pillow
+scipy
+Prophet
+geopandas
+geoplot
+mapclassify
+pycountry
+seaborn
