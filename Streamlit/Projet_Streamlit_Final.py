@@ -13,9 +13,9 @@ from scipy.stats import norm
 import pickle
 
 
-df_2021 = pd.read_csv("/Users/bapt/Library/Mobile Documents/com~apple~CloudDocs/DataAnalyst:Scientist/DataScientest_cours/Projet_fil_rouge_Hapiness/world-happiness-report-2021.csv", sep = ",")
-df_all = pd.read_csv("/Users/bapt/Library/Mobile Documents/com~apple~CloudDocs/DataAnalyst:Scientist/DataScientest_cours/Projet_fil_rouge_Hapiness/world-happiness-report.csv", sep =",")
-df_2021_bis = pd.read_csv("/Users/bapt/Library/Mobile Documents/com~apple~CloudDocs/DataAnalyst:Scientist/DataScientest_cours/Projet_fil_rouge_Hapiness/world-happiness-report-2021.csv", sep = ",")
+df_2021 = pd.read_csv("world-happiness-report-2021.csv", sep = ",")
+df_all = pd.read_csv("world-happiness-report.csv", sep =",")
+df_2021_bis = pd.read_csv("world-happiness-report-2021.csv", sep = ",")
 
 
 print(df_all.head())
@@ -801,7 +801,7 @@ if page == pages[3]:
         # Visualiser les importances des caractéristiques
         st.subheader("Importance des variables du RandomForestRegressor")
         
-        df_coef = pd.read_csv("/Users/bapt/Library/Mobile Documents/com~apple~CloudDocs/DataAnalyst:Scientist/DataScientest_cours/Projet_fil_rouge_Hapiness/CoefML_RFR.csv",
+        df_coef = pd.read_csv("CoefML_RFR.csv",
                         index_col = 0)
         
         fig = px.bar(df_coef, x='Importance', y='Variable', color="Variable",
@@ -828,7 +828,7 @@ if page == pages[4]:
 
     def charger_modele():
         # Charger le modèle à partir du fichier Pickle
-        with open('/Users/bapt/Library/Mobile Documents/com~apple~CloudDocs/DataAnalyst:Scientist/DataScientest_cours/Projet_fil_rouge_Hapiness/modele_rfr_up.pkl', 
+        with open('modele_rfr_up.pkl', 
                   'rb') as fichier_modele:
             modele = pickle.load(fichier_modele)
         return modele
