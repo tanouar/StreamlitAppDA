@@ -25,6 +25,7 @@ footer {
 
 .st-cc {
   color: black;
+  background-color: #b6d7a8;
   font-weight: 500;
 }
 
@@ -48,9 +49,9 @@ section[data-testid="stSidebar"] .st-bk {
   background-color: #b6d7a8;
 }
 
-section[data-testid="stSidebar"] .st-c0 {
+/* section[data-testid="stSidebar"] .st-c0 {
   background-color: black;
-}
+}  */
 
 section[data-testid="stSidebar"] hr {
   margin-top: 30px;

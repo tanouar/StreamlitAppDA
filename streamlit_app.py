@@ -6,7 +6,7 @@ import streamlit as st
 import config
 
 # TODO : you can (and should) rename and add tabs in the ./tabs folder, and import them here.
-from tabs import intro, data, visu, model
+from tabs import intro, data, visu, stats, model, ccl
 
 
 st.set_page_config(
@@ -28,7 +28,9 @@ TABS = OrderedDict(
         (intro.sidebar_name, intro),
         (data.sidebar_name, data),
         (visu.sidebar_name, visu),
-        (model.sidebar_name, model)
+        (stats.sidebar_name, stats),
+        (model.sidebar_name, model),
+        (ccl.sidebar_name, ccl)
     ]
 )
 
@@ -40,7 +42,7 @@ def run():
         width=250,
         )
     
-    tab_name = st.sidebar.radio("", list(TABS.keys()), 0)
+    tab_name = st.sidebar.radio("Sommaire", list(TABS.keys()), 0)
     st.sidebar.markdown("---")
     st.sidebar.markdown(f"## {config.PROMOTION}")
 
@@ -51,7 +53,6 @@ def run():
     st.sidebar.markdown(
         """
         ----
-        
         Crédit image :
         ©LIONEL BONAVENTURE / AFP
         """,
