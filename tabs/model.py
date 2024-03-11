@@ -14,7 +14,7 @@ import xgboost as xgb
 from xgboost import XGBRegressor
 # from sklearn.svm import SVC
 # from sklearn.metrics import confusion_matrix
-# from sklearn.model_selection import learning_curve
+from sklearn.model_selection import learning_curve
 # from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 
 
@@ -141,11 +141,28 @@ def run():
                  color_discrete_sequence=px.colors.qualitative.Plotly)
     st.plotly_chart(fig)
 
-  # y_predRF = modeleRF.predict(X_test_processed)
-  # residus(y_test, y_predRF, 'Résidus pour le RandomForest')
-
-
-
+# Courbes d'apprentissage
+  def plot_learning_curve(model, X, y, titre):
+      train_sizes, train_scores, test_scores = learning_curve(model, X, y, cv=5, scoring='r2', train_sizes=np.linspace(0.1, 1.0, 10))
+      # Calculate mean and standard deviation for training set scores
+      train_mean = np.mean(train_scores, axis=1)
+      train_std = np.std(train_scores, axis=1)
+      # Calculate mean and standard deviation for test set scores
+      test_mean = np.mean(test_scores, axis=1)
+      test_std = np.std(test_scores, axis=1)
+      # Plot the learning curve
+      plt.figure(figsize=(6, 4))
+      plt.plot(train_sizes, train_mean, label="Score d'apprentissage", color='blue')
+      plt.fill_between(train_sizes, train_mean - train_std, train_mean + train_std, color='blue', alpha=0.1)
+      plt.plot(train_sizes, test_mean, label='Score de Cross-Validation', color='orange')
+      plt.fill_between(train_sizes, test_mean - test_std, test_mean + test_std, color='orange', alpha=0.1)
+      # Add labels and title
+      plt.xlabel("Taille du jeu d'apprentissage")
+      plt.ylabel("Erreur quadratique")
+      plt.title(titre)
+      plt.legend()
+      st.pyplot(plt.gcf())
+ 
 # Interface :
   st.header("🧩 Modélisation")
   st.markdown("""
@@ -231,20 +248,23 @@ def run():
  
     if st.button('Résultats'):
       st.markdown("""
-            RandomForest et XGBoost sont les modèles choisis :
+            RandomForest et XGBoost sont des modèles assez similaires en terme de résidus, et de courbes d'apprentissage. 
+            On présente ici les figures pour le XGBoost :
             """)
         
       # all_ml_models = ["XGBoost","Random Forest"]
       # model_choice = st.selectbox("Selectionner le modèle à étudier :",all_ml_models)
-      # if model_choice == "Random Forest":
-      #   st.markdown(""" test """)
+      # if model_choice == "Random Forest":     
+        # y_predRF = modeleRF.predict(X_test_processed)
+        # residus(y_test, y_predRF, 'Résidus pour le RandomForest')
       # elif model_choice == "XGBoost":
       y_predXGB = modeleXGB.predict(X_test_processed)
       residus(y_test, y_predXGB, 'Résidus pour le XGBoost')
-         
       # y_predRF = modeleRF.predict(X_test_processed)
-      # residus(y_test, y_predRF, 'Résidus pour le RandomForest')
+      
+      plot_learning_curve(modeleXGB, X_train_processed, y_train, "Courbe d'apprentissage pour le XGBoost")
 
+      
     if st.button('Importance'):
       st.markdown("""
             Les graphes d'importances de RandomForest et XGBoost :
@@ -253,7 +273,6 @@ def run():
       nbImp=13
       importances(modeleRF,X_train_processed, "Variables les plus importantes pour le modèle RandomForest",nbImp)
       importances(modeleXGB,X_train_processed, "Variables les plus importantes pour le modèle XGBoostRegressor",nbImp)
-
 
 
   st.write("")
