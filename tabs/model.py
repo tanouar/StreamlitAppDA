@@ -174,16 +174,18 @@ def run():
 
   if st.checkbox('Préparation des données'):
     if st.button("Pays / Zones / Continents") :
+      st.write("Comment gérer la donnée catégorielle *Pays* ?")
       st.dataframe(df_ctpzi.iloc[:, [0,1,4]])
     if st.button('Nettoyage'):
       st.markdown("""
       - Periode de temps >1950            
       - Colonnes inutiles
-      - Interpollation
+      - Interpollation dès que possible
       - Suppression des colones avec trop de NaN
       """)
 
     if st.button('Jeu préparé'):
+      st.write("On obtient ainsi ce jeu de données :")
       tab = pd.DataFrame(df.head(15))
       tab['population'] = tab['population'].apply(lambda x: '{:.0f}'.format(x))
       tab['pib'] = tab['pib'].apply(lambda x: '{:.0f}'.format(x))
@@ -201,8 +203,9 @@ def run():
       # Appliquer le style à la colonne température
       styled_tab = tab.style.apply(style_temp, axis=0)
       st.table(styled_tab)
-
+      st.write("Taille du tableau :", df.shape)
       st.markdown("""
+        Encodage des variables :                  
         - OneHotEncoding pour *zone_géo*          
         - Normalisation pour *année*
         - RobustScaler pour les autres variables
@@ -246,11 +249,15 @@ def run():
       styled_tab2 = tab2.style.apply(style_temp2)
     
       st.table(styled_tab2)
- 
-    if st.button('Résultats'):
       st.markdown("""
-            ➽ RandomForest et XGBoost sont des modèles assez similaires en terme de résidus, et de courbes d'apprentissage. 
-            On présente ici les figures pour le XGBoost :
+            ➽ RandomForest et XGBoost sont des modèles assez similaires en terme de résultats.
+            """)
+      st.write("")
+      st.write("")
+
+    if st.button('XGBoost'):
+      st.markdown("""
+            ➽ Regardons ici les figures pour le XGBoost :
             """)
         
       # all_ml_models = ["XGBoost","Random Forest"]
@@ -262,19 +269,24 @@ def run():
       y_predXGB = modeleXGB.predict(X_test_processed)
       residus(y_test, y_predXGB, 'Résidus pour le XGBoost')
       # y_predRF = modeleRF.predict(X_test_processed)
-      
+      st.write("➽ Erreurs homogènes et distribution normale")
+     
       plot_learning_curve(modeleXGB, X_train_processed, y_train, "Courbe d'apprentissage pour le XGBoost")
-
+      st.write("➽ Le modèle pourrait être amélioré avec un plus grand jeu d'apprentissage")
+      st.write("")
+      st.write("")
+ 
       
     if st.button('Importance'):
       st.markdown("""
-            Les graphes d'importances de RandomForest et XGBoost :
+            Les graphes d'importances de RandomForest et XGBoost illustrent la différence de comportement des 2 modèles :
             """)
       # nbImp = st.slider('Sélectionnez le nombre de features d\'importance:', 10,len(X_train_processed.columns))
       nbImp=13
       importances(modeleRF,X_train_processed, "Variables les plus importantes pour le modèle RandomForest",nbImp)
       importances(modeleXGB,X_train_processed, "Variables les plus importantes pour le modèle XGBoostRegressor",nbImp)
 
+      st.write("➽ La relation entre la température de la terre et les variables étudiées est complexe et peut être influencée par de nombreux autres facteurs externes.")
 
   st.write("")
   st.write("")
