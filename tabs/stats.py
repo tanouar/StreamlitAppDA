@@ -1,13 +1,11 @@
 import streamlit as st
-import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 from scipy import stats
-import statsmodels.api as sm
-
+# import statsmodels.api as sm
 
 title = "Températures terrestres"
 sidebar_name = "Statistiques"
