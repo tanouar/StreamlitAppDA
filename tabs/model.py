@@ -24,8 +24,7 @@ sidebar_name = "Modélisation"
 
 def run():
   # st.image("Data/ML.jpg", width=400)
-  # st.header("Modélisation")
-
+  
 # LOAD JEU DE DONNEES et TRAITEMENTS (split etc.)
   df_ctpzi=pd.read_csv("Data/ctpzi.csv", encoding='latin-1')  
   df=pd.read_csv("Data/merged_owid_temp_zones.csv", index_col=0)
@@ -164,11 +163,13 @@ def run():
       st.pyplot(plt.gcf())
  
 # Interface :
-  st.header("🧩 Modélisation")
+  st.write("  ")
+  st.header("Modélisation")
+  st.markdown("---")
   st.markdown("""
         ### Prédire l\'augmentation de température par pays par année
-        * **Algorithme d'apprentissage supervisé**     
-        * **Modèle de machine learning de REGRESSION**
+        ➽ **Algorithme d'apprentissage supervisé**     
+        ➽ **Modèle de machine learning de REGRESSION**
         """)
 
   if st.checkbox('Préparation des données'):
@@ -248,7 +249,7 @@ def run():
  
     if st.button('Résultats'):
       st.markdown("""
-            RandomForest et XGBoost sont des modèles assez similaires en terme de résidus, et de courbes d'apprentissage. 
+            ➽ RandomForest et XGBoost sont des modèles assez similaires en terme de résidus, et de courbes d'apprentissage. 
             On présente ici les figures pour le XGBoost :
             """)
         

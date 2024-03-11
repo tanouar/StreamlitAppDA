@@ -10,7 +10,6 @@ from scipy import stats
 title = "Températures terrestres"
 sidebar_name = "Statistiques"
 
-
 def run():
     st.write("  ")
     st.header("Statistiques")
@@ -59,6 +58,13 @@ def run():
         st.write("- A noter que bien que nous disposions des évolutions de températures induites ou non par les effets des gaz à effet de serre, nous ne disposons pas des évolutions de températures mesurées locales par pays sur la période considérée, et non globales (par hémisphère ou mondiale par exemple). En l ‘état, il est donc normal que nous n’ayons pas cherché à étudier cette corrélation à l’échelle de la planète, et que nous nous soyons concentrés sur une évolution locale des évolutions de températures.")
 
         
+    st.write("")
+    st.write("")
+    st.write("")
+    st.write("")
+
+   
+    
    
  
 

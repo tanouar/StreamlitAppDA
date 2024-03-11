@@ -14,8 +14,6 @@ def run():
     st.markdown("---")
     df = pd.read_csv("Data/owid.csv")
    
-
-
     # Filtre pour ne garder que les pays du top 15
     top15_countries = ['United States', 'China', 'Russia', 'Germany', 'Japan', 'India', 'United Kingdom', 'Canada', 'France', 'Italy', 'Poland', 'South Africa', 'Mexico', 'South Korea', 'Ukraine', 'World']
     df_top15 = df[df['country'].isin(top15_countries)].copy()
@@ -108,6 +106,10 @@ def run():
 
     st.write("➽ On note qu'après les années 2010, les températures semblent augmenter visiblement sur l'ensemble du globe.")
 
+    st.write("")
+    st.write("")
+    st.write("")
+    st.write("")
 
    
         
