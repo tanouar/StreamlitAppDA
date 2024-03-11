@@ -8,7 +8,6 @@ plotly.express
 numpy
 Pillow
 scipy
-scipy.stats
 pickle
 seaborn
 xgboost
