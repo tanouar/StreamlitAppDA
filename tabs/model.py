@@ -287,7 +287,7 @@ def run():
         # y_predRF = modeleRF.predict(X_test_processed)
         # residus(y_test, y_predRF, 'Résidus pour le RandomForest')
       elif model_choice == "XGBoostRegressor":
-        st.image("Data/ML1.jpg", width=700)        
+        st.image("Data/fleche.jpg", width=700)        
         # st.image("Data/ResidusXGB.jpg", width=700)
         # y_predXGB = modeleXGB.predict(X_test_processed)
         # residus(y_test, y_predXGB, 'Résidus pour le XGBoost')
