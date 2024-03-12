@@ -283,11 +283,11 @@ def run():
       all_ml_models = ["RandomForestRegressor","XGBoostRegressor"]
       model_choice = st.selectbox("Selectionner le modèle à étudier :",all_ml_models)
       if model_choice == "RandomForestRegressor":     
-        st.image("Data/ResidusRF.jpg", width=700)
+        st.image("Data/ML.jpg", width=700)
         # y_predRF = modeleRF.predict(X_test_processed)
         # residus(y_test, y_predRF, 'Résidus pour le RandomForest')
       elif model_choice == "XGBoostRegressor":
-        st.image("Data/ResidusXGB.jpg", width=700)
+        # st.image("Data/ResidusXGB.jpg", width=700)
         # y_predXGB = modeleXGB.predict(X_test_processed)
         # residus(y_test, y_predXGB, 'Résidus pour le XGBoost')
       st.write("➽ Erreurs homogènes et distribution normale")
