@@ -18,10 +18,10 @@ def run():
     st.write(PROJECT_DESCRIPTION)
     
     st.write('**Les objectifs** :')
-    st.write('- Collecter et prétraiter des données sur les températures terrestres et les gaz à effet de serre 💾')
-    st.write('- Utiliser des techniques de visualisation pour représenter graphiquement les variations de température au fil du temps et leur relation avec les concentrations de gaz à effet de serre 📊')
-    st.write('- Effectuer des analyses statistiques pour quantifier les relations entre les températures et les gaz à effet de serre 📈')
-    st.write('- Développer des modèles de prédiction en utilisant des techniques de modélisation et de machine learning 🤖')
+    st.write('➽ Collecter et prétraiter des données sur les températures terrestres et les gaz à effet de serre 💾')
+    st.write('➽ Utiliser des techniques de visualisation pour représenter graphiquement les variations de température au fil du temps et leur relation avec les concentrations de gaz à effet de serre 📊')
+    st.write('➽ Effectuer des analyses statistiques pour quantifier les relations entre les températures et les gaz à effet de serre 📈')
+    st.write('➽ Développer des modèles de prédiction en utilisant des techniques de modélisation et de machine learning 🤖')
 
     
     st.write("")

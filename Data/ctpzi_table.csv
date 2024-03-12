@@ -1,0 +1,252 @@
+,zone_geo,pays,iso_code,continent
+0,11.0,Canada,CAN,1.0
+1,11.0,Groenland,GRL,1.0
+2,11.0,Saint-Pierre-et-Miquelon,SPM,1.0
+3,11.0,États-Unis,USA,1.0
+4,12.0,Belize,BLZ,1.0
+5,12.0,Costa Rica,CRI,1.0
+6,12.0,El Salvador,SLV,1.0
+7,12.0,Guatemala,GTM,1.0
+8,12.0,Honduras,HND,1.0
+9,12.0,Mexique,MEX,1.0
+10,12.0,Nicaragua,NIC,1.0
+11,12.0,Panama,PAN,1.0
+12,13.0,Antigua-et-Barbuda,ATG,1.0
+13,13.0,Bahamas,BHS,1.0
+14,13.0,Barbade,BRB,1.0
+15,13.0,Bermudes,BMU,1.0
+16,13.0,"Vierges britanniques, Îles ",VGB,1.0
+17,13.0,"Caïmans, Îles",CYM,1.0
+18,13.0,Cuba,CUB,1.0
+19,13.0,Dominique,DMA,1.0
+20,13.0,"Dominicaine, République",DOM,1.0
+21,13.0,Grenade,GRD,1.0
+22,13.0,Guadeloupe,GLP,1.0
+23,13.0,Haïti,HTI,1.0
+24,13.0,Jamaïque,JAM,1.0
+25,13.0,Martinique,MTQ,1.0
+26,13.0,Montserrat,MSR,1.0
+27,13.0,Curaçao,CUW,1.0
+28,13.0,Aruba,ABW,1.0
+29,13.0,Saint-Martin (partie néerlandaise),SXM,1.0
+30,13.0,"Bonaire, Saint-Eustache et Saba",BES,1.0
+31,13.0,Porto Rico,PRI,1.0
+32,13.0,Saint-Barthélemy,BLM,1.0
+33,13.0,Saint-Kitts-et-Nevis,KNA,1.0
+34,13.0,Anguilla,AIA,1.0
+35,13.0,Sainte-Lucie,LCA,1.0
+36,13.0,Saint-Martin (partie française),MAF,1.0
+37,13.0,Saint-Vincent-et-les Grenadines,VCT,1.0
+38,13.0,Trinité-et-Tobago,TTO,1.0
+39,13.0,"Turks-et-Caïcos, Îles",TCA,1.0
+40,13.0,"Vierges des États-Unis, Îles ",VIR,1.0
+41,14.0,Argentine,ARG,1.0
+42,14.0,Bolivie,BOL,1.0
+43,14.0,Brésil,BRA,1.0
+44,14.0,Chili,CHL,1.0
+45,14.0,Colombie,COL,1.0
+46,14.0,Équateur,ECU,1.0
+47,14.0,"Falkland, Îles (Malvinas)",FLK,1.0
+48,14.0,Géorgie du Sud-et-les Îles Sandwich du Sud,SGS,1.0
+49,14.0,Guyane française,GUF,1.0
+50,14.0,Guyana,GUY,1.0
+51,14.0,Paraguay,PRY,1.0
+52,14.0,Pérou,PER,1.0
+53,14.0,Suriname,SUR,1.0
+54,14.0,Uruguay,URY,1.0
+55,14.0,Venezuela,VEN,1.0
+56,21.0,Autriche,AUT,2.0
+57,21.0,Belgique,BEL,2.0
+58,21.0,France,FRA,2.0
+59,21.0,Allemagne,DEU,2.0
+60,21.0,Liechtenstein,LIE,2.0
+61,21.0,Luxembourg,LUX,2.0
+62,21.0,Monaco,MCO,2.0
+63,21.0,Pays-Bas,NLD,2.0
+64,21.0,Suisse,CHE,2.0
+65,22.0,Bulgarie,BGR,2.0
+66,22.0,Bélarus,BLR,2.0
+67,22.0,Tchéquie,CZE,2.0
+68,22.0,Estonie,EST,2.0
+69,22.0,Hongrie,HUN,2.0
+70,22.0,Lettonie,LVA,2.0
+71,22.0,Lituanie,LTU,2.0
+72,22.0,Moldova,MDA,2.0
+73,22.0,Pologne,POL,2.0
+74,22.0,Roumanie,ROU,2.0
+75,22.0,"Russie, Fédération de",RUS,2.0
+76,22.0,Slovaquie,SVK,2.0
+77,22.0,Ukraine,UKR,2.0
+78,23.0,Danemark,DNK,2.0
+79,23.0,"Féroé, Îles",FRO,2.0
+80,23.0,Finlande,FIN,2.0
+81,23.0,"Åland, Îles",ALA,2.0
+82,23.0,Islande,ISL,2.0
+83,23.0,Irlande,IRL,2.0
+84,23.0,Norvège,NOR,2.0
+85,23.0,Sercq,XSQ,2.0
+86,23.0,Svalbard et l'Île Jan Mayen,SJM,2.0
+87,23.0,Suède,SWE,2.0
+88,23.0,Royaume-Uni,GBR,2.0
+89,23.0,Guernesey,GGY,2.0
+90,23.0,Jersey,JEY,2.0
+91,23.0,Île de Man,IMN,2.0
+92,24.0,Albanie,ALB,2.0
+93,24.0,Andorre,AND,2.0
+94,24.0,Bosnie-Herzégovine,BIH,2.0
+95,24.0,Croatie,HRV,2.0
+96,24.0,Gibraltar,GIB,2.0
+97,24.0,Grèce,GRC,2.0
+98,24.0,Saint-Siège (État de la Cité du Vatican),VAT,2.0
+99,24.0,Italie,ITA,2.0
+100,24.0,Malte,MLT,2.0
+101,24.0,Monténégro,MNE,2.0
+102,24.0,Portugal,PRT,2.0
+103,24.0,Saint-Marin,SMR,2.0
+104,24.0,Serbie,SRB,2.0
+105,24.0,Slovénie,SVN,2.0
+106,24.0,Espagne,ESP,2.0
+107,24.0,"Macédoine, République de",MKD,2.0
+108,24.0,Kosovo,XKO,2.0
+109,31.0,Cabo Verde,CPV,3.0
+110,31.0,Bénin,BEN,3.0
+111,31.0,Gambie,GMB,3.0
+112,31.0,Ghana,GHA,3.0
+113,31.0,Guinée,GIN,3.0
+114,31.0,Côte d'Ivoire,CIV,3.0
+115,31.0,Libéria,LBR,3.0
+116,31.0,Mali,MLI,3.0
+117,31.0,Mauritanie,MRT,3.0
+118,31.0,Niger,NER,3.0
+119,31.0,Nigéria,NGA,3.0
+120,31.0,Guinée-Bissau,GNB,3.0
+121,31.0,Sainte-Hélène,SHN,3.0
+122,31.0,Sénégal,SEN,3.0
+123,31.0,Sierra Leone,SLE,3.0
+124,31.0,Togo,TGO,3.0
+125,31.0,Burkina Faso,BFA,3.0
+126,32.0,Burundi,BDI,3.0
+127,32.0,Comores,COM,3.0
+128,32.0,Mayotte,MYT,3.0
+129,32.0,Éthiopie,ETH,3.0
+130,32.0,Érythrée,ERI,3.0
+131,32.0,Djibouti,DJI,3.0
+132,32.0,Kenya,KEN,3.0
+133,32.0,Madagascar,MDG,3.0
+134,32.0,Malawi,MWI,3.0
+135,32.0,Maurice,MUS,3.0
+136,32.0,Mozambique,MOZ,3.0
+137,32.0,Réunion,REU,3.0
+138,32.0,Rwanda,RWA,3.0
+139,32.0,Seychelles,SYC,3.0
+140,32.0,Somalie,SOM,3.0
+141,32.0,Zimbabwe,ZWE,3.0
+142,32.0,Soudan du Sud,SSD,3.0
+143,32.0,Ouganda,UGA,3.0
+144,32.0,Tanzanie,TZA,3.0
+145,32.0,Zambie,ZMB,3.0
+146,33.0,Algérie,DZA,3.0
+147,33.0,Libye,LBY,3.0
+148,33.0,Maroc,MAR,3.0
+149,33.0,Soudan,SDN,3.0
+150,33.0,Sahara occidental,ESH,3.0
+151,33.0,Tunisie,TUN,3.0
+152,33.0,Égypte,EGY,3.0
+153,34.0,Angola,AGO,3.0
+154,34.0,Cameroun,CMR,3.0
+155,34.0,"Centrafricaine, République",CAF,3.0
+156,34.0,Tchad,TCD,3.0
+157,34.0,"Congo, République du",COG,3.0
+158,34.0,"Congo, République démocratique du",COD,3.0
+159,34.0,Guinée équatoriale,GNQ,3.0
+160,34.0,Gabon,GAB,3.0
+161,34.0,Sao Tomé-et-Principe,STP,3.0
+162,35.0,Botswana,BWA,3.0
+163,35.0,Lesotho,LSO,3.0
+164,35.0,Namibie,NAM,3.0
+165,35.0,"Afrique du Sud, République d'",ZAF,3.0
+166,35.0,Eswatini,SWZ,3.0
+167,41.0,Afghanistan,AFG,4.0
+168,41.0,Azerbaïdjan,AZE,4.0
+169,41.0,Bahreïn,BHR,4.0
+170,41.0,Arménie,ARM,4.0
+171,41.0,Chypre,CYP,4.0
+172,41.0,Géorgie,GEO,4.0
+173,41.0,Cisjordanie et bande de Gaza (Palestine),PSE,4.0
+174,41.0,Iran,IRN,4.0
+175,41.0,Iraq,IRQ,4.0
+176,41.0,Israël,ISR,4.0
+177,41.0,Kazakhstan,KAZ,4.0
+178,41.0,Jordanie,JOR,4.0
+179,41.0,Koweït,KWT,4.0
+180,41.0,Kirghizistan,KGZ,4.0
+181,41.0,Liban,LBN,4.0
+182,41.0,Oman,OMN,4.0
+183,41.0,Qatar,QAT,4.0
+184,41.0,Arabie saoudite,SAU,4.0
+185,41.0,Syrie,SYR,4.0
+186,41.0,Tadjikistan,TJK,4.0
+187,41.0,Émirats arabes unis,ARE,4.0
+188,41.0,Turquie,TUR,4.0
+189,41.0,Turkménistan,TKM,4.0
+190,41.0,Ouzbékistan,UZB,4.0
+191,41.0,Yémen,YEM,4.0
+192,42.0,Chine,CHN,4.0
+193,42.0,Taïwan,TWN,4.0
+194,42.0,Hong Kong,HKG,4.0
+195,42.0,Japon,JPN,4.0
+196,42.0,Corée du Nord,PRK,4.0
+197,42.0,Corée du Sud,KOR,4.0
+198,42.0,Macao,MAC,4.0
+199,42.0,Mongolie,MNG,4.0
+200,43.0,Brunéi Darussalam,BRN,4.0
+201,43.0,Birmanie (Myanmar),MMR,4.0
+202,43.0,Cambodge,KHM,4.0
+203,43.0,Indonésie,IDN,4.0
+204,43.0,Laos,LAO,4.0
+205,43.0,Malaisie,MYS,4.0
+206,43.0,Philippines,PHL,4.0
+207,43.0,Timor-Leste,TLS,4.0
+208,43.0,Singapour,SGP,4.0
+209,43.0,Viet Nam,VNM,4.0
+210,43.0,Thaïlande,THA,4.0
+211,44.0,Bangladesh,BGD,4.0
+212,44.0,Bhoutan,BTN,4.0
+213,44.0,Territoire britannique de l'océan Indien,IOT,4.0
+214,44.0,Sri Lanka,LKA,4.0
+215,44.0,Inde,IND,4.0
+216,44.0,Maldives,MDV,4.0
+217,44.0,Népal,NPL,4.0
+218,44.0,Pakistan,PAK,4.0
+219,51.0,Samoa américaines,ASM,5.0
+220,51.0,Australie,AUS,5.0
+221,51.0,"Salomon, Îles",SLB,5.0
+222,51.0,"Christmas, Île",CXR,5.0
+223,51.0,"Cocos (Keeling), Îles",CCK,5.0
+224,51.0,"Cook, Îles",COK,5.0
+225,51.0,Fidji,FJI,5.0
+226,51.0,Polynésie française,PYF,5.0
+227,51.0,Kiribati,KIR,5.0
+228,51.0,Guam,GUM,5.0
+229,51.0,Nauru,NRU,5.0
+230,51.0,Nouvelle-Calédonie,NCL,5.0
+231,51.0,Vanuatu,VUT,5.0
+232,51.0,Nouvelle-Zélande,NZL,5.0
+233,51.0,Niue,NIU,5.0
+234,51.0,"Norfolk, Île",NFK,5.0
+235,51.0,"Mariannes du Nord, Îles",MNP,5.0
+236,51.0,Îles mineures éloignées des États-Unis,UMI,5.0
+237,51.0,"Micronésie, États fédérés de",FSM,5.0
+238,51.0,"Marshall, Îles",MHL,5.0
+239,51.0,Palaos,PLW,5.0
+240,51.0,Papouasie-Nouvelle-Guinée,PNG,5.0
+241,51.0,Pitcairn,PCN,5.0
+242,51.0,Tokélaou,TKL,5.0
+243,51.0,Tonga,TON,5.0
+244,51.0,Tuvalu,TUV,5.0
+245,51.0,Wallis-et-Futuna,WLF,5.0
+246,51.0,Samoa,WSM,5.0
+247,61.0,Antarctique,ATA,6.0
+248,61.0,"Bouvet, Île",BVT,6.0
+249,61.0,Terres australes françaises,ATF,6.0
+250,61.0,"Heard-et-Îles MacDonald, Île",HMD,6.0
