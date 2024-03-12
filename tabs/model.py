@@ -41,7 +41,7 @@ def run():
   df = df.dropna(subset=['gdp'])
   # ON ELIMINE LES COLONNES MH4 ET N2O afin de garder un nombre de lignes un peu conséquent
   df = df.drop(["methane","nitrous_oxide","iso_code","continent"], axis=1)
-  df = df.rename(columns={'gdp' :'pib', 'year':'année', 'temperature_change_from_ghg':'delta_T°_dû_aux_ghg'})
+  df = df.rename(columns={'gdp' :'pib', 'year':'année', 'temperature_change_from_ghg':'delta T°_dû_aux_ghg'})
 
   # séparation des features et de la target
   target = df.temperature
@@ -50,7 +50,7 @@ def run():
   from sklearn.model_selection import train_test_split
   X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size = 0.2, random_state=42)  # , random_state=42
   # On sépare les données catégorielles et numériques.
-  num_cols = ['année','population','pib', 'co2', 'delta_T°_dû_aux_ghg']
+  num_cols = ['année','population','pib', 'co2', 'delta T°_dû_aux_ghg']
   cat_cols = ['zone_geo']
   num_train = X_train[num_cols]
   cat_train = X_train[cat_cols]
@@ -63,7 +63,7 @@ def run():
   from sklearn.preprocessing import MinMaxScaler
   from sklearn.preprocessing import RobustScaler
 
-  column_transformer = ColumnTransformer([('min_max_scaler', MinMaxScaler(), ['année']), ('robust_scaler', RobustScaler(), ['population','pib', 'co2', 'delta_T°_dû_aux_ghg'])])
+  column_transformer = ColumnTransformer([('min_max_scaler', MinMaxScaler(), ['année']), ('robust_scaler', RobustScaler(), ['population','pib', 'co2', 'delta T°_dû_aux_ghg'])])
 
   num_train_scaled = column_transformer.fit_transform(X_train)
   num_test_scaled = column_transformer.transform(X_test)
@@ -206,7 +206,7 @@ def run():
       tab = pd.DataFrame(df.head(15))
       tab['population'] = tab['population'].apply(lambda x: '{:.0f}'.format(x))
       tab['pib'] = tab['pib'].apply(lambda x: '{:.0f}'.format(x))
-      tab['delta_T°_dû_aux_ghg'] = tab['delta_T°_dû_aux_ghg'].apply(lambda x: '{:.3f}'.format(x))
+      tab['delta T°_dû_aux_ghg'] = tab['delta T°_dû_aux_ghg'].apply(lambda x: '{:.3f}'.format(x))
       tab['co2'] = tab['co2'].apply(lambda x: '{:.3f}'.format(x))
       tab['temperature'] = tab['temperature'].apply(lambda x: '{:.2f}'.format(x))
       
@@ -214,6 +214,8 @@ def run():
           # Condition pour appliquer le style uniquement à la colonne "température"
           if col.name == 'temperature':
               return ['background: #b6d7a8'] * len(col)  # Changer la couleur de fond de la colonne température
+          # elif col.name == 'delta T°_dû_aux_ghg':
+          #     return ['width: 100px'] * len(col)
           else:
               return ['']  * len(col) # Aucun style pour les autres colonnes
 
