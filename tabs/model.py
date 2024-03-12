@@ -282,7 +282,8 @@ def run():
      
       all_ml_models = ["RandomForestRegressor","XGBoostRegressor"]
       model_choice = st.selectbox("Selectionner le modèle à étudier :",all_ml_models)
-      if model_choice == "RandomForestRegressor":     
+      if model_choice == "RandomForestRegressor":     "
+        st.image("https://github.com/ClaireM63/Temperatures-terrestres/blob/main/Data/residusRF.jpg")
         st.image("Data/ResidusRF.jpg", width=700)
         # y_predRF = modeleRF.predict(X_test_processed)
         # residus(y_test, y_predRF, 'Résidus pour le RandomForest')
