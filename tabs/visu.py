@@ -33,7 +33,7 @@ def run():
     fig_emissions = px.histogram(country_top_recent, x='country', y=['Combustion du gaz naturel', 'Combustion du pétrole', 'Combustion du charbon', 'Autres sources']).update_xaxes(categoryorder='total descending')
     fig_emissions.update_layout(xaxis_title='Pays', yaxis_title='Émissions cumulées de CO2 par combustible', width=800, height=600, legend_title_text='', legend=dict(y=1, x=0.68, bgcolor='rgba(255,255,255,0)'))
 
-    st.write('**1- Contribution relative des pays les plus pollueurs à la production des gaz à effet de serre**')
+    st.write('**1- Contribution relative des pays les plus emetteurs de gaz à effet de serre**')
     
     select_graph = st.selectbox('Sélectionnez une figure à visualiser ', ['Émissions de CO2', 'Émissions de CH4', 'Émissions de NO2', 'Répartition des émissions de CO2 par combustible'])
     if select_graph == 'Émissions de CO2':

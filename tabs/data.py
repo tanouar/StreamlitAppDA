@@ -13,7 +13,7 @@ sidebar_name = "Exploration des données"
 
 def run():
     
-    st.image("Data/data.jpg", width=400)
+    # st.image("Data/data.jpg", width=400)
 
     st.header(sidebar_name)
     st.markdown("---")
@@ -215,6 +215,9 @@ df_ML.continent =df_ML.continent.astype(int)
             st.dataframe(df.isna().sum())
 
     st.write("\n\n")
+    st.write("\n\n")
+    st.write("\n\n")
+
 
 
 

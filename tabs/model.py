@@ -17,7 +17,6 @@ from xgboost import XGBRegressor
 from sklearn.model_selection import learning_curve
 # from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 
-
 title = "Températures terrestres"
 sidebar_name = "Modélisation"
 
@@ -142,7 +141,7 @@ def run():
 
 # Courbes d'apprentissage
   def plot_learning_curve(model, X, y, titre):
-      train_sizes, train_scores, test_scores = learning_curve(model, X, y, cv=5, scoring='r2', train_sizes=np.linspace(0.1, 1.0, 10))
+      train_sizes, train_scores, test_scores = learning_curve(model, X, y, cv=5, scoring='r2', train_sizes=np.linspace(0.1, 1.0, 5))
       # Calculate mean and standard deviation for training set scores
       train_mean = np.mean(train_scores, axis=1)
       train_std = np.std(train_scores, axis=1)
@@ -168,8 +167,8 @@ def run():
   st.markdown("---")
   st.markdown("""
         ### Prédire l\'augmentation de température par pays par année
-        ➽ **Algorithme d'apprentissage supervisé**     
-        ➽ **Modèle de machine learning de REGRESSION**
+        ➽ **Utiliser des algorithmes d'apprentissage supervisé**     
+        ➽ **Tester puis choisir un modèle de *Machine Learning* de REGRESSION**
         """)
 
   if st.checkbox('Préparation des données'):
@@ -178,10 +177,10 @@ def run():
       st.dataframe(df_ctpzi.iloc[:, [0,1,4]])
     if st.button('Nettoyage'):
       st.markdown("""
-      - Periode de temps >1950            
+      - Periode de temps >1970            
       - Colonnes inutiles
-      - Interpollation dès que possible
-      - Suppression des colones avec trop de NaN
+      - Interpolation dès que possible
+      - Suppression des colonnes avec trop de *NaN*
       """)
 
     if st.button('Jeu préparé'):
@@ -204,6 +203,7 @@ def run():
       styled_tab = tab.style.apply(style_temp, axis=0)
       st.table(styled_tab)
       st.write("Taille du tableau :", df.shape)
+      st.write("6 variables *features* et une *target*")
       st.markdown("""
         Encodage des variables :                  
         - OneHotEncoding pour *zone_géo*          
@@ -213,11 +213,11 @@ def run():
 
   if st.checkbox('Machine Learning'):
     st.markdown("""
-          Plusieurs modèles de machine learning ont été testés :
-          - Régression linéaire
-          - Decision Tree Regressor
-          - Random Forest Regressor
-          - Gradient Boosting Regressor
+          Plusieurs modèles de *Machine Learning* ont été testés :
+          - *Linear Regression*
+          - *Decision Tree Regressor*
+          - *Random Forest Regressor*
+          - *Gradient Boosting Regressor*
         """)
 
     if st.button('Choix du modèle'):
@@ -250,14 +250,14 @@ def run():
     
       st.table(styled_tab2)
       st.markdown("""
-            ➽ RandomForest et XGBoost sont des modèles assez similaires en terme de résultats.
+            ➽ Les modèles RandomForestRegressor et XGBoostRegressor ont des résultats de test similaires.
             """)
       st.write("")
       st.write("")
 
-    if st.button('XGBoost'):
+    if st.button('XGBoostRegressor'):
       st.markdown("""
-            ➽ Regardons ici les figures pour le XGBoost :
+            ➽ Regardons ici les figures pour le XGBoostRegressor :
             """)
         
       # all_ml_models = ["XGBoost","Random Forest"]
@@ -283,7 +283,7 @@ def run():
             """)
       # nbImp = st.slider('Sélectionnez le nombre de features d\'importance:', 10,len(X_train_processed.columns))
       nbImp=13
-      importances(modeleRF,X_train_processed, "Variables les plus importantes pour le modèle RandomForest",nbImp)
+      importances(modeleRF,X_train_processed, "Variables les plus importantes pour le modèle RandomForestRegressor",nbImp)
       importances(modeleXGB,X_train_processed, "Variables les plus importantes pour le modèle XGBoostRegressor",nbImp)
 
       st.write("➽ La relation entre la température de la terre et les variables étudiées est complexe et peut être influencée par de nombreux autres facteurs externes.")
