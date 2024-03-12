@@ -13,8 +13,8 @@ def run():
     with st.expander("Comment les gaz à effet de serre contribuent-ils au réchauffement de la planète ?"):
         st.write("Les gaz à effet de serre sont des composés présents dans l'atmosphère qui absorbent et émettent le rayonnement infrarouge, contribuant ainsi au réchauffement de la planète. Les principaux gaz à effet de serre d'origine humaine sont le dioxyde de carbone (CO2), le méthane (CH4) et le protoxyde d'azote (N2O).")
     
-    # st.image("Data\chgtClim.jpg", width=400)
-    st.image("https://static.vecteezy.com/ti/vecteur-libre/p1/16921140-concept-d-illustration-de-changement-climatique-sur-fond-blanc-vectoriel.jpg", width=600)
+    st.image("Data\chgtClim.jpg")
+    # st.image("https://static.vecteezy.com/ti/vecteur-libre/p1/16921140-concept-d-illustration-de-changement-climatique-sur-fond-blanc-vectoriel.jpg", width=600)
     st.write(PROJECT_DESCRIPTION)
     
     st.write('**Les objectifs** :')

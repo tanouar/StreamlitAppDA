@@ -26,9 +26,9 @@ def run():
   
 # LOAD JEU DE DONNEES et TRAITEMENTS (split etc.)
   df_ctpzi=pd.read_csv("Data/ctpzi.csv", encoding='latin-1')  
-  df=pd.read_csv("Data/merged_owid_temp_zones.csv", index_col=0)
+  df_init=pd.read_csv("Data/merged_owid_temp_zones.csv", index_col=0)
   # On retire tout de suite certaines mesures qui sont directement liées aux autres (donc pas utiles pour notre Machine Learning)
-  df = df.drop(["co2_per_capita", "temperature_change_from_ch4","temperature_change_from_co2","temperature_change_from_n2o"], axis= 1)
+  df = df_init.drop(["co2_per_capita", "temperature_change_from_ch4","temperature_change_from_co2","temperature_change_from_n2o"], axis= 1)
   df.reset_index(drop=True, inplace=True)
   # ON INTERPOLE LE PIB, LA POPULATION ET LE CO2 QD C'EST POSSIBLE (au sein d'un même pays)
   grouped = df.groupby('iso_code')
@@ -100,34 +100,34 @@ def run():
     residuals = y_test - y_pred
 
     # Créer un subplot 2x2 pour les graphiques de résidus pour ce modèle
-    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(8, 7))
+    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(4, 3))
     fig.subplots_adjust(hspace=0.4, wspace=0.6)
-    fig.suptitle(titre, fontsize=16)
+    fig.suptitle(titre, fontsize=12)
 
     # Graphique de dispersion des résidus avec ligne horizontale à y=0
     sns.scatterplot(x=y_pred, y=residuals, ax=axes[0, 0])
-    axes[0, 0].set_title("Graphique de Dispersion des Résidus")
-    axes[0, 0].set_xlabel("Prédictions")
-    axes[0, 0].set_ylabel("Résidus")
+    axes[0, 0].set_title("Graphique de Dispersion des Résidus", fontsize=11)
+    axes[0, 0].set_xlabel("Prédictions", fontsize=10)
+    axes[0, 0].set_ylabel("Résidus", fontsize=10)
     axes[0, 0].axhline(y=0, color='r', linestyle='--')
 
     # Histogramme des résidus
     sns.histplot(residuals, ax=axes[0, 1], kde=True)
-    axes[0, 1].set_title("Histogramme des Résidus")
-    axes[0, 1].set_xlabel("Résidus")
+    axes[0, 1].set_title("Histogramme des Résidus", fontsize=11)
+    axes[0, 1].set_xlabel("Résidus", fontsize=10)
 
     # Comparaison entre les Valeurs Réelles et Prédites avec ligne diagonale en rouge
     sns.scatterplot(x=y_test, y=y_pred, ax=axes[1, 0])
-    axes[1, 0].set_title("Comparaison Valeurs Réelles vs. Prédites")
-    axes[1, 0].set_xlabel("Valeurs Réelles")
-    axes[1, 0].set_ylabel("Prédictions")
+    axes[1, 0].set_title("Comparaison Valeurs Réelles vs. Prédites", fontsize=11)
+    axes[1, 0].set_xlabel("Valeurs Réelles", fontsize=10)
+    axes[1, 0].set_ylabel("Prédictions", fontsize=10)
     axes[1, 0].plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], linestyle='--', color='red')
 
     # QQ plot des résidus
     stats.probplot(residuals, plot=axes[1, 1])
-    axes[1, 1].set_title("QQ Plot des Résidus")
-    axes[1, 1].set_xlabel("Quantiles théoriques")
-    axes[1, 1].set_ylabel("Quantiles empiriques")
+    axes[1, 1].set_title("QQ Plot des Résidus", fontsize=11)
+    axes[1, 1].set_xlabel("Quantiles théoriques", fontsize=10)
+    axes[1, 1].set_ylabel("Quantiles empiriques", fontsize=10)
     st.pyplot(fig)
 
   def importances(model,X_train_processed, titre, nb):
@@ -136,7 +136,8 @@ def run():
     feat_importances = feat_importances.head(nb)
     fig = px.bar(feat_importances, x=feat_importances.index, y='Importance', 
                  title=titre, color=feat_importances.index,
-                 color_discrete_sequence=px.colors.qualitative.Plotly)
+                 color_discrete_sequence=px.colors.qualitative.Plotly,
+                 width=650, height=350)
     st.plotly_chart(fig)
 
 # Courbes d'apprentissage
@@ -172,18 +173,35 @@ def run():
         """)
 
   if st.checkbox('Préparation des données'):
-    if st.button("Pays / Zones / Continents") :
-      st.write("Comment gérer la donnée catégorielle *Pays* ?")
-      st.dataframe(df_ctpzi.iloc[:, [0,1,4]])
-    if st.button('Nettoyage'):
-      st.markdown("""
-      - Periode de temps >1970            
-      - Colonnes inutiles
-      - Interpolation dès que possible
-      - Suppression des colonnes avec trop de *NaN*
-      """)
+    with st.expander("**Pays / Zones / Continents**"):
+      col1, col2 = st.columns(2)
+      with col1:
+         st.markdown("Comment gérer la **donnée catégorielle** *Pays* ?\n\n ➽ Nécessité de regrouper les pays en utilisant les données présentes de codification ISO-3166-1.\n\n➽ Utilisation de la \"Classification type des pays et des zones d'intérêt\" du Canada.")
+      with col2:
+         st.dataframe(df_ctpzi.iloc[:, [0,1,4]])
+    with st.expander("**Nettoyage**"):
+      if st.checkbox("Afficher un extrait du dataset avec les zones géographiques ?") :
+         st.dataframe(df_init.head())
 
-    if st.button('Jeu préparé'):
+      if st.checkbox("Afficher les statistiques de ce dataset ?") :
+          st.dataframe(df_init.describe())
+
+      st.markdown("""Nombre des données manquantes :""")
+      col1, col2 = st.columns(2)
+ 
+      with col1:
+        st.dataframe(df_init.isna().sum(), width=500)
+ 
+      with col2:
+        st.markdown("""
+        Actions pour nettoyer notre table :             
+        - Réduire la période de temps >1970            
+        - Supprimer les colonnes inutiles
+        - Interpoler les données au maximum
+        - Supprimer les colonnes avec trop de *NaN*
+        """)
+
+    with st.expander("**Jeu préparé**"):
       st.write("On obtient ainsi ce jeu de données :")
       tab = pd.DataFrame(df.head(15))
       tab['population'] = tab['population'].apply(lambda x: '{:.0f}'.format(x))
@@ -220,7 +238,7 @@ def run():
           - *Gradient Boosting Regressor*
         """)
 
-    if st.button('Choix du modèle'):
+    with st.expander("**Choix du modèle**"):
       st.markdown("""
                 Plusieurs modèles de machine learning ont été testés :
                 """)
@@ -255,29 +273,39 @@ def run():
       st.write("")
       st.write("")
 
-    if st.button('XGBoostRegressor'):
+    with st.expander("**Courbes de résidus**"):
       st.markdown("""
             ➽ Regardons ici les figures pour le XGBoostRegressor :
             """)
-        
-      # all_ml_models = ["XGBoost","Random Forest"]
-      # model_choice = st.selectbox("Selectionner le modèle à étudier :",all_ml_models)
-      # if model_choice == "Random Forest":     
+     
+      all_ml_models = ["RandomForestRegressor","XGBoostRegressor"]
+      model_choice = st.selectbox("Selectionner le modèle à étudier :",all_ml_models)
+      if model_choice == "RandomForestRegressor":     
+        st.image("Data/ResidusRF.jpg", width=700)
         # y_predRF = modeleRF.predict(X_test_processed)
         # residus(y_test, y_predRF, 'Résidus pour le RandomForest')
-      # elif model_choice == "XGBoost":
-      y_predXGB = modeleXGB.predict(X_test_processed)
-      residus(y_test, y_predXGB, 'Résidus pour le XGBoost')
-      # y_predRF = modeleRF.predict(X_test_processed)
+      elif model_choice == "XGBoostRegressor":
+        st.image("Data/ResidusXGB.jpg", width=700)
+        # y_predXGB = modeleXGB.predict(X_test_processed)
+        # residus(y_test, y_predXGB, 'Résidus pour le XGBoost')
       st.write("➽ Erreurs homogènes et distribution normale")
-     
-      plot_learning_curve(modeleXGB, X_train_processed, y_train, "Courbe d'apprentissage pour le XGBoost")
+
+    with st.expander("**Courbes d'apprentissage**"):
+      col1, col2 = st.columns(2)
+ 
+      with col1:
+          #  utiliser plt.savefig(save_path)
+        st.image("Data/LCurveRF.jpg", width=380)
+ 
+      with col2:  
+        st.image("Data/LCurveXGB.jpg", width=380)
+      
+      # plot_learning_curve(modeleXGB, X_train_processed, y_train, "Courbe d'apprentissage pour le XGBoost")
       st.write("➽ Le modèle pourrait être amélioré avec un plus grand jeu d'apprentissage")
       st.write("")
-      st.write("")
- 
       
-    if st.button('Importance'):
+      
+    with st.expander("**Visualisation des variables d'importance**"):
       st.markdown("""
             Les graphes d'importances de RandomForest et XGBoost illustrent la différence de comportement des 2 modèles :
             """)
@@ -288,7 +316,6 @@ def run():
 
       st.write("➽ La relation entre la température de la terre et les variables étudiées est complexe et peut être influencée par de nombreux autres facteurs externes.")
 
-  st.write("")
   st.write("")
   st.write("")
   st.write("")
