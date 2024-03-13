@@ -6,6 +6,7 @@ sidebar_name = "Conclusions & Perspectives"
 
 
 def run():
+    st.write("\n\n")
    #  st.image("Data/rechauffement-climatique.jpg", width=400)
     st.header(sidebar_name)
     st.markdown("---")

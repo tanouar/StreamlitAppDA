@@ -14,7 +14,8 @@ sidebar_name = "Exploration des données"
 def run():
     
     # st.image("Data/data.jpg", width=400)
-
+    st.write("\n\n")
+ 
     st.header(sidebar_name)
     st.markdown("---")
 

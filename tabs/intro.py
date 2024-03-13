@@ -5,6 +5,7 @@ sidebar_name = "Introduction"
 PROJECT_DESCRIPTION = "**Ce projet vise à comprendre les variations de température à l'échelle mondiale et leur corrélation avec les gaz à effet de serre**."
 
 def run():
+    st.write("\n\n")
     st.markdown(title, unsafe_allow_html=True)
     st.markdown("---")
 

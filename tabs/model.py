@@ -7,15 +7,13 @@ import scipy.stats as stats
 import pickle
 import seaborn as sns
 from sklearn.model_selection import train_test_split
-# from sklearn.preprocessing import StandardScaler
-# from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
 import xgboost as xgb
 from xgboost import XGBRegressor
-# from sklearn.svm import SVC
-# from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import learning_curve
-# from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+from sklearn.compose import ColumnTransformer
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import RobustScaler
 
 title = "Températures terrestres"
 sidebar_name = "Modélisation"
@@ -59,9 +57,6 @@ def run():
 
   # Normalisation des données "années"
   # RobustScaler pour les autres données quantitatives vu qu'on n'a pas de loi normale, et qu'on a bcp d'outliers
-  from sklearn.compose import ColumnTransformer
-  from sklearn.preprocessing import MinMaxScaler
-  from sklearn.preprocessing import RobustScaler
 
   column_transformer = ColumnTransformer([('min_max_scaler', MinMaxScaler(), ['année']), ('robust_scaler', RobustScaler(), ['population','pib', 'co2', 'delta T°_dû_aux_ghg'])])
 
@@ -161,8 +156,9 @@ def run():
       plt.title(titre)
       plt.legend()
       st.pyplot(plt.gcf())
- 
-# Interface :
+
+# ########################################################################################################### 
+# Interface :##########################################################
   st.write("  ")
   st.header("Modélisation")
   st.markdown("---")
