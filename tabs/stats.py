@@ -48,16 +48,12 @@ def run():
     if st.button("Matrice de corrélation") :
         correlation_matrix=df_corr.corr()
         fig_corr = px.imshow(correlation_matrix,labels=dict(color="Corrélation"), x=correlation_matrix.columns, y=correlation_matrix.columns, color_continuous_scale='Bluyl')
-        fig_corr.update_layout(title='Matrice de Corrélation', title_x=0.5, width=600, height=500)
+        fig_corr.update_layout(width=600, height=500)
         st.plotly_chart(fig_corr)
-        st.write("➽ La matrice montre l'absence de corrélation positive entre la variable température et le reste des variables.")
-        st.write("➽ On note la présence de corrélation positive entre les températures dues aux gaz à effet de serre et leurs émissions. Ce résultat est probablement compréhensible vu que les températures ont été calculées à partir des données d’émissions.")
-    if st.checkbox("Conclusions sur l’analyse de corrélation"):
-        st.write("- L'absence de corrélation entre la température et les émissions des gaz à effet de serre semble étonnante au premier abord. Cependant, cela peut être expliquée par des retards entre le changement de la température et le changement des émissions des gaz à effet de serre, car les effets de l’augmentation des émissions peuvent prendre du temps pour se manifester pleinement sur la température.")
-        st.write("- Une corrélation a été démontrée et bien documentée dans la littérature entre températures globales et gaz à effet de serre, mais elle concerne ces températures et la CONCENTRATION ATMOSPHERIQUE (généralement défini en parts par million ou ppm) de ces différents gaz à un temps T.")
-        st.write("- A noter que bien que nous disposions des évolutions de températures induites ou non par les effets des gaz à effet de serre, nous ne disposons pas des évolutions de températures mesurées locales par pays sur la période considérée, et non globales (par hémisphère ou mondiale par exemple). En l ‘état, il est donc normal que nous n’ayons pas cherché à étudier cette corrélation à l’échelle de la planète, et que nous nous soyons concentrés sur une évolution locale des évolutions de températures.")
+        st.write("➽ Présence de corrélation positive entre les températures dues aux gaz à effet de serre et leurs émissions.")
+        st.write("➽ Absence de corrélation positive entre la variable température et le reste des variables.")
 
-        
+              
     st.write("")
     st.write("")
     st.write("")
