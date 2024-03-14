@@ -357,7 +357,7 @@ def run():
 
   
     caracteristique1 = int(st.slider("Année ", 1970, 2017, 2000))
-    caracteristique2 = float(st.slider("PIB ", 10000, 8000000, 1000000))
+    caracteristique2 = float(st.slider("PIB ", min_pib, max_pib, moy_pib))
     caracteristique3 = int(st.slider("Population ", min_pop, max_pop, moy_pop))
     caracteristique4 = float(st.slider("Emissions CO2 ", min_co2, max_co2, moy_co2))
     caracteristiques = np.array([[caracteristique1, caracteristique2, caracteristique3, caracteristique4,moy_dt]])
