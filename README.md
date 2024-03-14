@@ -10,8 +10,6 @@ Projet Formation Data Analyst avec DataScientest - Janvier à Mars 2024
 - A la racine :
 streamlit_app (le main). C'est lui qui crée l'appli Streamlit et appelle les fichiers stockés dans tabs/.
 
-requirements contient la liste des librairies nécessaires à Streamlit
+requirements contient la liste des librairies nécessaires à Streamlit. Les fichiers style.css, config.py et member.py complètent streamlit_app.py.
 
-style.css, config.py et member.py complètent streamlit_app.py.
-
-Pour lancer l'appli, il faut aller sur https://temperatures-terrestres-ln2sfayajwyhbw2bce4okt.streamlit.app/ 
+Pour lancer l'appli, aller sur https://temperatures-terrestres-ln2sfayajwyhbw2bce4okt.streamlit.app/ 
