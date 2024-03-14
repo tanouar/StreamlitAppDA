@@ -12,6 +12,7 @@ sidebar_name = "Exploration des données"
 
 
 def run():
+    st.write("")
     st.header(sidebar_name)
     st.markdown("---")
 
