@@ -381,9 +381,9 @@ def run():
     cat_test_encoded = ohe.transform(df_code)    
   
     caracteristique1 = int(st.slider("Année ", 1970, 2017, 2000))
-    caracteristique2 = float(st.slider("PIB ", min_pib, max_pib, moy_pib))
-    caracteristique3 = float(st.slider("Population ", min_pop, max_pop, moy_pop))
-    caracteristique4 = float(st.slider("Emissions CO2 (MT)", min_co2, max_co2, moy_co2))
+    caracteristique2 = int(st.slider("PIB ", int(min_pib), int(max_pib), int(moy_pib)))
+    caracteristique3 = int(st.slider("Population ", int(min_pop), int(max_pop), int(moy_pop)))
+    caracteristique4 = int(st.slider("Emissions CO2 (MT)", int(min_co2), int(max_co2), int(moy_co2)))
     caracteristique5 = moy_dt
     caracteristiques = np.array([[caracteristique1, caracteristique2, caracteristique3, caracteristique4,caracteristique5]])
 
