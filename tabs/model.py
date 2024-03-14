@@ -57,7 +57,6 @@ def run():
   target = df.temperature
   feats = df.drop("temperature", axis=1)
   # SPLIT du jeu de test et du jeu d'entrainement
-  from sklearn.model_selection import train_test_split
   X_train, X_test, y_train, y_test = train_test_split(feats, target, test_size = 0.2, random_state=42)  # , random_state=42
   # On sépare les données catégorielles et numériques.
   num_cols = ['année','population','pib', 'co2', 'delta T°_dû_aux_ghg']
@@ -332,58 +331,79 @@ def run():
     
     def get_code(region):
       codes = {
-          "11 Amérique du Nord": "11",
-          "12 Amérique Centrale": "12",
-          "13 Amérique du Sud": "13",
-          "21 Europe de l'Ouest": "21",
-          "22 Europe du Nord": "22",
-          "31 Afrique": "31"
+              "11 - Amérique du Nord  ":11,
+              "12 - Amérique Centrale ":12,
+              "13 - Caraïbes          ":13,
+              "14 - Amérique du Sud   ":14,
+              "21 - Europe de l'Ouest ":21,
+              "22 - Europe de l'Est   ":22,
+              "23 - Europe du Nord    ":23,
+              "24 - Europe du Sud     ":24,
+              "31 - Afrique de l'Ouest":31,
+              "32 - Afrique de l'Est  ":32,
+              "33 - Afrique du Nord   ":33,
+              "34 - Afrique Centrale  ":34,
+              "35 - Afrique Australe  ":35,
+              "41 - Asie Centrale     ":41,
+              "42 - Asie Orientale    ":42,
+              "43 - Asie du Sud-Est   ":43,
+              "44 - Asie Méridionale  ":44,
+              "51 - Océanie           ":51,
       }
       return codes.get(region)
 
     selected_region = st.selectbox("Choisissez une région :", [
-        "11 Amérique du Nord",
-        "12 Amérique Centrale",
-        "13 Amérique du Sud",
-        "21 Europe de l'Ouest",
-        "22 Europe du Nord",
-        "31 Afrique"
-    ])
+        "11 - Amérique du Nord  " ,
+        "12 - Amérique Centrale " ,
+        "13 - Caraïbes          " ,
+        "14 - Amérique du Sud   " ,
+        "21 - Europe de l'Ouest " ,
+        "22 - Europe de l'Est   " ,
+        "23 - Europe du Nord    " ,
+        "24 - Europe du Sud     " ,
+        "31 - Afrique de l'Ouest" ,
+        "32 - Afrique de l'Est  " ,
+        "33 - Afrique du Nord   " ,
+        "34 - Afrique Centrale  " ,
+        "35 - Afrique Australe  " ,
+        "41 - Asie Centrale     " ,
+        "42 - Asie Orientale    " ,
+        "43 - Asie du Sud-Est   " ,
+        "44 - Asie Méridionale  " ,
+        "51 - Océanie           " 
+        ])
 
     code = get_code(selected_region)
-    st.write("Code correspondant :", code)
-    df_code = [[code]]
-    # cat_test_encoded = ohe.transform(df_code)    
+    df_code = pd.DataFrame({"zone_geo": [code]})
 
+    cat_test_encoded = ohe.transform(df_code)    
   
     caracteristique1 = int(st.slider("Année ", 1970, 2017, 2000))
     caracteristique2 = float(st.slider("PIB ", min_pib, max_pib, moy_pib))
-    caracteristique3 = int(st.slider("Population ", min_pop, max_pop, moy_pop))
-    caracteristique4 = float(st.slider("Emissions CO2 ", min_co2, max_co2, moy_co2))
-    caracteristiques = np.array([[caracteristique1, caracteristique2, caracteristique3, caracteristique4,moy_dt]])
+    caracteristique3 = float(st.slider("Population ", min_pop, max_pop, moy_pop))
+    caracteristique4 = float(st.slider("Emissions CO2 (MT)", min_co2, max_co2, moy_co2))
+    caracteristique5 = moy_dt
+    caracteristiques = np.array([[caracteristique1, caracteristique2, caracteristique3, caracteristique4,caracteristique5]])
 
-  # moy_dt=mean(df.temperature_change_from_ghg)
-  # min_co2= min(df.co2)
-  # max_co2= max(df.co2)
-  # moy_co2= mean(df.co2)
-  # min_pib= min(df.gdp)
-  # max_pib= max(df.gdp)
-  # moy_pib= mean(dfgdp2)
-  # min_pop= min(df.pop)
-  # max_pop= max(df.pop)
-  # moy_pop= mean(df.pop)
+    df_numerical = pd.DataFrame({
+        "année": [caracteristique1],
+        "population": [caracteristique3],
+        "pib": [caracteristique2],
+        "co2": [caracteristique4],
+        "delta T°_dû_aux_ghg": [caracteristique5]
+    })
+    num_test_scaled = column_transformer.transform(df_numerical)
 
-    # num_test_scaled = column_transformer.transform(caracteristiques)
+    # Concaténation des caractéristiques
+    X_predict_processed = pd.concat([
+        pd.DataFrame(num_test_scaled, columns=['année', 'population', 'pib', 'co2', 'delta_T°_dû_aux_ghg']),
+        pd.DataFrame(cat_test_encoded, columns=ohe.get_feature_names_out(['zone_geo']))
+    ], axis=1)
 
-
-    # prediction = modeleXGB.predict(nouveau_jeu)
-    # prediction = np.round(prediction, 3)
-    # Afficher la prédiction
-    # st.markdown(f"<p style='font-size:24px; font-weight:bold;'>Le Ladder Score serait de : {prediction[0]}</p>", unsafe_allow_html=True)
-
-
-
-
+    # Calculer et afficher la prédiction
+    prediction = modeleXGB.predict(X_predict_processed)
+    prediction = np.round(prediction, 2)
+    st.markdown(f"<p style='font-size:24px; font-weight:bold;'>L'évolution de température prédite est de : {prediction[0]}</p>", unsafe_allow_html=True)
 
   st.write("")
   st.write("")
