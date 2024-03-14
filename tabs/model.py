@@ -39,7 +39,19 @@ def run():
   df = df.dropna(subset=['gdp'])
   # ON ELIMINE LES COLONNES MH4 ET N2O afin de garder un nombre de lignes un peu conséquent
   df = df.drop(["methane","nitrous_oxide","iso_code","continent"], axis=1)
+  moy_dt=np.mean(df.temperature_change_from_ghg)
+  min_co2= min(df.co2)
+  max_co2= max(df.co2)
+  moy_co2= np.mean(df.co2)
+  min_pib= min(df.gdp)
+  max_pib= max(df.gdp)
+  moy_pib= np.mean(df.gdp)
+  min_pop= min(df.population)
+  max_pop= max(df.population)
+  moy_pop= np.mean(df.population)
+  
   df = df.rename(columns={'gdp' :'pib', 'year':'année', 'temperature_change_from_ghg':'delta T°_dû_aux_ghg'})
+  
 
   # séparation des features et de la target
   target = df.temperature
@@ -314,6 +326,64 @@ def run():
       importances(modeleXGB,X_train_processed, "Variables les plus importantes pour le modèle XGBoostRegressor",nbImp)
 
       st.write("➽ La relation entre la température de la terre et les variables étudiées est complexe et peut être influencée par de nombreux autres facteurs externes.")
+
+  if st.checkbox('Prédiction'):
+    # # Afficher un menu déroulant pour sélectionner la zone géographique
+    
+    def get_code(region):
+      codes = {
+          "11 Amérique du Nord": "11",
+          "12 Amérique Centrale": "12",
+          "13 Amérique du Sud": "13",
+          "21 Europe de l'Ouest": "21",
+          "22 Europe du Nord": "22",
+          "31 Afrique": "31"
+      }
+      return codes.get(region)
+
+    selected_region = st.selectbox("Choisissez une région :", [
+        "11 Amérique du Nord",
+        "12 Amérique Centrale",
+        "13 Amérique du Sud",
+        "21 Europe de l'Ouest",
+        "22 Europe du Nord",
+        "31 Afrique"
+    ])
+
+    code = get_code(selected_region)
+    st.write("Code correspondant :", code)
+    df_code = [[code]]
+    # cat_test_encoded = ohe.transform(df_code)    
+
+  
+    caracteristique1 = int(st.slider("Année ", 1970, 2017, 2000))
+    caracteristique2 = float(st.slider("PIB ", 10000, 8000000, 1000000))
+    caracteristique3 = int(st.slider("Population ", min_pop, max_pop, moy_pop))
+    caracteristique4 = float(st.slider("Emissions CO2 ", min_co2, max_co2, moy_co2))
+    caracteristiques = np.array([[caracteristique1, caracteristique2, caracteristique3, caracteristique4,moy_dt]])
+
+  # moy_dt=mean(df.temperature_change_from_ghg)
+  # min_co2= min(df.co2)
+  # max_co2= max(df.co2)
+  # moy_co2= mean(df.co2)
+  # min_pib= min(df.gdp)
+  # max_pib= max(df.gdp)
+  # moy_pib= mean(dfgdp2)
+  # min_pop= min(df.pop)
+  # max_pop= max(df.pop)
+  # moy_pop= mean(df.pop)
+
+    # num_test_scaled = column_transformer.transform(caracteristiques)
+
+
+    # prediction = modeleXGB.predict(nouveau_jeu)
+    # prediction = np.round(prediction, 3)
+    # Afficher la prédiction
+    # st.markdown(f"<p style='font-size:24px; font-weight:bold;'>Le Ladder Score serait de : {prediction[0]}</p>", unsafe_allow_html=True)
+
+
+
+
 
   st.write("")
   st.write("")
