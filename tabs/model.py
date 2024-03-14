@@ -18,7 +18,6 @@ from sklearn.preprocessing import RobustScaler
 title = "Températures terrestres"
 sidebar_name = "Modélisation"
 
-
 def run():
   # st.image("Data/ML.jpg", width=400)
   
@@ -168,8 +167,9 @@ def run():
       plt.legend()
       st.pyplot(plt.gcf())
 
-# ########################################################################################################### 
-# Interface :##########################################################
+############################################################################################################ 
+###################################### Interface : #########################################################
+############################################################################################################ 
   st.write("  ")
   st.header("Modélisation")
   st.markdown("---")
@@ -179,6 +179,7 @@ def run():
         ➽ **Tester puis choisir un modèle de *Machine Learning* de REGRESSION**
         """)
 
+###################### Préparation des données
   if st.checkbox('Préparation des données'):
     with st.expander("**Pays / Zones / Continents**"):
       col1, col2 = st.columns(2)
@@ -238,6 +239,7 @@ def run():
         - RobustScaler pour les autres variables
       """)
 
+###################### Préparation des données
   if st.checkbox('Machine Learning'):
     st.markdown("""
           Plusieurs modèles de *Machine Learning* ont été testés :
@@ -326,9 +328,9 @@ def run():
 
       st.write("➽ La relation entre la température de la terre et les variables étudiées est complexe et peut être influencée par de nombreux autres facteurs externes.")
 
-  if st.checkbox('Prédiction'):
-    # # Afficher un menu déroulant pour sélectionner la zone géographique
-    
+###################### Préparation des données
+  if st.checkbox('Prédictions avec XGBoostRegressor'):
+    # Afficher un menu déroulant pour sélectionner la zone géographique
     def get_code(region):
       codes = {
               "11 - Amérique du Nord  ":11,
@@ -402,9 +404,10 @@ def run():
 
     # Calculer et afficher la prédiction
     prediction = modeleXGB.predict(X_predict_processed)
-    prediction = np.round(prediction, 2)
-    st.markdown(f"<p style='font-size:24px; font-weight:bold;'>L'évolution de température prédite est de : {prediction[0]}</p>", unsafe_allow_html=True)
-
+    prediction = prediction[0]
+    prediction =  "{:.2f}".format(prediction)
+    st.write(f"**L'évolution de température prédite est de : {prediction} °C**")
+    
   st.write("")
   st.write("")
   st.write("")
