@@ -22,7 +22,14 @@ def run():
   # st.image("Data/ML.jpg", width=400)
   
 # LOAD JEU DE DONNEES et TRAITEMENTS (split etc.)
-  df_ctpzi=pd.read_csv("Data/ctpzi.csv", encoding='latin-1')  
+  df_ctpzi=pd.read_csv("Data/ctpzi.csv", encoding='latin-1')
+  df_ctpzi.drop(columns=['Num-3', 'Alpha-2','Notes de bas de page'], inplace=True)
+  df_ctpzi.Code = df_ctpzi.Code // 1000
+  df_ctpzi["continent"] = df_ctpzi.Code // 10
+  df_ctpzi = df_ctpzi.dropna()
+  df_ctpzi.rename(columns={'Alpha-3' : 'iso_code', 'Code':'zone_geo', 'Pays et zones d\'intérêt' : 'pays'}, inplace=True)
+
+
   df_init=pd.read_csv("Data/merged_owid_temp_zones.csv", index_col=0)
   # On retire tout de suite certaines mesures qui sont directement liées aux autres (donc pas utiles pour notre Machine Learning)
   df = df_init.drop(["co2_per_capita", "temperature_change_from_ch4","temperature_change_from_co2","temperature_change_from_n2o"], axis= 1)
@@ -51,8 +58,7 @@ def run():
   
   df = df.rename(columns={'gdp' :'pib', 'year':'année', 'temperature_change_from_ghg':'delta T°_dû_aux_ghg'})
   
-
-  # séparation des features et de la target
+    # séparation des features et de la target
   target = df.temperature
   feats = df.drop("temperature", axis=1)
   # SPLIT du jeu de test et du jeu d'entrainement
@@ -186,7 +192,43 @@ def run():
       with col1:
          st.markdown("Comment gérer la **donnée catégorielle** *Pays* ?\n\n ➽ Nécessité de regrouper les pays en utilisant les données présentes de codification ISO-3166-1.\n\n➽ Utilisation de la \"Classification type des pays et des zones d'intérêt\" du Canada.")
       with col2:
-         st.dataframe(df_ctpzi.iloc[:, [0,1,4]])
+         st.dataframe(df_ctpzi)
+
+      df_ctpzi['zone_geo'] = df_ctpzi['zone_geo'].astype(str)
+      zones = {"11": "Amérique du Nord" ,
+        "12":"Amérique Centrale" ,
+        "13": "Caraïbes" ,
+        "14": "Amérique du Sud" ,
+        "21": "Europe de l'Ouest" ,
+        "22" : "Europe de l'Est" ,
+        "23" : "Europe du Nord" ,
+        "24" : "Europe du Sud" ,
+        "31" :"Afrique de l'Ouest" ,
+        "32": "Afrique de l'Est" ,
+        "33": "Afrique du Nord" ,
+        "34" : "Afrique Centrale  " ,
+        "35": "Afrique Australe" ,
+        "41" : "Asie Centrale" ,
+        "42" : "Asie Orientale" ,
+        "43" : "Asie du Sud-Est" ,
+        "44": "Asie Méridionale" ,
+        "51": "Océanie",
+        "61": "Antarctique"}
+
+
+      df_ctpzi['zone_geo'].replace(zones, inplace=True)
+
+      fig = px.choropleth(locations=df_ctpzi['iso_code'],
+                          color=df_ctpzi['zone_geo'],
+                          hover_name=df_ctpzi['pays'],
+                          projection="natural earth",
+                          color_continuous_scale=px.colors.qualitative.Light24,
+                          color_discrete_map={zone: color for zone, color in zip(df['zone_geo'].unique(), px.colors.qualitative.Light24)},
+                          height=500, width=650, labels={'color':'zone_geo'})
+      fig.update_layout(geo=dict(showframe=False))
+      st.plotly_chart(fig)
+
+
     with st.expander("**Nettoyage**"):
       if st.checkbox("Afficher un extrait du dataset avec les zones géographiques ?") :
          st.dataframe(df_init.head())
@@ -222,13 +264,12 @@ def run():
           # Condition pour appliquer le style uniquement à la colonne "température"
           if col.name == 'temperature':
               return ['background: #b6d7a8'] * len(col)  # Changer la couleur de fond de la colonne température
-          # elif col.name == 'delta T°_dû_aux_ghg':
-          #     return ['width: 100px'] * len(col)
           else:
               return ['']  * len(col) # Aucun style pour les autres colonnes
 
       # Appliquer le style à la colonne température
       styled_tab = tab.style.apply(style_temp, axis=0)
+      # Afficher le dataframe du jeu de données
       st.table(styled_tab)
       st.write("Taille du tableau :", df.shape)
       st.write("6 variables *features* et une *target*")
@@ -239,7 +280,7 @@ def run():
         - RobustScaler pour les autres variables
       """)
 
-###################### Préparation des données
+###################### Machine Learning
   if st.checkbox('Machine Learning'):
     st.markdown("""
           Plusieurs modèles de *Machine Learning* ont été testés :
@@ -328,7 +369,7 @@ def run():
 
       st.write("➽ La relation entre la température de la terre et les variables étudiées est complexe et peut être influencée par de nombreux autres facteurs externes.")
 
-###################### Préparation des données
+###################### Prédictions 
   if st.checkbox('Prédictions avec XGBoostRegressor'):
     # Afficher un menu déroulant pour sélectionner la zone géographique
     def get_code(region):
