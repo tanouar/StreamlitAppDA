@@ -195,29 +195,28 @@ def run():
          st.dataframe(df_ctpzi)
 
       df_ctpzi['zone_geo'] = df_ctpzi['zone_geo'].astype(str)
-      zones = {"11": "Amérique du Nord" ,
-        "12":"Amérique Centrale" ,
-        "13": "Caraïbes" ,
-        "14": "Amérique du Sud" ,
-        "21": "Europe de l'Ouest" ,
-        "22" : "Europe de l'Est" ,
-        "23" : "Europe du Nord" ,
-        "24" : "Europe du Sud" ,
-        "31" :"Afrique de l'Ouest" ,
-        "32": "Afrique de l'Est" ,
-        "33": "Afrique du Nord" ,
-        "34" : "Afrique Centrale  " ,
-        "35": "Afrique Australe" ,
-        "41" : "Asie Centrale" ,
-        "42" : "Asie Orientale" ,
-        "43" : "Asie du Sud-Est" ,
-        "44": "Asie Méridionale" ,
-        "51": "Océanie",
-        "61": "Antarctique"}
+      zones = {"11.0": "Amérique du Nord" ,
+        "12.0":"Amérique Centrale" ,
+        "13.0": "Caraïbes" ,
+        "14.0": "Amérique du Sud" ,
+        "21.0": "Europe de l'Ouest" ,
+        "22.0" : "Europe de l'Est" ,
+        "23.0" : "Europe du Nord" ,
+        "24.0" : "Europe du Sud" ,
+        "31.0" :"Afrique de l'Ouest" ,
+        "32.0": "Afrique de l'Est" ,
+        "33.0": "Afrique du Nord" ,
+        "34.0" : "Afrique Centrale  " ,
+        "35.0": "Afrique Australe" ,
+        "41.0" : "Asie Centrale" ,
+        "42.0" : "Asie Orientale" ,
+        "43.0" : "Asie du Sud-Est" ,
+        "44.0": "Asie Méridionale" ,
+        "51.0": "Océanie",
+        "61.0": "Antarctique"}
 
 
       df_ctpzi['zone_geo'].replace(zones, inplace=True)
-
       fig = px.choropleth(locations=df_ctpzi['iso_code'],
                           color=df_ctpzi['zone_geo'],
                           hover_name=df_ctpzi['pays'],
@@ -327,7 +326,7 @@ def run():
 
     with st.expander("**Courbes de résidus**"):
       st.markdown("""
-            ➽ Regardons ici les figures pour le XGBoostRegressor :
+            ➽ Regardons ici les figures pour le RandomForestRegressor et le XGBoostRegressor :
             """)
      
       all_ml_models = ["RandomForestRegressor","XGBoostRegressor"]
@@ -362,7 +361,6 @@ def run():
       st.markdown("""
             Les graphes d'importances de RandomForest et XGBoost illustrent la différence de comportement des 2 modèles :
             """)
-      # nbImp = st.slider('Sélectionnez le nombre de features d\'importance:', 10,len(X_train_processed.columns))
       nbImp=13
       importances(modeleRF,X_train_processed, "Variables les plus importantes pour le modèle RandomForestRegressor",nbImp)
       importances(modeleXGB,X_train_processed, "Variables les plus importantes pour le modèle XGBoostRegressor",nbImp)
@@ -371,6 +369,7 @@ def run():
 
 ###################### Prédictions 
   if st.checkbox('Prédictions avec XGBoostRegressor'):
+    # récupérer les variables pour la prédiction et les standardiser 
     # Afficher un menu déroulant pour sélectionner la zone géographique
     def get_code(region):
       codes = {
@@ -437,7 +436,7 @@ def run():
     })
     num_test_scaled = column_transformer.transform(df_numerical)
 
-    # Concaténation des caractéristiques
+    # Concaténation des variables standardisees
     X_predict_processed = pd.concat([
         pd.DataFrame(num_test_scaled, columns=['année', 'population', 'pib', 'co2', 'delta_T°_dû_aux_ghg']),
         pd.DataFrame(cat_test_encoded, columns=ohe.get_feature_names_out(['zone_geo']))
