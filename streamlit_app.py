@@ -9,6 +9,7 @@ from tabs import intro, data, visu, stats, model, ccl
 
 st.set_page_config(
     page_title=config.TITLE,
+    # layout="wide",  
     page_icon="https://datascientest.com/wp-content/uploads/2020/03/cropped-favicon-datascientest-1-32x32.png",
 )
 
@@ -32,35 +33,28 @@ TABS = OrderedDict(
     ]
 )
 
+st.sidebar.image(
+    "Data/rechauffement-climatique.jpg",
+    width=250,
+    )
 
-def run():
-    
-    st.sidebar.image(
-        "Data/rechauffement-climatique.jpg",
-        width=250,
-        )
-    
-    tab_name = st.sidebar.radio("Sommaire", list(TABS.keys()), 0)
-    st.sidebar.markdown("---")
-    st.sidebar.markdown(f"## {config.PROMOTION}")
+tab_name = st.sidebar.radio("Sommaire", list(TABS.keys()), 0)
+st.sidebar.markdown("---")
+st.sidebar.markdown(f"## {config.PROMOTION}")
 
-    st.sidebar.markdown("### Team members:")
-    for member in config.TEAM_MEMBERS:
-        st.sidebar.markdown(member.sidebar_markdown(), unsafe_allow_html=True)
+st.sidebar.markdown("### Team members:")
+for member in config.TEAM_MEMBERS:
+    st.sidebar.markdown(member.sidebar_markdown(), unsafe_allow_html=True)
 
-    st.sidebar.markdown(
-        """
-        ----
-        Crédit image :
-        ©LIONEL BONAVENTURE / AFP
-        """,
-        unsafe_allow_html=True
-        )
-    
-    tab = TABS[tab_name]
+st.sidebar.markdown(
+    """
+    ----
+    Crédit image :
+    ©LIONEL BONAVENTURE / AFP
+    """,
+    unsafe_allow_html=True
+    )
 
-    tab.run()
+tab = TABS[tab_name]
 
-
-if __name__ == "__main__":
-    run()
+tab.run()

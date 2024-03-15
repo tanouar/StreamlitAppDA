@@ -14,14 +14,22 @@ from sklearn.model_selection import learning_curve
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import RobustScaler
+from sklearn.preprocessing import OneHotEncoder
+import plotly.colors
 
 title = "Températures terrestres"
 sidebar_name = "Modélisation"
+#  Chapitre MODELISATION où on montre les modèles qu'on a testés. 
+# Premiere partie sur le nettoyage des données pour pouvoir faire apprendre nos modèles ensuite.
+# Deuxieme partie pour montrer les modeles
+# Troisieme partie pour simuiler une prédiction
+
+# Le début du run continet tous les calculs et les imports de data et de modèles. 
+# La suite est la gestion de la visualisation en Streamllit
 
 def run():
-  # st.image("Data/ML.jpg", width=400)
-  
 # LOAD JEU DE DONNEES et TRAITEMENTS (split etc.)
+  #  Jeu avec les zones geographiques
   df_ctpzi=pd.read_csv("Data/ctpzi.csv", encoding='latin-1')
   df_ctpzi.drop(columns=['Num-3', 'Alpha-2','Notes de bas de page'], inplace=True)
   df_ctpzi.Code = df_ctpzi.Code // 1000
@@ -29,7 +37,7 @@ def run():
   df_ctpzi = df_ctpzi.dropna()
   df_ctpzi.rename(columns={'Alpha-3' : 'iso_code', 'Code':'zone_geo', 'Pays et zones d\'intérêt' : 'pays'}, inplace=True)
 
-
+  # Jeu avec toutes les donnees pays de Co2, températures etc.
   df_init=pd.read_csv("Data/merged_owid_temp_zones.csv", index_col=0)
   # On retire tout de suite certaines mesures qui sont directement liées aux autres (donc pas utiles pour notre Machine Learning)
   df = df_init.drop(["co2_per_capita", "temperature_change_from_ch4","temperature_change_from_co2","temperature_change_from_n2o"], axis= 1)
@@ -45,6 +53,7 @@ def run():
   df = df.dropna(subset=['gdp'])
   # ON ELIMINE LES COLONNES MH4 ET N2O afin de garder un nombre de lignes un peu conséquent
   df = df.drop(["methane","nitrous_oxide","iso_code","continent"], axis=1)
+  # qq valeurs qui serviront pour la prédiction
   moy_dt=np.mean(df.temperature_change_from_ghg)
   min_co2= min(df.co2)
   max_co2= max(df.co2)
@@ -58,7 +67,7 @@ def run():
   
   df = df.rename(columns={'gdp' :'pib', 'year':'année', 'temperature_change_from_ghg':'delta T°_dû_aux_ghg'})
   
-    # séparation des features et de la target
+  # séparation des features et de la target
   target = df.temperature
   feats = df.drop("temperature", axis=1)
   # SPLIT du jeu de test et du jeu d'entrainement
@@ -73,15 +82,11 @@ def run():
 
   # Normalisation des données "années"
   # RobustScaler pour les autres données quantitatives vu qu'on n'a pas de loi normale, et qu'on a bcp d'outliers
-
   column_transformer = ColumnTransformer([('min_max_scaler', MinMaxScaler(), ['année']), ('robust_scaler', RobustScaler(), ['population','pib', 'co2', 'delta T°_dû_aux_ghg'])])
-
   num_train_scaled = column_transformer.fit_transform(X_train)
   num_test_scaled = column_transformer.transform(X_test)
-
   # OneHotEncoder pour les zones geo
   # vu qu'on a un nb limité de zones géographiques, on peut se permettre le OneHotEncoder
-  from sklearn.preprocessing import OneHotEncoder
 
   ohe = OneHotEncoder(sparse_output=False)
   cat_train_encoded = ohe.fit_transform(cat_train)
@@ -94,7 +99,6 @@ def run():
                                 pd.DataFrame(cat_test_encoded, columns=ohe.get_feature_names_out(cat_cols))],
                               axis=1)
 # LOAD MODELE 
-    
   def charger_modele(modelPath):
     # Charger le modèle à partir du fichier Pickle
     with open(modelPath, 'rb') as fichier_modele:
@@ -215,18 +219,16 @@ def run():
         "51.0": "Océanie",
         "61.0": "Antarctique"}
 
-
       df_ctpzi['zone_geo'].replace(zones, inplace=True)
       fig = px.choropleth(locations=df_ctpzi['iso_code'],
                           color=df_ctpzi['zone_geo'],
                           hover_name=df_ctpzi['pays'],
                           projection="natural earth",
-                          color_continuous_scale=px.colors.qualitative.Light24,
-                          color_discrete_map={zone: color for zone, color in zip(df['zone_geo'].unique(), px.colors.qualitative.Light24)},
-                          height=500, width=650, labels={'color':'zone_geo'})
+                          color_discrete_map={zone: color for zone, color in zip(df_ctpzi['zone_geo'].unique(), plotly.colors.qualitative.Light24)},
+                          height=500, width=650, labels={'color':'zone_geo'}
+                          )
       fig.update_layout(geo=dict(showframe=False))
       st.plotly_chart(fig)
-
 
     with st.expander("**Nettoyage**"):
       if st.checkbox("Afficher un extrait du dataset avec les zones géographiques ?") :
