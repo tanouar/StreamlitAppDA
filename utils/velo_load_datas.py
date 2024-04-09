@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 
 def load_velo():
-  df_2023=pd.read_csv('../data/2023_comptage-velo-donnees-compteurs.csv', sep=';')
-  df_2022=pd.read_csv('../data/2022_comptage-velo-donnees-compteurs.csv', sep=';')
+  df_2023=pd.read_csv('data/2023_comptage-velo-donnees-compteurs.csv', sep=';')
+  df_2022=pd.read_csv('data/2022_comptage-velo-donnees-compteurs.csv', sep=';')
   df_velo_2022 = df_2022.copy()
   df_velo_2023 = df_2023.copy()
   return df_velo_2022, df_velo_2023
@@ -111,4 +111,3 @@ def add_meteo(df_velo, df_meteo):
   # beaucoup de valeurs nulles, on les remplis selon l'intensité de la pluie des autres heures de la journée (on sort par heure et par station, et on associe la prochaine donnée "pluvieuse" à notre na)
   df_velo_meteo["pluvieux"] = df_velo_meteo.sort_values(by=['Date et heure de comptage', 'station_meteo'], ascending=False)["pluvieux"].bfill()
   return df_velo_meteo, stations_meteo, compteurs
-load_velo()

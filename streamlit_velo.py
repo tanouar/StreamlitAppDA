@@ -1,5 +1,5 @@
 import streamlit as st
-#import utils.velo_load_datas as datas
+import utils.velo_load_datas as datas
 
 st.set_page_config(
     page_title="Velos",
@@ -15,13 +15,10 @@ st.markdown(
     )
 st.sidebar.success("Pages")
 
-#@st.cache_data
-#def load():
-  #df_velo_2022, df_velo_2023 = datas.load_velo()
-  #return df_velo_2022
+@st.cache_data
+def load():
+  df_velo_2022, df_velo_2023 = datas.load_velo()
+  return df_velo_2022
 
-#df_velo_2022 = load()
-#st.dataframe(df_velo_2022.head())
-
-import os
-st.write(os.getcwd())
+df_velo_2022 = load()
+st.dataframe(df_velo_2022.head())
