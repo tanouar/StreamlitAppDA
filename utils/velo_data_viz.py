@@ -14,7 +14,9 @@ def get_boxplot(df_velo) :
     plt.title('Boxplot représentant les valeurs extrêmes de la colonne Comptage horaire')
     plt.show()
 
-def get_compt_temp(df_velo_2022, df_velo_2023, temp):
+def get_compt_temp(df_velo, temp):
+    df_velo_2022 = df_velo[df_velo['annee']==2022].copy()
+    df_velo_2023 = df_velo[df_velo['annee']==2023].copy()
     if temp == 'month':
         passages_par_mois_2023 = df_velo_2023.groupby('mois')['Comptage horaire'].mean()
         passages_par_mois_2022 = df_velo_2022.groupby('mois')['Comptage horaire'].mean()
@@ -134,7 +136,7 @@ def get_meteo(df_velo_meteo, choice):
         fig.update_yaxes(range=[0, 3000], title="Comptage")
     return fig
 
-def get_map_stations(compteurs):
+def get_map_stations(compteurs, stations_meteo):
     colors = {75106001:"darkred", 75107005:"green", 75110001:"purple", 75114001:"blue", 75116008:"orange"}
     # affichage sur une map folium
     map = folium.Map(location=[48.85, 2.35], zoom_start=13)
