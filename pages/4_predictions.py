@@ -3,12 +3,7 @@ import streamlit_velo as main
 import utils.velo_load_datas as datas
 import datetime
 
-st.set_page_config(
-    page_title="Prediction",
-    page_icon="🚴‍♀️",
-    layout="wide"
-)
-
+main.page_config("Prédiction")
 main.menu()
 main.page_css()
 

@@ -4,12 +4,7 @@ import streamlit_velo as main
 import utils.velo_data_viz as viz
 import utils.velo_load_datas as datas
 
-st.set_page_config(
-    page_title="Visualisation",
-    page_icon="🚴‍♀️",
-    layout="wide"
-)
-
+main.page_config("Visualisation")
 main.menu()
 main.page_css()
 

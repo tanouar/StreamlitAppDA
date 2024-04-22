@@ -1,8 +1,9 @@
 import streamlit as st
 import utils.velo_load_datas as datas
 
-st.set_page_config(
-    page_title="Velos",
+def page_config(title):
+    st.set_page_config(
+    page_title=title,
     page_icon="🚴‍♀️",
     layout="wide"
 )
@@ -36,6 +37,7 @@ def menu():
       st.page_link('pages/4_predictions.py', label="Prédictions", icon="🗓️")
       st.page_link('pages/5_conclusion.py', label="Conclusion", icon="📌")
 
+page_config("Introduction")
 menu()
 page_css()
 
