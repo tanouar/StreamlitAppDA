@@ -1,1 +1,5 @@
 streamlit_folium
+pandas
+np
+plotly
+matplotlib
