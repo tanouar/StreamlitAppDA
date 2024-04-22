@@ -1,14 +1,13 @@
 import streamlit as st
-import streamlit_velo as main
-import utils.velo_load_datas as datas
 import datetime
+import utils.str_func as common
 
-main.page_config("Prédiction")
-main.menu()
-main.page_css()
+common.page_config("Données")
+common.menu()
+common.page_css()
 
 if 'df_velo' not in st.session_state:
-    main.load_velo()
+    common.load_velo()
 
 df_velo = st.session_state.df_velo
 

@@ -1,8 +1,8 @@
 import streamlit as st
-import streamlit_velo as main
+import utils.str_func as common
 
-main.page_config("Conclusion")
-main.menu()
-main.page_css()
+common.page_config("Données")
+common.menu()
+common.page_css()
 
 st.html("<h1>Conclusion</h1>")

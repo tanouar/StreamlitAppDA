@@ -1,15 +1,14 @@
 import streamlit as st
 from streamlit_folium import st_folium
-import streamlit_velo as main
 import utils.velo_data_viz as viz
-import utils.velo_load_datas as datas
+import utils.str_func as common
 
-main.page_config("Visualisation")
-main.menu()
-main.page_css()
+common.page_config("Données")
+common.menu()
+common.page_css()
 
 if 'df_velo' not in st.session_state:
-    main.load_velo()
+    common.load_velo()
 
 df_velo = st.session_state.df_velo
 
