@@ -70,7 +70,7 @@ elif(type_graph==types[1]):
         st.dataframe(flop, hide_index=True, use_container_width=True)
     
     with colmap2:
-        st_folium(m, use_container_width=True, )
+        st_folium(m, use_container_width=True)
     
     st.markdown("")
     st.markdown("La carte ci-dessus nous permet de visualiser les emplacements des compteurs, pondérés par leur moyenne de comptage horaire.")
