@@ -21,7 +21,7 @@ def menu():
   
   with st.sidebar:
     local_css('css_nav.css')
-    st.image('assets/stats.png', use_column_width=True)
+    st.image('assets/stats.png', width=228)
     st.image('assets/menu.png')
     st.page_link('streamlit_velo.py', label="Introduction", icon="🏠")
     st.page_link('pages/1_exploration.py', label="Exploration des données", icon="🔍")
