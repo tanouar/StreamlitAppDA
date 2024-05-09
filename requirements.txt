@@ -6,5 +6,4 @@ seaborn
 folium
 streamlit_folium
 streamlit_extras
-pickle
 json
