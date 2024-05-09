@@ -1,0 +1,15 @@
+[data-testid="stSidebarUserContent"]{
+	overflow: hidden;
+	padding-top: 75px;
+	padding-bottom: 75px;
+}
+
+[data-testid="stSidebar"] {
+    background-color: #073763;
+	border-radius : 0 4px 4px 0;
+}
+
+[data-testid="stPageLink-NavLink"] > span{
+    color: white;
+	font-weight: bold;
+}

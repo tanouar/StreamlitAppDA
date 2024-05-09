@@ -1,0 +1,63 @@
+h1{
+	color: white;
+	background-color : #073763;
+	padding-top: 15px;
+	padding-left: 15px;
+	font-size: 32px;
+	border-radius : 4px;
+}
+h3{
+	color: #073763;
+}
+
+h4{
+	color:#0b5394;
+}
+
+h5{
+	color:#6fa8dc;
+}
+
+div.block-container {
+	padding-top: 30px;
+	padding-bottom: 80px;
+}
+
+iframe {
+	border-style: solid;
+	border-width: 4px;
+	border-color:#DE8326;
+	border-radius: 8px;
+}
+
+button[title="View fullscreen"]{
+    visibility: hidden;
+}
+
+[data-testid="stSidebarUserContent"]{
+	overflow: hidden;
+}
+
+[role="radiogroup"] {
+	margin-top: -20px;
+}
+	
+[data-baseweb="tag"] {
+	background-color: #da3b01;
+}
+
+span[role="button"] {
+	background-color: #da3b01;
+}
+
+[data-testid="stTable"]{
+	font-size : 14px;
+}
+
+code{
+	color:#0b5394;
+}
+
+.colonne {
+	color: #5bae92;
+}

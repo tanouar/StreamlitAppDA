@@ -1,12 +1,9 @@
-import pandas as pd
-import numpy as np
 import plotly.express as px
 from plotly import graph_objs as go
-from plotly.subplots import make_subplots
 import matplotlib.pyplot as plt
-import seaborn as sns
 import folium
 import utils.velo_load_datas as datas
+import streamlit as st
 
 def get_boxplot(df_velo) :
     plt.figure(figsize=(10,6))
@@ -15,88 +12,89 @@ def get_boxplot(df_velo) :
     plt.show()
 
 def get_compt_temp(df_velo, temp):
+    color_blue="#3D85C6"
+    color_orange="#DE8326"
     df_velo_2022 = datas.get_df_2022(df_velo)
     df_velo_2023 = datas.get_df_2023(df_velo)
     if temp == 'mois':
-
-        passages_par_mois_2022 = df_velo_2022.groupby('mois')['Comptage horaire'].mean()
-        passages_par_mois_2023 = df_velo_2023.groupby('mois')['Comptage horaire'].mean()
-        plt.figure()
-        passages_par_mois_2022.plot(kind='line', marker='o', color='#005F73',label='2022')
-        passages_par_mois_2023.plot(kind='line', marker='o', color='#CA6702',label='2023')
-        plt.xlabel('Mois')
-        plt.ylabel('Nombre moyen de passages')
-        plt.title('Nombre de passage moyen par mois')
-        plt.xticks(range(1, 13), ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'], rotation=45)
-        plt.grid(True)
-        plt.legend()
-        return plt
+        mois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
+        mois_2022 = df_velo_2022.groupby('mois')['Comptage horaire'].mean()
+        mois_2023 = df_velo_2023.groupby('mois')['Comptage horaire'].mean()
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=mois_2022.index, y=mois_2022, line=dict(color=color_blue),name='2022', mode='lines'))
+        fig.add_trace(go.Scatter(x=mois_2023.index, y=mois_2023, line=dict(color=color_orange),name='2023', mode='lines'))
+        fig.update_layout(title='Nombre de passages moyen par mois',yaxis_title='Comptage horaire moyen', 
+                          xaxis = dict(tickmode = 'array', tickvals = list(range(1, 13)),ticktext =mois))
+        fig.add_vrect(x0=7, x1=8, annotation_text="vacances d'été", annotation_position="top left", fillcolor="lightgrey", opacity=0.35, line_width=0)
+        fig.update_xaxes(showgrid=True)
+        fig.update_yaxes(showgrid=True)
+        return fig
     elif temp == 'jour':
-        ordre_jours_semaine = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-        df_velo_2023['jour_de_semaine'] = pd.Categorical(df_velo_2023['jour_de_semaine'], categories=ordre_jours_semaine, ordered=True)
-        df_velo_2023 = df_velo_2023.sort_values('jour_de_semaine')
-        df_velo_2022['jour_de_semaine'] = pd.Categorical(df_velo_2022['jour_de_semaine'], categories=ordre_jours_semaine, ordered=True)
-        df_velo_2022 = df_velo_2022.sort_values('jour_de_semaine')
-        passages_par_jour_2023 = df_velo_2023.groupby('jour_de_semaine')['Comptage horaire'].mean()
-        passages_par_jour_2022 = df_velo_2022.groupby('jour_de_semaine')['Comptage horaire'].mean()
-        plt.figure()
-        passages_par_jour_2022.plot(kind='line', marker='o', color='#005F73',label='2022')
-        passages_par_jour_2023.plot(kind='line', marker='o', color='#CA6702',label='2023')
-        plt.xlabel('Jour')
-        plt.ylabel('Nombre moyen de passages')
-        plt.title('Nombre de passages moyen par jour')
-        plt.grid(True)
-        plt.legend()
-        return plt
+        jours = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+        jour_2023 = df_velo_2023.groupby('jour_semaine')['Comptage horaire'].mean()
+        jour_2022 = df_velo_2022.groupby('jour_semaine')['Comptage horaire'].mean()
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=jour_2022.index, y=jour_2022, line=dict(color=color_blue),name='2022', mode='lines'))
+        fig.add_trace(go.Scatter(x=jour_2023.index, y=jour_2023, line=dict(color=color_orange),name='2023', mode='lines'))
+        fig.update_layout(title='Nombre de passages moyen par jour',yaxis_title='Comptage horaire moyen', 
+                          xaxis = dict(tickmode = 'array', tickvals = list(range(0, 7)),ticktext = jours))
+        fig.add_vrect(x0=5, x1=6, annotation_text="week-end", annotation_position="top right", fillcolor="lightgrey", opacity=0.35, line_width=0)
+        fig.update_xaxes(showgrid=True)
+        fig.update_yaxes(showgrid=True)
+        return fig
     elif temp == 'heure':
-        passages_par_heure_2023 = df_velo_2023.groupby('heure')['Comptage horaire'].mean()
-        passages_par_heure_2022 = df_velo_2022.groupby('heure')['Comptage horaire'].mean()
-        plt.figure()        
-        passages_par_heure_2022.plot(kind='line', marker='o', color='#005F73', label='2022')
-        passages_par_heure_2023.plot(kind='line', marker='o', color='#CA6702',label='2023')
-        plt.xlabel('Heure')
-        plt.ylabel('Nombre moyen de passages')
-        plt.title('Nombre moyen de passages par heure')
-        plt.grid(True)
-        plt.legend()
-        return plt
+        heure_2023 = df_velo_2023.groupby('heure')['Comptage horaire'].mean()
+        heure_2022 = df_velo_2022.groupby('heure')['Comptage horaire'].mean()
+        heures = [str(h)+'h' for h in heure_2022.index ]
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=heure_2022.index, y=heure_2022, line=dict(color=color_blue),name='2022', mode='lines'))
+        fig.add_trace(go.Scatter(x=heure_2023.index, y=heure_2023, line=dict(color=color_orange),name='2023', mode='lines'))
+        fig.update_layout(title='Nombre de passages moyen par heure',yaxis_title='Comptage horaire moyen', 
+                          xaxis = dict(tickmode = 'array', tickvals = list(range(0, 24)),ticktext = heures))
+        fig.add_vrect(x0=8, x1=9, annotation_text="heure de pointe", annotation_position="top left", fillcolor="lightgrey", opacity=0.35, line_width=0)
+        fig.add_vrect(x0=18, x1=19, annotation_text="heure de pointe", annotation_position="top left", fillcolor="lightgrey", opacity=0.35, line_width=0)
+        fig.update_xaxes(showgrid=True)
+        fig.update_yaxes(showgrid=True)
+        return fig
     elif temp == 'semaine':
-        comptage_moyen_2022_par_semaine = df_velo_2022.groupby('Numéro de semaine de l\'année')['Comptage horaire'].mean()
-        comptage_moyen_2023_par_semaine = df_velo_2023.groupby('Numéro de semaine de l\'année')['Comptage horaire'].mean()
-        plt.figure()
-        plt.plot(comptage_moyen_2022_par_semaine.index, comptage_moyen_2022_par_semaine.values, marker='o', linestyle='-', color='#005F73', label='2022')
-        plt.plot(comptage_moyen_2023_par_semaine.index, comptage_moyen_2023_par_semaine.values, marker='o', linestyle='-', color='#CA6702', label='2023')
-        plt.xlabel('Semaines de l\'année')
-        plt.xticks(range(1, 53, 3))
-        plt.ylabel('Comptage horaire moyen')
-        plt.title('Fréquentation moyenne journalière à Paris')
+        semaine_2022 = df_velo_2022.groupby('Numéro de semaine de l\'année')['Comptage horaire'].mean()
+        semaine_2023 = df_velo_2023.groupby('Numéro de semaine de l\'année')['Comptage horaire'].mean()
+
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=semaine_2022.index, y=semaine_2022, line=dict(color=color_blue),name='2022', mode='lines'))
+        fig.add_trace(go.Scatter(x=semaine_2023.index, y=semaine_2023, line=dict(color=color_orange),name='2023', mode='lines'))
+        fig.update_layout(title='Nombre de passages moyen par semaine',yaxis_title='Comptage horaire moyen')
+        fig.update_xaxes(showgrid=True)
+        fig.update_yaxes(showgrid=True)
+        fig.update_xaxes(tickvals = list(range(1, 53, 3)))
         legende_vacances = False
         for semaine, vacances in df_velo.groupby('Numéro de semaine de l\'année')['Vacances'].max().items():
             if vacances and not legende_vacances:
-                plt.axvspan(semaine - 0.5, semaine + 0.5, color='lightgrey', label='Vacances scolaires', alpha=0.5)
+                fig.add_vrect(x0=semaine - 0.5, x1=semaine + 0.5, annotation_text="vacances scolaires", annotation_position="top left", fillcolor="lightgrey", opacity=0.35, line_width=0)
                 legende_vacances = True
             elif vacances:
-                plt.axvspan(semaine - 0.5, semaine + 0.5, color='lightgrey', alpha=0.5)
-        plt.legend()
-        return plt
+                fig.add_vrect(x0=semaine - 0.5, x1=semaine + 0.5, fillcolor="lightgrey", opacity=0.35, line_width=0)
+        
+
+        return fig
     else :
-        order = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
-        df_velo_ordered=df_velo_2023.copy()
-        df_velo_ordered['jour_de_semaine'] = pd.Categorical(df_velo_ordered['jour_de_semaine'], categories=order, ordered=True)
-        df_grouped_heurejour=df_velo_ordered.groupby(["jour_de_semaine","heure"]).agg({"Comptage horaire":np.mean})
-        sns.lineplot(x="heure",y="Comptage horaire",hue="jour_de_semaine",data=df_grouped_heurejour)
-        plt.title("¨Comptage par heure et jour de la semaine - 2023")
-        legend = plt.legend()
-        legend.set_title('Jour de la semaine')
-        plt.xticks(ticks=range(25),rotation=90)
-        return plt
+        jour_2023=df_velo.groupby(["jour_semaine","heure"])["Comptage horaire"].mean().reset_index()
+        jours = {'0':'Lundi', '1': 'Mardi',  '2': 'Mercredi', '3': 'Jeudi', '4': 'Vendredi', '5': 'Samedi', '6': 'Dimanche'}
+        heures = [str(h)+'h' for h in jour_2023.heure]
+        fig = px.line(jour_2023,x="heure",y="Comptage horaire", color='jour_semaine', color_discrete_sequence=px.colors.qualitative.Prism, labels={"jour_semaine": "jour"})
+        fig.update_layout(title='Nombre de passages moyen par heure et par jour',yaxis_title='Comptage horaire moyen', xaxis_title=None,
+                          xaxis = dict(tickmode = 'array', tickvals = list(range(0, 24)),ticktext = heures))
+        fig.for_each_trace(lambda t: t.update(name = jours[t.name],legendgroup = jours[t.name],hovertemplate = t.hovertemplate.replace(t.name, jours[t.name])))
+        fig.update_xaxes(showgrid=True)
+        fig.update_yaxes(showgrid=True)
+        return fig
 
 def get_map_compt(df_velo):
     compteurs = datas.get_loc_compteurs(df_velo)
     top_index = compteurs.head(5).index
     flop_index = compteurs.tail(5).index
     n_mean = compteurs['Comptage horaire'].mean()
-    m = folium.Map(location=[48.862, 2.36], zoom_start=13)
+    m = folium.Map(location=[48.862, 2.34], zoom_start=13, scrollWheelZoom=False)
     for index, compt in compteurs.iterrows():
         radius = (compt['Comptage horaire']/n_mean)*200
         color = 'orange'
@@ -109,20 +107,23 @@ def get_map_compt(df_velo):
         folium.Circle(location=[compt['lat'], compt['lon']], radius=radius, color=color, weight=1, fill_opacity=0.4, opacity=1, fill=True, tooltip=compt['Nom du compteur']+': '+str(int(round(compt["Comptage horaire"], 0)))+' vélos par heure').add_to(m)
     return m, compteurs.head(5), compteurs.tail(5)
 
+@st.cache_data
 def get_meteo(df_velo, choice):
+    df_velo_2023 = datas.get_df_2023(df_velo)
     if choice=='pluie':
-        mean_by_rain_hour_site = df_velo[df_velo['annee']==2023].groupby(["pluvieux", "heure", "Nom du site de comptage"])['Comptage horaire'].mean()
+        mean_by_rain_hour_site = df_velo_2023.groupby(["pluvieux", "heure", "Nom du site de comptage"])['Comptage horaire'].mean()
         mean_by_rain_hour_site = mean_by_rain_hour_site.reset_index()
         mean_by_rain_hour = mean_by_rain_hour_site.groupby(["pluvieux", "heure"])["Comptage horaire"].mean()
         mean_by_rain_hour = mean_by_rain_hour.reset_index()
         mean_by_rain = mean_by_rain_hour.groupby(["pluvieux"])["Comptage horaire"].mean()
-        fig = px.bar(x=mean_by_rain.index, y=mean_by_rain, title="Moyenne de comptage par heure et station pour chaque type de pluie sur l'année 2023", width=800)
-        fig.update_xaxes(title="Types de pluie")
-        fig.update_yaxes(title="Moyenne de comptage")
+        
+        fig = px.pie(values=mean_by_rain, names=mean_by_rain.index, color=mean_by_rain.index, color_discrete_map={'Pas de pluie':'#5f4690', 'Pluie modérée':'#1d6996', 'Pluie intense':'#38a6a5'}, title='Comptage horaire moyen par densité de pluie - 2023')
+        fig.update_layout(hovermode=False, legend=dict(title=None, orientation="h",yanchor="bottom", y=1.02,xanchor="right",x=1))
     else:
-        fig = px.scatter(df_velo[df_velo['annee']==2023], x=' T', y='Comptage horaire', color="pluvieux", color_discrete_sequence=px.colors.qualitative.Prism, title="Comptages selon la température sur l'année 2023", width=800)
+        fig = px.scatter(df_velo_2023, x=' T', y='Comptage horaire', color="pluvieux", color_discrete_sequence=px.colors.qualitative.Prism, title="Comptages selon les températures - 2023")
         fig.update_xaxes(title="Températures")
-        fig.update_yaxes(range=[0, 3000], title="Comptage")
+        fig.update_yaxes(range=[0, 2500], title="Comptage")
+        fig.update_layout(hovermode=False, legend=dict(title=None, orientation="h",yanchor="bottom", y=1.02,xanchor="right",x=1))
     return fig
 
 def get_map_stations(compteurs, stations_meteo):
