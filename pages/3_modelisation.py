@@ -1,7 +1,6 @@
 import streamlit as st
 import utils.str_func as common
 import utils.velo_machine_learning as ml
-import pandas as pd
 
 common.page_config("Données")
 common.local_css("css_str.css")
