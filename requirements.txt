@@ -6,5 +6,5 @@ seaborn
 folium
 streamlit_folium
 streamlit_extras
-scikit-learn
+scikit-learn==1.2.2
 statsmodels
