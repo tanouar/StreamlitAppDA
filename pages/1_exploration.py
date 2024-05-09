@@ -12,8 +12,8 @@ df_velo = st.session_state.df_velo
 
 st.html("<h1>Exploration des données</h1>")
 col1, col2, col3 = st.columns((0.7,3,1))
-col1.image("assets/paris_data.png")
-col3.image("assets/meteo_gouv_data.png")
+col1.image("assets/paris_data.PNG")
+col3.image("assets/meteo_gouv_data.PNG")
 
 st.markdown("")
 st.markdown("#### Jeux de données utilisés :")
