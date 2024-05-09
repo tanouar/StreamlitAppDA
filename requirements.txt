@@ -6,3 +6,4 @@ seaborn
 folium
 streamlit_folium
 streamlit_extras
+sklearn
