@@ -4,6 +4,7 @@ import json
 import streamlit as st
 import utils.velo_load_datas as datas
 import pickle
+import sklearn
 from plotly import graph_objs as go
 import plotly.express as px
 from sklearn.metrics import r2_score
