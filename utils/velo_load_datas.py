@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 def load_velo():
-  df_velo=pd.read_csv('data/df_velo_meteo.zip', index_col=0)
+  df_velo=pd.read_csv('data/df_velo_meteo.zip', index_col=0, low_memory=False)
   return df_velo
 
 def get_loc_sites_comptage(df_velo):
