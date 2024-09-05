@@ -1,0 +1,42 @@
+{
+    "Regional_indicator": {
+        "min": 0.0,
+        "max": 9.0
+    },
+    "Country_name": {
+        "min": 0.0,
+        "max": 165.0
+    },
+    "year": {
+        "min": 2005.0,
+        "max": 2021.0
+    },
+    "Ladder_score": {
+        "min": 2.375,
+        "max": 8.019
+    },
+    "Logged_GDP_per_capita": {
+        "min": 0.0,
+        "max": 1.0
+    },
+    "Social_support": {
+        "min": 0.29,
+        "max": 0.987
+    },
+    "Healthy_life_expectancy": {
+        "min": 0.0,
+        "max": 1.0
+    },
+    "Freedom_to_make_life_choices": {
+        "min": 0.258,
+        "max": 0.985
+    },
+    "Generosity": {
+        "min": 0.0,
+        "max": 1.0
+    },
+    "Perceptions_of_corruption": {
+        "min": 0.035,
+        "max": 0.983
+    }
+}
