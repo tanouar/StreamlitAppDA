@@ -17,7 +17,9 @@ github_explanation = pd.read_csv("owid-co2-codebook.csv")
 owid_surf_temp_anom = pd.read_csv("OWID_01_Surface_Temp_anomaly_historical_data.csv")
 kaggle_temp_change_NOFLAG = pd.read_csv("Environment_Temperature_change_E_All_Data_NOFLAG.csv", encoding='cp1252')
 owid_country_infos = pd.read_csv("OWID_02_CountryInfos.csv")
-kaggle_temp_change = pd.read_csv("FAOSTAT_data_1-10-2022.csv")
+kaggle_temp_change_1 = pd.read_csv("FAOSTAT_data_1-10-2022_part1.csv")
+kaggle_temp_change_2 = pd.read_csv("FAOSTAT_data_1-10-2022_part1.csv")
+kaggle_temp_change = pd.concat([kaggle_temp_change_1, kaggle_temp_change_2], ignore_index=True)
 
 
 
@@ -571,7 +573,7 @@ if page == pages[2] :
             
             The Correlation Matrix shows the correlation between a set of variables included in the GitbHub database. 
             We can see a clear area where correlations are stronger. The main correlation is between the temperature change attributed to the GHG emisssion and the various CO2 sources. 
-            
+
             """
             st.markdown(f"""
             <div style="text-align: justify;; margin-top: 20px;">
