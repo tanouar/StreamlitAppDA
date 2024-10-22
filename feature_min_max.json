@@ -1,0 +1,46 @@
+{
+    "year": {
+        "min": 1961.0,
+        "max": 2019.0
+    },
+    "temp_change": {
+        "min": -1.795,
+        "max": 2.917
+    },
+    "gdp": {
+        "min": 70560000.0,
+        "max": 23631939764224.0
+    },
+    "co2": {
+        "min": 0.004,
+        "max": 10721.042
+    },
+    "co2_including_luc": {
+        "min": -187.847,
+        "max": 11471.032
+    },
+    "co2_including_luc_growth_abs": {
+        "min": -1363.62,
+        "max": 1771.624
+    },
+    "share_of_temperature_change_from_ghg": {
+        "min": -0.079,
+        "max": 24.627
+    },
+    "temperature_change_from_ch4": {
+        "min": -0.001,
+        "max": 0.058
+    },
+    "temperature_change_from_co2": {
+        "min": 0.0,
+        "max": 0.23
+    },
+    "temperature_change_from_ghg": {
+        "min": 0.0,
+        "max": 0.276
+    },
+    "temperature_change_from_n2o": {
+        "min": 0.0,
+        "max": 0.01
+    }
+}
