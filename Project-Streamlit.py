@@ -1325,14 +1325,14 @@ if page == pages[5] :
     
 if page == pages[6] :
     #add ur predicition here
-
+    st.title('Predictions')
 
 
 
 
 if page == pages[7] :
-     st.title('Conclusion')
-     st.markdown(
+    st.title('Conclusion')
+    st.markdown(
         """
         <style>
         .centered-title {
@@ -1345,7 +1345,7 @@ if page == pages[7] :
         </style>
         """,
         unsafe_allow_html=True,
-     )
+    )
     st.markdown("""
     ## Conclusion
     **Random Forest Regressor** outperformed both the Decision Tree and Linear Regression models, demonstrating its ability to better generalize and provide more accurate predictions for this dataset.
