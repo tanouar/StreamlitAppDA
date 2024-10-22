@@ -25,7 +25,7 @@ kaggle_temp_change = pd.concat([kaggle_temp_change_1, kaggle_temp_change_2], ign
 
 #Creating Main Structure
 st.sidebar.title("Summary")
-pages=["Introduction", "Data Exploration", "Data Vizualization", "Modelling", "Prediction", "Conclusion"]
+pages=["Introduction", "Data Exploration", "Data Vizualization","Target Variable Choice", "Modelling", "Prediction", "Conclusion"]
 page=st.sidebar.radio("Select Section", pages)
 
 st.sidebar.markdown(
@@ -846,3 +846,95 @@ if page == pages[2] :
             <p>{text}</p>
             </div>
             """, unsafe_allow_html=True)
+
+if page == pages[3] :
+    Kaggle_mean_surf_temp_2022 = pd.read_csv("CS_Kaggle_mean_surf_temp_2022_03.csv")
+    Kaggle_mean_surf_temp_NoFlag = pd.read_csv("CS_Kaggle_mean_surf_temp_NoFlag_04.csv")
+    owid_surf_temp_anom  = pd.read_csv("CS_owid_surface_temp_anom_countries_02.csv")
+    st.header("Target Variable Choice")
+    text = """
+    For our Machine Learning models, the team had to choose which target variable for the Surface Temperture Anomalies to predict. 
+    Given our initial databases, we had the chance to select between three main sources: 
+
+    """
+    st.markdown(f"""
+    <div style="text-align: justify;; margin-top: 20px;">
+    <p>{text}</p>
+    </div>
+    """, unsafe_allow_html=True)
+    text= """
+        1. **FAOSTAT Temperature Change - from Kaggle**
+        2. **FAOSTAT Temperature Change - from Kaggle - NO Flag** 
+        3. **HARDCRUT Information about Surf Temperature, historical data till 2017 - From Our World in Data**
+        """
+    st.markdown(text)
+
+
+    with st.expander("Show DB preview"):
+        st.markdown("### FAOSTAT Temperature Change - from Kaggle")
+        st.data_editor( Kaggle_mean_surf_temp_2022,
+                column_config={"Entity" : st.column_config.Column(width="medium"),  "Year": st.column_config.NumberColumn(format="%d")},
+                hide_index=True,
+                use_container_width=True  # This will make the dataframe occupy the entire width
+                )
+        st.markdown("### FAOSTAT Temperature Change - from Kaggle - NO Flag")
+        st.data_editor( Kaggle_mean_surf_temp_NoFlag,
+                column_config={"Entity" : st.column_config.Column(width="medium"),  "Year": st.column_config.NumberColumn(format="%d")},
+                hide_index=True,
+                use_container_width=True  # This will make the dataframe occupy the entire width
+                )
+
+        st.markdown("### HARDCRUT Information about Surf Temperature, historical data till 2017 - From Our World in Data")
+        st.data_editor( owid_surf_temp_anom,
+                column_config={"Entity" : st.column_config.Column(width="medium"),  "Year": st.column_config.NumberColumn(format="%d")},
+                hide_index=True,
+                use_container_width=True  # This will make the dataframe occupy the entire width
+                )
+
+    col1, col2, col3  = st.columns([1,1,1])  # Adjust the ratio as needed
+    with col1:
+        st.markdown("**Number of missing values**")
+        text = """
+        - **Kaggle**: 481 missing values
+        - **Kaggle (No Flag)** : 0 missing values
+        - **OWID**: 0 missing values
+        """
+        st.markdown(text)
+    with col2:
+        st.markdown("**Number of countries in the dataset**")
+        text = """
+        - **Kaggle**: 247 countries
+        - **Kaggle (No Flag)** : 208 countries
+        - **OWID**: 199 countries
+        """
+        st.markdown(text)
+    with col3:
+        st.markdown("**Time span of data**")
+        text = """
+
+        - **Kaggle**: 1961 - 2020
+        - **Kaggle (No Flag)** : 1961 - 2019
+        - **OWID**: 1850 - 2017
+        """
+        st.markdown(text)
+    temp = pd.merge(Kaggle_mean_surf_temp_2022,Kaggle_mean_surf_temp_NoFlag, on=['Entity', "Code", 'Year', 'Continent'],  how='outer')
+    temp = temp.drop(columns="Mean_surf_temp_change_kaggle_Noflag_std_dev")
+    temp = pd.merge(temp,owid_surf_temp_anom, on=['Entity', "Code", 'Year', 'Continent'],  how='outer')
+    plt.figure(figsize=(14,6))
+
+    country_check = temp.loc[temp["Entity"] == "China"]
+
+    sns.lineplot(country_check, x="Year", y="Mean_surf_temp_change_kaggle", errorbar=None, label="Kaggle Mean Temp Change")
+    sns.lineplot(country_check, x="Year", y="Mean_surf_temp_change_kaggle_Noflag", errorbar=None, label="Kaggle Mean Temp Change NoFlag")
+    sns.lineplot(country_check, x="Year", y="Mean_Surf_temp_anomaly_owid", errorbar="ci", label="OWID Temp Anomaly")
+
+    plt.legend(title="Temperature Data")
+    plt.title(' Mean Surface Temperature - Database Comparison - China')
+    # Add labels to the axes
+    plt.xlabel("Year")
+    plt.grid()
+    plt.ylabel("Temperature Change (°C)")
+
+    # Display the plot
+    st.pyplot(plt)
+# Continuare aggiustando il grafico delle temperature, e poi resta solo la parte del modello e delle prediction
