@@ -1054,8 +1054,8 @@ if page == pages[5] :
     st.markdown('<h1 class="centered-title">Machine Learning Model Selection</h1>', unsafe_allow_html=True)
     st.markdown("<br><br>", unsafe_allow_html=True)
     st.markdown("""
-The objective of this analysis was to identify the best-performing machine learning model for predicting surface temperature anomalies using different regression techniques.
-We evaluated and compared the performance of six  models:
+    The objective of this analysis was to identify the best-performing machine learning model for predicting surface temperature anomalies using different regression techniques.
+    We evaluated and compared the performance of six  models:
 
     - **Linear**
     - **Decision Tree**
@@ -1087,183 +1087,183 @@ if page == pages[5] :
     This table provides a comprehensive overview of each model’s performance, allowing for easy comparison of the evaluation metrics across all models, even those not selected for in-depth analysis.
     """)
 
-data = {
-    'Model': [
-        'Random Forest (get dummies)', 'Random Forest (factorized)',
-        'Random Forest (get dummies, knn)', 'Random Forest (factorized, knn)',
-        'Decision Tree (factorized)', 'Decision Tree (get dummies)',
-        'Decision Tree (get dummies, knn)', 'Decision Tree (factorized, knn)',
-        'Linear (get dummies)', 'Ridge (get dummies)',
-        'Linear (factorized)', 'Ridge (factorized)',
-        'Ridge (get dummies, knn)', 'Linear (get dummies, knn)',
-        'Linear (factorized, knn)', 'Ridge (factorized, knn)',
-        'Lasso (get dummies)', 'Lasso (factorized)',
-        'Lasso (factorized, knn)', 'Lasso (get dummies, knn)',
-        'LassoCV (factorized, knn)', 'LassoCV (get dummies, knn)',
-        'LassoCV (factorized)', 'LassoCV (get dummies)'
-    ],
+    data = {
+        'Model': [
+            'Random Forest (get dummies)', 'Random Forest (factorized)',
+            'Random Forest (get dummies, knn)', 'Random Forest (factorized, knn)',
+            'Decision Tree (factorized)', 'Decision Tree (get dummies)',
+            'Decision Tree (get dummies, knn)', 'Decision Tree (factorized, knn)',
+            'Linear (get dummies)', 'Ridge (get dummies)',
+            'Linear (factorized)', 'Ridge (factorized)',
+            'Ridge (get dummies, knn)', 'Linear (get dummies, knn)',
+            'Linear (factorized, knn)', 'Ridge (factorized, knn)',
+            'Lasso (get dummies)', 'Lasso (factorized)',
+            'Lasso (factorized, knn)', 'Lasso (get dummies, knn)',
+            'LassoCV (factorized, knn)', 'LassoCV (get dummies, knn)',
+            'LassoCV (factorized)', 'LassoCV (get dummies)'
+        ],
 
-'R2 Train': [
-        0.891, 0.879, 0.884, 0.883,
-        0.542, 0.575, 0.670, 0.555,
-        0.378, 0.377,
-        0.331, 0.331,
-        0.385, 0.386,
-        0.338, 0.337,
-        0.323, 0.323,
-        0.327, 0.327,
-        0.002, 0.002,
-        0.003, 0.003
-    ],
-    'R2 Test': [
-        0.630, 0.615, 0.592, 0.579,
-        0.515, 0.513, 0.491, 0.483,
-        0.367, 0.364,
-        0.343, 0.342,
-        0.336, 0.335,
-        0.335, 0.334,
-        0.331, 0.331,
-        0.326, 0.326,
-        0.003, 0.003,
-        0.000, 0.000
-    ],
-    'MAE Test': [
-        0.256, 0.262, 0.259, 0.267,
-        0.302, 0.298, 0.294, 0.301,
-        0.339, 0.340,
-        0.345, 0.345,
-        0.346, 0.346,
-        0.349, 0.349,
-        0.346, 0.346,
-        0.351, 0.351,
-        0.432, 0.432,
-        0.437, 0.437
-    ],
-    'MSE Test': [
-        0.123, 0.128, 0.128, 0.132,
-        0.162, 0.162, 0.160, 0.162,
-        0.211, 0.212,
-        0.219, 0.219,
-        0.209, 0.209,
-        0.209, 0.209,
-        0.223, 0.223,
-        0.212, 0.212,
-        0.313, 0.313,
-        0.333, 0.333
-    ],
-    'RMSE Test': [
-        0.351, 0.358, 0.358, 0.363,
-        0.402, 0.403, 0.400, 0.403,
-        0.460, 0.461,
-        0.468, 0.468,
-        0.457, 0.457,
-        0.457, 0.457,
-        0.472, 0.472,
-        0.460, 0.460,
-        0.560, 0.560,
-        0.577, 0.577
-    ]
-}
-
-# Create a DataFrame
-metrics_df = pd.DataFrame(data)
-
-# Streamlit app
-st.title("Models with timespan 1960-2017")
-
-# Display
-st.dataframe(metrics_df.style.highlight_max(axis=0))
-
-
-data2 = {
-    'Model': [
-        'Random Forest (get dummies)', 'Random Forest (factorized)',
-        'Random Forest (get dummies, knn)', 'Random Forest (factorized, knn)',
-        'Decision Tree (factorized)', 'Decision Tree (get dummies)',
-        'Decision Tree (factorized, knn)', 'Linear (get dummies)',
-        'Ridge (get dummies)', 'Decision Tree (get dummies, knn)',
-        'Linear (factorized)', 'Ridge (factorized)',
-        'Lasso (get dummies)', 'Lasso (factorized)',
-        'Ridge (get dummies, knn)', 'Linear (get dummies, knn)',
-        'Linear (factorized, knn)', 'Lasso (factorized, knn)',
-        'Lasso (get dummies, knn)', 'Ridge (factorized, knn)',
-        'LassoCV (factorized, knn)', 'LassoCV (get dummies, knn)',
-        'LassoCV (factorized)', 'LassoCV (get dummies)'
-    ],
     'R2 Train': [
-        0.810, 0.801, 0.714, 0.740,
-        0.371, 0.340, 0.293, 0.279,
-        0.278, 0.269,
-        0.246, 0.245,
-        0.242, 0.242,
-        0.214, 0.214,
-        0.185, 0.183,
-        0.183, 0.184,
-        0.004, 0.004,
-        0.003, 0.003
-    ],
-    'R2 Test': [
-        0.500, 0.481, 0.473, 0.458,
-        0.346, 0.334, 0.293, 0.273,
-        0.273, 0.269,
-        0.247, 0.247,
-        0.244, 0.244,
-        0.192, 0.191,
-        0.180, 0.179,
-        0.179, 0.179,
-        0.004, 0.004,
-        0.003, 0.003
-    ],
-    'MAE Test': [
-        0.328, 0.335, 0.334, 0.340,
-        0.382, 0.387, 0.396, 0.410,
-        0.410, 0.402,
-        0.417, 0.417,
-        0.419, 0.419,
-        0.429, 0.429,
-        0.432, 0.432,
-        0.432, 0.432,
-        0.483, 0.483,
-        0.486, 0.486
-    ],
-    'MSE Test': [
-        0.218, 0.226, 0.228, 0.235,
-        0.284, 0.289, 0.306, 0.316,
-        0.316, 0.316,
-        0.327, 0.327,
-        0.329, 0.329,
-        0.350, 0.350,
-        0.355, 0.355,
-        0.355, 0.355,
-        0.431, 0.431,
-        0.433, 0.433
-    ],
-    'RMSE Test': [
-        0.466, 0.475, 0.478, 0.484,
-        0.533, 0.538, 0.553, 0.562,
-        0.562, 0.563,
-        0.572, 0.572,
-        0.573, 0.573,
-        0.592, 0.592,
-        0.596, 0.596,
-        0.596, 0.596,
-        0.657, 0.657,
-        0.658, 0.658
-    ]
-}
+            0.891, 0.879, 0.884, 0.883,
+            0.542, 0.575, 0.670, 0.555,
+            0.378, 0.377,
+            0.331, 0.331,
+            0.385, 0.386,
+            0.338, 0.337,
+            0.323, 0.323,
+            0.327, 0.327,
+            0.002, 0.002,
+            0.003, 0.003
+        ],
+        'R2 Test': [
+            0.630, 0.615, 0.592, 0.579,
+            0.515, 0.513, 0.491, 0.483,
+            0.367, 0.364,
+            0.343, 0.342,
+            0.336, 0.335,
+            0.335, 0.334,
+            0.331, 0.331,
+            0.326, 0.326,
+            0.003, 0.003,
+            0.000, 0.000
+        ],
+        'MAE Test': [
+            0.256, 0.262, 0.259, 0.267,
+            0.302, 0.298, 0.294, 0.301,
+            0.339, 0.340,
+            0.345, 0.345,
+            0.346, 0.346,
+            0.349, 0.349,
+            0.346, 0.346,
+            0.351, 0.351,
+            0.432, 0.432,
+            0.437, 0.437
+        ],
+        'MSE Test': [
+            0.123, 0.128, 0.128, 0.132,
+            0.162, 0.162, 0.160, 0.162,
+            0.211, 0.212,
+            0.219, 0.219,
+            0.209, 0.209,
+            0.209, 0.209,
+            0.223, 0.223,
+            0.212, 0.212,
+            0.313, 0.313,
+            0.333, 0.333
+        ],
+        'RMSE Test': [
+            0.351, 0.358, 0.358, 0.363,
+            0.402, 0.403, 0.400, 0.403,
+            0.460, 0.461,
+            0.468, 0.468,
+            0.457, 0.457,
+            0.457, 0.457,
+            0.472, 0.472,
+            0.460, 0.460,
+            0.560, 0.560,
+            0.577, 0.577
+        ]
+    }
 
-metrics_df2 = pd.DataFrame(data2)
+    # Create a DataFrame
+    metrics_df = pd.DataFrame(data)
 
-st.title("Models with timespan 1850-2017")
+    # Streamlit app
+    st.title("Models with timespan 1960-2017")
 
-st.dataframe(metrics_df2.style.highlight_max(axis=0))
+    # Display
+    st.dataframe(metrics_df.style.highlight_max(axis=0))
 
-st.markdown("""
-**Key findings**: 
-    - The R² score is generally lower in models using the larger dataset.
-    - The Random Forest Regressor consistently performs the best across all tested models.
-    - The Lasso Regressor consistently performs the worst among all models.
-""")
+
+    data2 = {
+        'Model': [
+            'Random Forest (get dummies)', 'Random Forest (factorized)',
+            'Random Forest (get dummies, knn)', 'Random Forest (factorized, knn)',
+            'Decision Tree (factorized)', 'Decision Tree (get dummies)',
+            'Decision Tree (factorized, knn)', 'Linear (get dummies)',
+            'Ridge (get dummies)', 'Decision Tree (get dummies, knn)',
+            'Linear (factorized)', 'Ridge (factorized)',
+            'Lasso (get dummies)', 'Lasso (factorized)',
+            'Ridge (get dummies, knn)', 'Linear (get dummies, knn)',
+            'Linear (factorized, knn)', 'Lasso (factorized, knn)',
+            'Lasso (get dummies, knn)', 'Ridge (factorized, knn)',
+            'LassoCV (factorized, knn)', 'LassoCV (get dummies, knn)',
+            'LassoCV (factorized)', 'LassoCV (get dummies)'
+        ],
+        'R2 Train': [
+            0.810, 0.801, 0.714, 0.740,
+            0.371, 0.340, 0.293, 0.279,
+            0.278, 0.269,
+            0.246, 0.245,
+            0.242, 0.242,
+            0.214, 0.214,
+            0.185, 0.183,
+            0.183, 0.184,
+            0.004, 0.004,
+            0.003, 0.003
+        ],
+        'R2 Test': [
+            0.500, 0.481, 0.473, 0.458,
+            0.346, 0.334, 0.293, 0.273,
+            0.273, 0.269,
+            0.247, 0.247,
+            0.244, 0.244,
+            0.192, 0.191,
+            0.180, 0.179,
+            0.179, 0.179,
+            0.004, 0.004,
+            0.003, 0.003
+        ],
+        'MAE Test': [
+            0.328, 0.335, 0.334, 0.340,
+            0.382, 0.387, 0.396, 0.410,
+            0.410, 0.402,
+            0.417, 0.417,
+            0.419, 0.419,
+            0.429, 0.429,
+            0.432, 0.432,
+            0.432, 0.432,
+            0.483, 0.483,
+            0.486, 0.486
+        ],
+        'MSE Test': [
+            0.218, 0.226, 0.228, 0.235,
+            0.284, 0.289, 0.306, 0.316,
+            0.316, 0.316,
+            0.327, 0.327,
+            0.329, 0.329,
+            0.350, 0.350,
+            0.355, 0.355,
+            0.355, 0.355,
+            0.431, 0.431,
+            0.433, 0.433
+        ],
+        'RMSE Test': [
+            0.466, 0.475, 0.478, 0.484,
+            0.533, 0.538, 0.553, 0.562,
+            0.562, 0.563,
+            0.572, 0.572,
+            0.573, 0.573,
+            0.592, 0.592,
+            0.596, 0.596,
+            0.596, 0.596,
+            0.657, 0.657,
+            0.658, 0.658
+        ]
+    }
+
+    metrics_df2 = pd.DataFrame(data2)
+
+    st.title("Models with timespan 1850-2017")
+
+    st.dataframe(metrics_df2.style.highlight_max(axis=0))
+
+    st.markdown("""
+    **Key findings**: 
+        - The R² score is generally lower in models using the larger dataset.
+        - The Random Forest Regressor consistently performs the best across all tested models.
+        - The Lasso Regressor consistently performs the worst among all models.
+    """)
 
 
 if page == pages[5] :
@@ -1273,30 +1273,30 @@ if page == pages[5] :
 
     After training the Different models using the get_dummies method and dropping missing values, the following metrics were obtained:
     """)
-data = {
-    'Model': ['Forest', 'Ridge', 'Decision Tree', 'Linear', 'Lasso', 'LassoCV'],
-    'Temp Change - MSE': [0.134, 0.199, 0.217, 0.219, 0.232, 0.428],
-    'Temp Change - MAE': [0.261, 0.337, 0.341, 0.353, 0.364, 0.526],
-    'Temp Change - R2': [0.692, 0.544, 0.503, 0.497, 0.467, 0.018],
-    'Temp Change - MSE**(1/2)': [0.366, 0.446, 0.465, 0.468, 0.482, 0.654],
+    data3 = {
+        'Model': ['Forest', 'Ridge', 'Decision Tree', 'Linear', 'Lasso', 'LassoCV'],
+        'Temp Change - MSE': [0.134, 0.199, 0.217, 0.219, 0.232, 0.428],
+        'Temp Change - MAE': [0.261, 0.337, 0.341, 0.353, 0.364, 0.526],
+        'Temp Change - R2': [0.692, 0.544, 0.503, 0.497, 0.467, 0.018],
+        'Temp Change - MSE**(1/2)': [0.366, 0.446, 0.465, 0.468, 0.482, 0.654],
 
-    'Temp Change GHG - MSE': [0.000, 0.000, 0.000, 0.000, 0.000, 0.000],
-    'Temp Change GHG - MAE': [0.000, 0.001, 0.000, 0.002, 0.009, 0.004],
-    'Temp Change GHG - R2': [0.999, 0.983, 0.997, 0.924, 0.000, 0.736],
-    'Temp Change GHG - MSE**(1/2)': [0.001, 0.003, 0.001, 0.006, 0.022, 0.011],
+        'Temp Change GHG - MSE': [0.000, 0.000, 0.000, 0.000, 0.000, 0.000],
+        'Temp Change GHG - MAE': [0.000, 0.001, 0.000, 0.002, 0.009, 0.004],
+        'Temp Change GHG - R2': [0.999, 0.983, 0.997, 0.924, 0.000, 0.736],
+        'Temp Change GHG - MSE**(1/2)': [0.001, 0.003, 0.001, 0.006, 0.022, 0.011],
 
-    'Temp Change CO2 - MSE': [0.000, 0.000, 0.000, 0.000, 0.000, 0.000],
-    'Temp Change CO2 - MAE': [0.000, 0.001, 0.000, 0.002, 0.006, 0.003],
-    'Temp Change CO2 - R2': [0.998, 0.978, 0.998, 0.976, 0.000, 0.642],
-    'Temp Change CO2 - MSE**(1/2)': [0.001, 0.002, 0.001, 0.002, 0.016, 0.009],
-}
+        'Temp Change CO2 - MSE': [0.000, 0.000, 0.000, 0.000, 0.000, 0.000],
+        'Temp Change CO2 - MAE': [0.000, 0.001, 0.000, 0.002, 0.006, 0.003],
+        'Temp Change CO2 - R2': [0.998, 0.978, 0.998, 0.976, 0.000, 0.642],
+        'Temp Change CO2 - MSE**(1/2)': [0.001, 0.002, 0.001, 0.002, 0.016, 0.009],
+    }
 
-metrics_df3= pd.DataFrame(data3)
+    metrics_df3= pd.DataFrame(data3)
 
-st.title("Model Performance Metrics for Temperature Change")
+    st.title("Model Performance Metrics for Temperature Change")
 
-# Display
-st.dataframe(metrics_df3.style.highlight_max(axis=0))
+    # Display
+    st.dataframe(metrics_df3.style.highlight_max(axis=0))
 
 if page == pages[5] :
   st.markdown(
@@ -1325,7 +1325,7 @@ if page == pages[5] :
     
 if page == pages[6] :
     #add ur predicition here
-    st.title('Predictions')
+         st.title('Predictions')
 
 
 
@@ -1345,7 +1345,7 @@ if page == pages[7] :
         </style>
         """,
         unsafe_allow_html=True,
-    )
+     )
     st.markdown("""
     ## Conclusion
     **Random Forest Regressor** outperformed both the Decision Tree and Linear Regression models, demonstrating its ability to better generalize and provide more accurate predictions for this dataset.
