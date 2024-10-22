@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
 import json
-
+import os
 def wide_space_default():
     st.set_page_config(layout="wide")
 wide_space_default()
@@ -1551,12 +1551,27 @@ if page == pages[6] :
         @st.cache_resource
 
         # Loading the model for the prediction
-        def load_model_pickle():
-            with open('CS_RandomForestModel_get_dummies.pkl', 'rb') as template_model:
-                model = pickle.load(template_model)
+        def load_model(model_filename, zip_path=None):
+            # Try loading the model directly if zip file is not provided
+            if zip_path is None:
+                # Load from the pickle file directly
+                with open(model_filename, 'rb') as template_model:
+                    model = pickle.load(template_model)
+            else:
+                # Load from the zip file
+                with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+                    with zip_ref.open(model_filename) as model_file:
+                        model = pickle.load(model_file)
             return model
-        RandomForest_Model = load_model_pickle()
-
+            
+        model_filename = 'CS_RandomForestModel_get_dummies.pkl'
+        zip_file_path = 'Zip_Model.zip'
+        
+        # Check if the .pkl file exists and load directly, otherwise try loading from zip
+        if os.path.exists(model_filename):
+            RandomForest_Model = load_model(model_filename)
+        else:
+            RandomForest_Model = load_model(model_filename, zip_file_path)
 
         @st.cache_resource
 
