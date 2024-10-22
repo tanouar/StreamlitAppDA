@@ -1422,7 +1422,7 @@ if page == pages[5] :
 
 # Modelling - Final Comments
 if page == pages[5] :
-  st.markdown(
+    st.markdown(
                 """
                 <style>
                 .centered-title {
@@ -1436,60 +1436,81 @@ if page == pages[5] :
                 """,
                 unsafe_allow_html=True,
              )
-  st.markdown('<h1 class="centered-title">Dataset Evaluation</h1>', unsafe_allow_html=True)
-  st.markdown("<br><br>", unsafe_allow_html=True)
-  st.markdown("""The Large number of models allowed a nice overview of all possible options and a good Performance Evaluation.
-  In both datasets we see a similar outcome with the **get_dummies** method as best performing and the **Random Forest Regressor** as best model.
-  In the second dataset we concentrate more on the best dataset for each temperature change.
+    st.markdown('<h1 class="centered-title">Dataset Evaluation</h1>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown("""The Large number of models allowed a nice overview of all possible options and a good Performance Evaluation.
+    In both datasets we see a similar outcome with the **get_dummies** method as best performing and the **Random Forest Regressor** as best model.
+    In the second dataset we concentrate more on the best dataset for each temperature change.
+    """)
+    #GRAPH 01
+    st.markdown("""
+    ### Target Variable - temp_change
+    - This dataset is from Kaggle and the base is the NASA-GISS Dataset.
+    - This temperature change contains all measured data around the world and not only static values, since it will react to natural phenomena as well.
+    - Linear Regression  (R² = 0.497), Decision Tree (R² = 0.503) and Random Forest  (R² = 0.692) work for this dataset best, with Random Forest best overall.
+    - Since this data is not constant and will react for all temperature changes, even natural phenomena, it has a wide range of data.
+    """)
+    # image from file 01 
+    st.markdown(
+        """
+        <div style='text-align: center;'>
+            <img src='https://github.com/Carmine137/AUG24_world_temperature/blob/main/temp_change-predict.png?raw=true' width='800'/>
+            <p style='font-size: 18px; color: gray;'>Figure 1: Scatter Plot Predicted vs Actual Values-temp_change-predict</p>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
 
-  ###Target Variable - temp_change
-  This dataset is from Kaggle and the base is the NASA-GISS Dataset. This temperature change contains all measured data around the world and not only static values,
-  since it will react to natural phenomena as well.
-  Linear Regression  (R² = 0.497), Decision Tree (R² = 0.503) and Random Forest  (R² = 0.692) work for this dataset best,
-  with Random Forest best overall.
-  Since this data is not constant and will react for all temperature changes, even natural phenomena, it has a wide range of data.
-  """)
-  
-  # image from file
-  image_url = "https://github.com/Carmine137/AUG24_world_temperature/blob/main/temp_change-predict.png"
-  st.image(image_url, caption='Scatter Plot Predicted vs Actual Values-temp_change-predict', use_column_width=True)
+    # GRAPH 02 
+    st.markdown("""
+    ### Target Variable - temperature_change_from_ghg
+    - This Database uses the tempchange_ghg column as the target variable.
+    - This dataset is from github and focuses on temperature changes from Greenhouse emissions.
+    - Most Greenhouse emissions are more constant and change slowly but steady over time.
     
-  st.markdown("""
-  ###Target Variable - temperature_change_from_ghg
-  
-  This Database uses the tempchange_ghg column as the target variable.
-  This dataset is from github and focuses on temperature changes from Greenhouse emissions.
-  Most Greenhouse emissions are more constant and change slowly but steady over time.
-  
-  Decision Tree (R² = 0.997) and Random Forest (R² = 0.999) work for this dataset best, with close followup on Ridge and Linear Regression.
-  """)
-  
-  # image from file
-  image_url = "https://github.com/Carmine137/AUG24_world_temperature/blob/main/temperature_change_from_ghg-predict.png"
-  st.image(image_url, caption='Scatter Plot Predicted vs Actual Values-temperature_change_from_ghg-predictb', use_column_width=True)
+    Decision Tree (R² = 0.997) and Random Forest (R² = 0.999) work for this dataset best, with close followup on Ridge and Linear Regression.
+    """)
+    # image from file 02
+    st.markdown(
+        """
+        <div style='text-align: center;'>
+            <img src='https://github.com/Carmine137/AUG24_world_temperature/blob/main/temperature_change_from_ghg-predict.png?raw=true' width='800'/>
+            <p style='font-size: 18px; color: gray;'>Figure 2: Scatter Plot Predicted vs Actual Values-temperature_change_from_ghg-predict</p>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
+    #GRAPH 03
+    st.markdown("""
+    ### Target Variable - temperature_change_from_co2
+    
+    - This Database uses the tempchange_co2 column as the target variable.
+    - This dataset is from github and focuses on temperature changes from carbon dioxide emissions.
+    - The temperature change is like the greenhouse emissions more constant and changes only slowly but steadily over time.
 
-  st.markdown("""
-  ###Target Variable - temperature_change_from_co2
-  
-  This Database uses the tempchange_co2 column as the target variable.
-  This dataset is from github and focuses on temperature changes from carbon dioxide emissions.
-  The temperature change is like the greenhouse emissions more constant and changes only slowly but steadily over time.
+    Decision Tree (R² = 0.998) and Random Forest  (R² = 0.998) work for this dataset best, with close followup on Ridge and Linear Regression.
+    """)
+    # image from file 03
+    st.markdown(
+        """
+        <div style='text-align: center;'>
+            <img src='https://github.com/Carmine137/AUG24_world_temperature/blob/main/temperature_change_from_co2-predict.png?raw=true' width='800'/>
+            <p style='font-size: 18px; color: gray;'>Figure 3: Scatter Plot Predicted vs Actual Values-temperature_change_from_co2-predict</p>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
 
-  Decision Tree (R² = 0.998) and Random Forest  (R² = 0.998) work for this dataset best, with close followup on Ridge and Linear Regression.
-  """)
-  
-  # image from file
-  image_url = "https://github.com/Carmine137/AUG24_world_temperature/blob/main/temperature_change_from_co2-predict.png"
-  st.image(image_url, caption='Scatter Plot Predicted vs Actual Values-temperature_change_from_co2-predict', use_column_width=True)
-           
-  st.markdown("""
-  For each dataset we can see now, how the same model and method works on diffrent datasets with the same structure.
-  To find the best model and methode for a dataset, it is realy important to test and check for each dataset.
-  The Random Forest workes best here, since it is good for complex data and performs with a nice accuracy.
-  
-  Important: For performance reason and since both datasets come to the same conclusion, we will keep the grafic analysis part only for the second dataset,
-  since it shows best the diffrences in values of each dataset.
-  """)
+
+    st.markdown("""
+    - For each dataset we can see now, how the same model and method works on diffrent datasets with the same structure.
+    - To find the best model and methode for a dataset, it is realy important to test and check for each dataset.
+    - The Random Forest workes best here, since it is good for complex data and performs with a nice accuracy.
+    
+    **Important:**
+     For performance reason and since both datasets come to the same conclusion, we will keep the grafic analysis part only for the second dataset,
+    since it shows best the diffrences in values of each dataset.
+    """)
 
     
 if page == pages[6] :
@@ -1541,7 +1562,11 @@ if page == pages[6] :
     Michaela_RandomForest_Model = load_model_pickle()
 
     exploratory_variables = np.array([model_exploratory_variables])
-    st.write(exploratory_variables)
+    prediction_encoded = Michaela_RandomForest_Model.predict(exploratory_variables)
+    st.markdown(
+    f"<p style='font-size:24px; font-weight:bold;'>La prédiction de l'espèce est : {prediction_decoded}</p>", 
+    unsafe_allow_html=True
+    )
 if page == pages[7] :
     st.markdown(
     """
