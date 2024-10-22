@@ -25,7 +25,7 @@ kaggle_temp_change = pd.concat([kaggle_temp_change_1, kaggle_temp_change_2], ign
 
 #Creating Main Structure
 st.sidebar.title("Summary")
-pages=["Introduction", "Data Exploration", "Data Vizualization","Target Variable Choice", "Modelling", "Prediction", "Conclusion"]
+pages=["Introduction", "Data Exploration", "Data Vizualization","Target Variable Choice","Pre-processing and Data Cleaning" ,"Modelling", "Prediction", "Conclusion"]
 page=st.sidebar.radio("Select Section", pages)
 
 st.sidebar.markdown(
@@ -938,3 +938,419 @@ if page == pages[3] :
     # Display the plot
     st.pyplot(plt)
 # Continuare aggiustando il grafico delle temperature, e poi resta solo la parte del modello e delle prediction
+
+
+
+
+
+
+
+if page == pages[4] :
+    st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        .blue-box {
+            border: 1px solid #d6d6d6;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #e0f7fa;
+            margin-bottom: 20px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.markdown('<h1 class="centered-title">Pre-processing</h1>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
+    with st.expander("Datasets"):
+        st.markdown("""
+        - Nasa Dataset: Zonal Annual Temperature Anomalies
+        - FAOSTAT Temperature Change - from Kaggle
+        - FAOSTAT Temperature Change - from Kaggle - NO Flag
+        - CO2 and Greenhouse Gas Emissions database by Our World in Data - from GitHub
+        - HARDCRUT Information about Surf Temperature, historical data till 2017 - From Our World in Data
+        - World Regions - According to Our World in Data
+        - Annual CO2 Emissions by region - from Our World in Data
+        """)
+
+    st.markdown("""
+    ### Pre-processing Steps
+     1. **Dataset decisions:**
+         - First Dataset: Base: CO2 and Greenhouse Gas Emissions
+         - Second Dataset Base: FAOSTAT Temperature change NOFLAG - from Kaggle
+    (why 2?: The massive amount of available data sources, allows us for more then one data analysis) 
+
+    2. **Data Merge options:**
+        First Dataset:
+            - FAOSTAT Temperature Change
+            - FAOSTAT Temperature Change NO Flag
+            - HARDCRUT Information about Surf Temperature (historical data till 2017)
+        Second Dataset:
+            - World Regions - According to Our World in Data
+            - CO2 and Greenhouse Gas Emissions
+
+    3. **Preparation:**
+            First & Second Dataset:
+            - Standardize column names and checking for common entries between datasets
+            - checking for missing values and duplicates
+            - understanding the datatypes and dataframe
+        First Dataset:
+            - merging all dataframes based on country and year
+            - choosing a timespan (1850+)
+            - choosing a second timespan (1960+)
+            - drop of unrealated columns with industrie categorisation and high NaN values
+            - missing values: numerical variables, no categorical
+            - 1. using KNN imputer for Nan values
+            - 2. NaN values were dropped
+        Second Dataset:
+            - structure change of base dataset to create a "year" and "temp-change" column
+            - merging all dataframes (adding only choosen columns from each dataset to the base)
+            - drop of unused columns after merge
+            - timespan 1961+ (Base timespan)
+            - missing values: numerical variables, no categorical, nothing in temperature data
+            - missing values: only in Greenhouse dataset for small island countries (no CO2 informations)
+            - we drop the few NaN values of this countries
+
+    4. **Final Datasets:**
+        Methodes used to work with categorical values:
+            - factorize methode
+            - get_dummies methode
+        First Dataset:
+            - df_project_dropped_dummies.csv
+            - df_project_dropped_factorized.csv
+            - df_project_KNN_dummies.csv
+            - df_project_KNN_factorized.csv
+        Second Dataset:
+            - Data_World_temperature.csv
+
+    This pre-processing and merging of datasets ensured that our data was ready for the modeling process.
+    """)
+
+    
+if page == pages[5] :
+    st.title('Machine Learning Models')
+    st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+     )
+     st.markdown('<h1 class="centered-title">Machine Learning Model Selection</h1>', unsafe_allow_html=True)
+     st.markdown("<br><br>", unsafe_allow_html=True)
+     st.markdown("""
+The objective of this analysis was to identify the best-performing machine learning model for predicting surface temperature anomalies using different regression techniques.
+We evaluated and compared the performance of six  models:
+
+    - **Linear**
+    - **Decision Tree**
+    - **Random Forest**
+    - **Lasso**
+    - **LassoCV**
+    - **Ridge**
+
+    ### Evaluation Metrics
+
+    - **R² Score (Coefficient of Determination)**:
+        Measures the proportion of variance in the dependent variable that can be predicted from the independent variables. Higher R² values indicate better performance.
+    - **Mean Absolute Error (MAE)**:
+        Represents the average magnitude of the prediction errors, offering an easy-to-understand measure of accuracy. Lower MAE values indicate better model performance.
+    - **Mean Squared Error (MSE)**:
+        Represents the average of the squared prediction errors, placing more weight on larger errors. A smaller MSE means a better model.
+    - **Root Mean Squared Error (RMSE)**:
+        Represents the square root of MSE, providing an error measure in the same units as the original data. Lower RMSE values are better, and it's more sensitive to larger errors than MAE    
+""")
+    
+if page == pages[5] :
+  with st.expander("**First Dataset**"):
+    st.markdown("""
+    Given the large number of models we tested (approximately 50), we decided to focus on the most noteworthy ones.
+    Our primary criterion for selecting which models to analyze in greater detail was based on the highest R² score achieved on the test set.
+    This helped us identify the models that best captured the underlying patterns and provided the most accurate predictions.
+
+    Nonetheless, we chose to present the scores of all the models we created in a matrix table.
+    This table provides a comprehensive overview of each model’s performance, allowing for easy comparison of the evaluation metrics across all models, even those not selected for in-depth analysis.
+    """)
+
+data = {
+    'Model': [
+        'Random Forest (get dummies)', 'Random Forest (factorized)',
+        'Random Forest (get dummies, knn)', 'Random Forest (factorized, knn)',
+        'Decision Tree (factorized)', 'Decision Tree (get dummies)',
+        'Decision Tree (get dummies, knn)', 'Decision Tree (factorized, knn)',
+        'Linear (get dummies)', 'Ridge (get dummies)',
+        'Linear (factorized)', 'Ridge (factorized)',
+        'Ridge (get dummies, knn)', 'Linear (get dummies, knn)',
+        'Linear (factorized, knn)', 'Ridge (factorized, knn)',
+        'Lasso (get dummies)', 'Lasso (factorized)',
+        'Lasso (factorized, knn)', 'Lasso (get dummies, knn)',
+        'LassoCV (factorized, knn)', 'LassoCV (get dummies, knn)',
+        'LassoCV (factorized)', 'LassoCV (get dummies)'
+    ],
+
+'R2 Train': [
+        0.891, 0.879, 0.884, 0.883,
+        0.542, 0.575, 0.670, 0.555,
+        0.378, 0.377,
+        0.331, 0.331,
+        0.385, 0.386,
+        0.338, 0.337,
+        0.323, 0.323,
+        0.327, 0.327,
+        0.002, 0.002,
+        0.003, 0.003
+    ],
+    'R2 Test': [
+        0.630, 0.615, 0.592, 0.579,
+        0.515, 0.513, 0.491, 0.483,
+        0.367, 0.364,
+        0.343, 0.342,
+        0.336, 0.335,
+        0.335, 0.334,
+        0.331, 0.331,
+        0.326, 0.326,
+        0.003, 0.003,
+        0.000, 0.000
+    ],
+    'MAE Test': [
+        0.256, 0.262, 0.259, 0.267,
+        0.302, 0.298, 0.294, 0.301,
+        0.339, 0.340,
+        0.345, 0.345,
+        0.346, 0.346,
+        0.349, 0.349,
+        0.346, 0.346,
+        0.351, 0.351,
+        0.432, 0.432,
+        0.437, 0.437
+    ],
+    'MSE Test': [
+        0.123, 0.128, 0.128, 0.132,
+        0.162, 0.162, 0.160, 0.162,
+        0.211, 0.212,
+        0.219, 0.219,
+        0.209, 0.209,
+        0.209, 0.209,
+        0.223, 0.223,
+        0.212, 0.212,
+        0.313, 0.313,
+        0.333, 0.333
+    ],
+    'RMSE Test': [
+        0.351, 0.358, 0.358, 0.363,
+        0.402, 0.403, 0.400, 0.403,
+        0.460, 0.461,
+        0.468, 0.468,
+        0.457, 0.457,
+        0.457, 0.457,
+        0.472, 0.472,
+        0.460, 0.460,
+        0.560, 0.560,
+        0.577, 0.577
+    ]
+}
+
+# Create a DataFrame
+metrics_df = pd.DataFrame(data)
+
+# Streamlit app
+st.title("Models with timespan 1960-2017")
+
+# Display
+st.dataframe(metrics_df.style.highlight_max(axis=0))
+
+
+data2 = {
+    'Model': [
+        'Random Forest (get dummies)', 'Random Forest (factorized)',
+        'Random Forest (get dummies, knn)', 'Random Forest (factorized, knn)',
+        'Decision Tree (factorized)', 'Decision Tree (get dummies)',
+        'Decision Tree (factorized, knn)', 'Linear (get dummies)',
+        'Ridge (get dummies)', 'Decision Tree (get dummies, knn)',
+        'Linear (factorized)', 'Ridge (factorized)',
+        'Lasso (get dummies)', 'Lasso (factorized)',
+        'Ridge (get dummies, knn)', 'Linear (get dummies, knn)',
+        'Linear (factorized, knn)', 'Lasso (factorized, knn)',
+        'Lasso (get dummies, knn)', 'Ridge (factorized, knn)',
+        'LassoCV (factorized, knn)', 'LassoCV (get dummies, knn)',
+        'LassoCV (factorized)', 'LassoCV (get dummies)'
+    ],
+    'R2 Train': [
+        0.810, 0.801, 0.714, 0.740,
+        0.371, 0.340, 0.293, 0.279,
+        0.278, 0.269,
+        0.246, 0.245,
+        0.242, 0.242,
+        0.214, 0.214,
+        0.185, 0.183,
+        0.183, 0.184,
+        0.004, 0.004,
+        0.003, 0.003
+    ],
+    'R2 Test': [
+        0.500, 0.481, 0.473, 0.458,
+        0.346, 0.334, 0.293, 0.273,
+        0.273, 0.269,
+        0.247, 0.247,
+        0.244, 0.244,
+        0.192, 0.191,
+        0.180, 0.179,
+        0.179, 0.179,
+        0.004, 0.004,
+        0.003, 0.003
+    ],
+    'MAE Test': [
+        0.328, 0.335, 0.334, 0.340,
+        0.382, 0.387, 0.396, 0.410,
+        0.410, 0.402,
+        0.417, 0.417,
+        0.419, 0.419,
+        0.429, 0.429,
+        0.432, 0.432,
+        0.432, 0.432,
+        0.483, 0.483,
+        0.486, 0.486
+    ],
+    'MSE Test': [
+        0.218, 0.226, 0.228, 0.235,
+        0.284, 0.289, 0.306, 0.316,
+        0.316, 0.316,
+        0.327, 0.327,
+        0.329, 0.329,
+        0.350, 0.350,
+        0.355, 0.355,
+        0.355, 0.355,
+        0.431, 0.431,
+        0.433, 0.433
+    ],
+    'RMSE Test': [
+        0.466, 0.475, 0.478, 0.484,
+        0.533, 0.538, 0.553, 0.562,
+        0.562, 0.563,
+        0.572, 0.572,
+        0.573, 0.573,
+        0.592, 0.592,
+        0.596, 0.596,
+        0.596, 0.596,
+        0.657, 0.657,
+        0.658, 0.658
+    ]
+}
+
+metrics_df2 = pd.DataFrame(data2)
+
+st.title("Models with timespan 1850-2017")
+
+st.dataframe(metrics_df2.style.highlight_max(axis=0))
+
+st.markdown("""
+**Key findings**: 
+    - The R² score is generally lower in models using the larger dataset.
+    - The Random Forest Regressor consistently performs the best across all tested models.
+    - The Lasso Regressor consistently performs the worst among all models.
+""")
+
+
+if page == pages[5] :
+  with st.expander("**Second Dataset**"):
+    st.markdown("""
+    In the first dataset we tested the different Models and variables, so here we concentrate on the best dataset for each temperature change.
+
+    After training the Different models using the get_dummies method and dropping missing values, the following metrics were obtained:
+    """)
+data = {
+    'Model': ['Forest', 'Ridge', 'Decision Tree', 'Linear', 'Lasso', 'LassoCV'],
+    'Temp Change - MSE': [0.134, 0.199, 0.217, 0.219, 0.232, 0.428],
+    'Temp Change - MAE': [0.261, 0.337, 0.341, 0.353, 0.364, 0.526],
+    'Temp Change - R2': [0.692, 0.544, 0.503, 0.497, 0.467, 0.018],
+    'Temp Change - MSE**(1/2)': [0.366, 0.446, 0.465, 0.468, 0.482, 0.654],
+
+    'Temp Change GHG - MSE': [0.000, 0.000, 0.000, 0.000, 0.000, 0.000],
+    'Temp Change GHG - MAE': [0.000, 0.001, 0.000, 0.002, 0.009, 0.004],
+    'Temp Change GHG - R2': [0.999, 0.983, 0.997, 0.924, 0.000, 0.736],
+    'Temp Change GHG - MSE**(1/2)': [0.001, 0.003, 0.001, 0.006, 0.022, 0.011],
+
+    'Temp Change CO2 - MSE': [0.000, 0.000, 0.000, 0.000, 0.000, 0.000],
+    'Temp Change CO2 - MAE': [0.000, 0.001, 0.000, 0.002, 0.006, 0.003],
+    'Temp Change CO2 - R2': [0.998, 0.978, 0.998, 0.976, 0.000, 0.642],
+    'Temp Change CO2 - MSE**(1/2)': [0.001, 0.002, 0.001, 0.002, 0.016, 0.009],
+}
+
+metrics_df3= pd.DataFrame(data3)
+
+st.title("Model Performance Metrics for Temperature Change")
+
+# Display
+st.dataframe(metrics_df3.style.highlight_max(axis=0))
+
+if page == pages[5] :
+  st.markdown(
+                """
+                <style>
+                .centered-title {
+                    font-size: 28px;
+                    text-align: center;
+                    border-top: 2px solid black;
+                    border-bottom: 2px solid black;
+                    padding: 10px;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True,
+             )
+  st.markdown('<h1 class="centered-title">Dataset Evaluation</h1>', unsafe_allow_html=True)
+  st.markdown("<br><br>", unsafe_allow_html=True)
+  st.markdown("""The Large number of models allowed a nice overview of all possible options and a good Performance Evaluation.
+  In both datasets the outcome for the models goes the same route, so we concentrate for performance reasons now on the second dataset
+  for a scatter plot predicted vs actual values for the temp_change based on Kaggle data (what is based on NASA data), and the CO2 Greenhouse data for temperature change one for C02 and one for greenhouse. 
+  """)
+
+#work in progress here
+###############################################################################################################
+    
+if page == pages[6] :
+    #add ur predicition here
+
+
+
+
+
+if page == pages[7] :
+     st.title('Conclusion')
+     st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+     )
+    st.markdown("""
+    ## Conclusion
+    **Random Forest Regressor** outperformed both the Decision Tree and Linear Regression models, demonstrating its ability to better generalize and provide more accurate predictions for this dataset.
+    The Random Forest's superior performance suggests that it is well-suited for capturing the underlying patterns in the data, benefiting from its ensemble nature and the use of multiple decision trees to improve predictive accuracy.
+    Moving forward, further tuning of the Random Forest model's hyperparameters or exploring other ensemble methods could potentially yield even better results.
+    """)
+
+
