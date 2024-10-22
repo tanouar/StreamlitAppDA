@@ -40,7 +40,22 @@ st.sidebar.markdown(
 
 # Page 0 Introduction
 if page == pages[0] :
-    st.title("DataScientest - Wolrd Temperature Project - AUG24")
+    st.markdown(
+    """
+    <style>
+    .centered-title {
+        font-size: 32px;
+        text-align: center;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+        padding: 10px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+    )
+    st.markdown('<h1 class="centered-title">DataScientest - Wolrd Temperature Project - AUG24</h1>', unsafe_allow_html=True)
+
     st.markdown(
         """
         <div style='text-align: center;'>
@@ -79,9 +94,26 @@ if page == pages[0] :
     """, unsafe_allow_html=True)
 
 
+
 # Page 1 Data Exploration
 if page == pages[1] :
-    st.header("Data Exploration")
+    st.markdown(
+    """
+    <style>
+    .centered-title {
+        font-size: 28px;
+        text-align: center;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+        padding: 10px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+    )
+    st.markdown('<h1 class="centered-title">Data Exploration</h1>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
     st.write("To perform the data analysis and the study of World temperature change, the following dataset available online were selected.")
     st.markdown("""
         1. **[Nasa Dataset: Zonal Annual Temperature Anomalies](https://data.giss.nasa.gov/gistemp/)** 
@@ -280,9 +312,26 @@ if page == pages[1] :
                 - For better use of this dataset, data manipulation was needed.
             """)
 
-# Page 2 - Data Visualization
+# Page 2 - Data Visualization - Page Text and Calculations
 if page == pages[2] :
-    st.header("Data Visualization")
+    st.markdown(
+    """
+    <style>
+    .centered-title {
+        font-size: 28px;
+        text-align: center;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+        padding: 10px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+    )
+    st.markdown('<h1 class="centered-title">Data Visualization</h1>', unsafe_allow_html=True)
+
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
     text = """
     In order to provide an idea of the Data we used for our project, in this section we will present all the relevant graphs and Tables. 
     """
@@ -293,104 +342,103 @@ if page == pages[2] :
     """, unsafe_allow_html=True)
 
     st.markdown("## GitHub Data Exploration")
-owid_country_infos = owid_country_infos.drop(columns="Year") 
-github_co2_data_countries = github_co2_data[github_co2_data["iso_code"].notnull()]
-github_co2_data_countries = github_co2_data_countries.rename(columns={"country" : "Entity"})
-github_co2_data_countries = pd.merge(github_co2_data_countries, owid_country_infos[['Entity', 'Continent']], on='Entity', how='inner')
-# Define the categories and their corresponding columns
-categories = {
-    "General Information": #1
-      ["Entity", "year", "iso_code"],
+    owid_country_infos = owid_country_infos.drop(columns="Year") 
+    github_co2_data_countries = github_co2_data[github_co2_data["iso_code"].notnull()]
+    github_co2_data_countries = github_co2_data_countries.rename(columns={"country" : "Entity"})
+    github_co2_data_countries = pd.merge(github_co2_data_countries, owid_country_infos[['Entity', 'Continent']], on='Entity', how='inner')
+    # Define the categories and their corresponding columns
+    categories = {
+        "General Information": #1
+          ["Entity", "year", "iso_code"],
 
-    "Population and Economy": #2
-      ["population", "gdp"],
+        "Population and Economy": #2
+          ["population", "gdp"],
 
-    "Climate Change": #3
-      ["share_of_temperature_change_from_ghg", "temperature_change_from_ch4", "temperature_change_from_co2", "temperature_change_from_ghg", "temperature_change_from_n2o"],
-
-
-    "Source-specific CO2 Emissions": #4
-      ["co2", "co2_including_luc", "cement_co2", "coal_co2", "flaring_co2", "gas_co2", "land_use_change_co2", "oil_co2", "other_industry_co2"],
+        "Climate Change": #3
+          ["share_of_temperature_change_from_ghg", "temperature_change_from_ch4", "temperature_change_from_co2", "temperature_change_from_ghg", "temperature_change_from_n2o"],
 
 
-    "CO2 Emissions per Capita": #5
-      ["co2_per_capita", "co2_including_luc_per_capita", "cement_co2_per_capita", "coal_co2_per_capita", "flaring_co2_per_capita", "gas_co2_per_capita", "land_use_change_co2_per_capita", "oil_co2_per_capita", "other_co2_per_capita"],
-
-    "CO2 Emissions per GDP": #6
-      ["co2_per_gdp", "co2_including_luc_per_gdp", "consumption_co2_per_gdp"],
-      
-    "CO2 Emissions per Unit of Energy": #7
-      ["co2_per_unit_energy", "co2_including_luc_per_unit_energy"],
-
-    "CO2 Emissions from Consumption": #8
-      ["consumption_co2", "consumption_co2_per_capita"],
-
-    "CO2 Emissions from Trade": #9
-      ["trade_co2", "trade_co2_share"],
-
-    "Cumulative CO2 Emissions": #10
-      ["cumulative_cement_co2", "cumulative_co2", "cumulative_co2_including_luc", "cumulative_coal_co2", "cumulative_flaring_co2", "cumulative_gas_co2", "cumulative_luc_co2", "cumulative_oil_co2", "cumulative_other_co2"],
-
-    "Share of Global CO2 Emissions": #11
-      ["share_global_cement_co2", "share_global_co2", "share_global_co2_including_luc", "share_global_coal_co2", "share_global_flaring_co2", "share_global_gas_co2", "share_global_luc_co2", "share_global_oil_co2", "share_global_other_co2", "share_global_cumulative_cement_co2", "share_global_cumulative_co2", "share_global_cumulative_co2_including_luc", "share_global_cumulative_coal_co2", "share_global_cumulative_flaring_co2", "share_global_cumulative_gas_co2", "share_global_cumulative_luc_co2", "share_global_cumulative_oil_co2", "share_global_cumulative_other_co2"],
-
-    "CO2 Emissions Growth": #12
-      ["co2_growth_abs", "co2_growth_prct", "co2_including_luc_growth_abs", "co2_including_luc_growth_prct"],
-
-    "Total GHG Emission": #13
-      ["total_ghg", "total_ghg_excluding_lucf"],
-
-    "GHG per Capita": #14
-      ["ghg_per_capita", "ghg_excluding_lucf_per_capita"],
-
-    "Other Greenhouse Gases (GHG)": #15
-      ["methane", "nitrous_oxide"],
-
-    "Other GHG per Capita": #16
-      ["methane_per_capita", "nitrous_oxide_per_capita"],
-      
-    "Energy": #17
-     ["primary_energy_consumption", "energy_per_capita", "energy_per_gdp"]
-}
-
-# Chech if category division worked correctly
-total_values = sum(len(v) for v in categories.values())
-print("Total number of values in the dictionary - categories- :", total_values)
-del total_values
+        "Source-specific CO2 Emissions": #4
+          ["co2", "co2_including_luc", "cement_co2", "coal_co2", "flaring_co2", "gas_co2", "land_use_change_co2", "oil_co2", "other_industry_co2"],
 
 
-# Function to combine columns from one or multiple categories into a single DataFrame
-def combine_categories(df, categories, *cats):
-    combined_columns = []
+        "CO2 Emissions per Capita": #5
+          ["co2_per_capita", "co2_including_luc_per_capita", "cement_co2_per_capita", "coal_co2_per_capita", "flaring_co2_per_capita", "gas_co2_per_capita", "land_use_change_co2_per_capita", "oil_co2_per_capita", "other_co2_per_capita"],
 
-    for cat in cats:
-        combined_columns.extend(categories[cat])
+        "CO2 Emissions per GDP": #6
+          ["co2_per_gdp", "co2_including_luc_per_gdp", "consumption_co2_per_gdp"],
 
-    # Create a new DataFrame with the combined columns
-    combined_df = df[combined_columns]
-    return combined_df
+        "CO2 Emissions per Unit of Energy": #7
+          ["co2_per_unit_energy", "co2_including_luc_per_unit_energy"],
 
-df_years_1850= github_co2_data_countries[(github_co2_data_countries['year'] >= 1850)]
+        "CO2 Emissions from Consumption": #8
+          ["consumption_co2", "consumption_co2_per_capita"],
 
-#df with annual values
-df_annual_co2= combine_categories(df_years_1850, categories, "General Information","Population and Economy", "Climate Change","Source-specific CO2 Emissions")
+        "CO2 Emissions from Trade": #9
+          ["trade_co2", "trade_co2_share"],
 
-#columns to remove because they are not relevant
-columns_to_remove = ['other_industry_co2', 'cumulative_other_co2', 'iso_code',"share_of_temperature_change_from_ghg","cumulative_co2_including_luc","co2_including_luc"]
+        "Cumulative CO2 Emissions": #10
+          ["cumulative_cement_co2", "cumulative_co2", "cumulative_co2_including_luc", "cumulative_coal_co2", "cumulative_flaring_co2", "cumulative_gas_co2", "cumulative_luc_co2", "cumulative_oil_co2", "cumulative_other_co2"],
+
+        "Share of Global CO2 Emissions": #11
+          ["share_global_cement_co2", "share_global_co2", "share_global_co2_including_luc", "share_global_coal_co2", "share_global_flaring_co2", "share_global_gas_co2", "share_global_luc_co2", "share_global_oil_co2", "share_global_other_co2", "share_global_cumulative_cement_co2", "share_global_cumulative_co2", "share_global_cumulative_co2_including_luc", "share_global_cumulative_coal_co2", "share_global_cumulative_flaring_co2", "share_global_cumulative_gas_co2", "share_global_cumulative_luc_co2", "share_global_cumulative_oil_co2", "share_global_cumulative_other_co2"],
+
+        "CO2 Emissions Growth": #12
+          ["co2_growth_abs", "co2_growth_prct", "co2_including_luc_growth_abs", "co2_including_luc_growth_prct"],
+
+        "Total GHG Emission": #13
+          ["total_ghg", "total_ghg_excluding_lucf"],
+
+        "GHG per Capita": #14
+          ["ghg_per_capita", "ghg_excluding_lucf_per_capita"],
+
+        "Other Greenhouse Gases (GHG)": #15
+          ["methane", "nitrous_oxide"],
+
+        "Other GHG per Capita": #16
+          ["methane_per_capita", "nitrous_oxide_per_capita"],
+
+        "Energy": #17
+         ["primary_energy_consumption", "energy_per_capita", "energy_per_gdp"]
+    }
+
+    # Chech if category division worked correctly
+    total_values = sum(len(v) for v in categories.values())
+    print("Total number of values in the dictionary - categories- :", total_values)
+    del total_values
 
 
-df_annual_co2=df_annual_co2.drop(columns=columns_to_remove, errors='ignore')
+    # Function to combine columns from one or multiple categories into a single DataFrame
+    def combine_categories(df, categories, *cats):
+        combined_columns = []
 
-# Printing Correlation Matrix with NON filled Database
+        for cat in cats:
+            combined_columns.extend(categories[cat])
 
-# Select numeric columns
-numeric_df = df_annual_co2.select_dtypes(include=[np.number])
+        # Create a new DataFrame with the combined columns
+        combined_df = df[combined_columns]
+        return combined_df
 
-#  Calculate the correlation matrix
-correlation_matrix = numeric_df.corr()
+    df_years_1850= github_co2_data_countries[(github_co2_data_countries['year'] >= 1850)]
+
+    #df with annual values
+    df_annual_co2= combine_categories(df_years_1850, categories, "General Information","Population and Economy", "Climate Change","Source-specific CO2 Emissions")
+
+    #columns to remove because they are not relevant
+    columns_to_remove = ['other_industry_co2', 'cumulative_other_co2', 'iso_code',"share_of_temperature_change_from_ghg","cumulative_co2_including_luc","co2_including_luc"]
 
 
-# Page 2 - Data Visualization
+    df_annual_co2=df_annual_co2.drop(columns=columns_to_remove, errors='ignore')
+
+    # Printing Correlation Matrix with NON filled Database
+
+    # Select numeric columns
+    numeric_df = df_annual_co2.select_dtypes(include=[np.number])
+
+    #  Calculate the correlation matrix
+    correlation_matrix = numeric_df.corr()
+
+# Page 2 - Data Visualization - GitHub Graphs
 if page == pages[2] :
     # Visualize the correlation matrix
     with st.expander("**Graph 01 Annual CO2 Emissions including land use change for Top 5 Countries**"):
@@ -581,78 +629,78 @@ if page == pages[2] :
             </div>
             """, unsafe_allow_html=True)
 
-# ------------- KAggle Manipulation
-columns_to_drop = ["Domain Code", "Domain", "Element Code", "Element", "Unit"]
-kaggle_temp_change_cleaned = kaggle_temp_change.drop(columns=columns_to_drop)
-kaggle_temp_yearly = kaggle_temp_change_cleaned.loc [kaggle_temp_change_cleaned["Months Code"] == 7020, ["Area", "Year", "Value"]]
-kaggle_temp_yearly = kaggle_temp_yearly.rename(columns={"Area": "Entity"})
-kaggle_temp_yearly = pd.merge(kaggle_temp_yearly, owid_country_infos, on=["Entity"], how='left')
-# Assigning the remaining Continents to the Countries - Creating a Function 
-def assign_continents(country):
-    asia = ['Afghanistan', 'Armenia', 'Azerbaijan', 'Bahrain', 'Bangladesh', 'Bhutan', 'Brunei Darussalam', 'Cambodia',
-            'China, mainland','China', 'China, Hong Kong SAR', 'China, Macao SAR', 'China, Taiwan Province of', 'Democratic People\'s Republic of Korea',
-            'Georgia', 'India', 'Indonesia', 'Iran (Islamic Republic of)', 'Iraq', 'Israel', 'Japan', 'Jordan', 'Kazakhstan',
-            'Kuwait', 'Kyrgyzstan', 'Lao People\'s Democratic Republic', 'Lebanon', 'Malaysia', 'Maldives', 'Mongolia', 'Myanmar',
-            'Nepal', 'Oman', 'Pakistan', 'Palestine', 'Philippines', 'Qatar', 'Republic of Korea', 'Saudi Arabia', 'Singapore',
-            'Sri Lanka', 'Syrian Arab Republic', 'Tajikistan', 'Thailand', 'Timor-Leste', 'Turkey', 'Turkmenistan', 'USSR', 'United Arab Emirates',
-            'Uzbekistan', 'Viet Nam', 'Yemen']
+    # ------------- KAggle Manipulation
+    columns_to_drop = ["Domain Code", "Domain", "Element Code", "Element", "Unit"]
+    kaggle_temp_change_cleaned = kaggle_temp_change.drop(columns=columns_to_drop)
+    kaggle_temp_yearly = kaggle_temp_change_cleaned.loc [kaggle_temp_change_cleaned["Months Code"] == 7020, ["Area", "Year", "Value"]]
+    kaggle_temp_yearly = kaggle_temp_yearly.rename(columns={"Area": "Entity"})
+    kaggle_temp_yearly = pd.merge(kaggle_temp_yearly, owid_country_infos, on=["Entity"], how='left')
+    # Assigning the remaining Continents to the Countries - Creating a Function 
+    def assign_continents(country):
+        asia = ['Afghanistan', 'Armenia', 'Azerbaijan', 'Bahrain', 'Bangladesh', 'Bhutan', 'Brunei Darussalam', 'Cambodia',
+                'China, mainland','China', 'China, Hong Kong SAR', 'China, Macao SAR', 'China, Taiwan Province of', 'Democratic People\'s Republic of Korea',
+                'Georgia', 'India', 'Indonesia', 'Iran (Islamic Republic of)', 'Iraq', 'Israel', 'Japan', 'Jordan', 'Kazakhstan',
+                'Kuwait', 'Kyrgyzstan', 'Lao People\'s Democratic Republic', 'Lebanon', 'Malaysia', 'Maldives', 'Mongolia', 'Myanmar',
+                'Nepal', 'Oman', 'Pakistan', 'Palestine', 'Philippines', 'Qatar', 'Republic of Korea', 'Saudi Arabia', 'Singapore',
+                'Sri Lanka', 'Syrian Arab Republic', 'Tajikistan', 'Thailand', 'Timor-Leste', 'Turkey', 'Turkmenistan', 'USSR', 'United Arab Emirates',
+                'Uzbekistan', 'Viet Nam', 'Yemen']
 
-    europe = ['Albania', 'Andorra', 'Austria', 'Belarus', 'Belgium', 'Belgium-Luxembourg', 'Bosnia and Herzegovina', 'Bulgaria',
-              'Channel Islands', 'Croatia', 'Cyprus', 'Czechia', 'Czechoslovakia', 'Denmark', 'Estonia', 'Faroe Islands', 'Finland',
-              'France', 'Germany', 'Gibraltar', 'Greece', 'Holy See', 'Hungary', 'Iceland', 'Ireland', 'Isle of Man', 'Italy', 'Latvia',
-              'Liechtenstein', 'Lithuania', 'Luxembourg', 'Malta', 'Monaco', 'Montenegro', 'Netherlands', 'North Macedonia', 'Norway',
-              'Poland', 'Portugal', 'Republic of Moldova', 'Romania', 'Russian Federation', 'San Marino', 'Serbia', 'Serbia and Montenegro',
-              'Slovakia', 'Slovenia', 'Spain', 'Svalbard and Jan Mayen Islands', 'Sweden', 'Switzerland', 'Ukraine', 'United Kingdom of Great Britain and Northern Ireland', "United Kingdom",
-              'Yugoslav SFR']
+        europe = ['Albania', 'Andorra', 'Austria', 'Belarus', 'Belgium', 'Belgium-Luxembourg', 'Bosnia and Herzegovina', 'Bulgaria',
+                  'Channel Islands', 'Croatia', 'Cyprus', 'Czechia', 'Czechoslovakia', 'Denmark', 'Estonia', 'Faroe Islands', 'Finland',
+                  'France', 'Germany', 'Gibraltar', 'Greece', 'Holy See', 'Hungary', 'Iceland', 'Ireland', 'Isle of Man', 'Italy', 'Latvia',
+                  'Liechtenstein', 'Lithuania', 'Luxembourg', 'Malta', 'Monaco', 'Montenegro', 'Netherlands', 'North Macedonia', 'Norway',
+                  'Poland', 'Portugal', 'Republic of Moldova', 'Romania', 'Russian Federation', 'San Marino', 'Serbia', 'Serbia and Montenegro',
+                  'Slovakia', 'Slovenia', 'Spain', 'Svalbard and Jan Mayen Islands', 'Sweden', 'Switzerland', 'Ukraine', 'United Kingdom of Great Britain and Northern Ireland', "United Kingdom",
+                  'Yugoslav SFR']
 
-    north_america = ['Anguilla', 'Antigua and Barbuda', 'Aruba', 'Bahamas', 'Barbados', 'Belize', 'Bermuda', 'British Virgin Islands',
-                     'Canada', 'Cayman Islands', 'Costa Rica', 'Cuba', 'Dominica', 'Dominican Republic', 'El Salvador', 'Greenland',
-                     'Grenada', 'Guadeloupe', 'Guatemala', 'Haiti', 'Honduras', 'Jamaica', 'Martinique', 'Mexico', 'Montserrat',
-                     'Netherlands Antilles (former)', 'Nicaragua', 'Panama', 'Puerto Rico', 'Saint Kitts and Nevis', 'Saint Lucia',
-                     'Saint Pierre and Miquelon', 'Saint Vincent and the Grenadines', 'Trinidad and Tobago', 'Turks and Caicos Islands',
-                     'United States of America', 'United States Virgin Islands']
+        north_america = ['Anguilla', 'Antigua and Barbuda', 'Aruba', 'Bahamas', 'Barbados', 'Belize', 'Bermuda', 'British Virgin Islands',
+                         'Canada', 'Cayman Islands', 'Costa Rica', 'Cuba', 'Dominica', 'Dominican Republic', 'El Salvador', 'Greenland',
+                         'Grenada', 'Guadeloupe', 'Guatemala', 'Haiti', 'Honduras', 'Jamaica', 'Martinique', 'Mexico', 'Montserrat',
+                         'Netherlands Antilles (former)', 'Nicaragua', 'Panama', 'Puerto Rico', 'Saint Kitts and Nevis', 'Saint Lucia',
+                         'Saint Pierre and Miquelon', 'Saint Vincent and the Grenadines', 'Trinidad and Tobago', 'Turks and Caicos Islands',
+                         'United States of America', 'United States Virgin Islands']
 
-    south_america = ['Argentina', 'Bolivia (Plurinational State of)', 'Brazil', 'Chile', 'Colombia', 'Ecuador', 'Falkland Islands (Malvinas)',
-                     'French Guyana', 'Guyana', 'Paraguay', 'Peru', 'Suriname', 'Uruguay', 'Venezuela (Bolivarian Republic of)',
-                     'South Georgia and the South Sandwich Islands']
+        south_america = ['Argentina', 'Bolivia (Plurinational State of)', 'Brazil', 'Chile', 'Colombia', 'Ecuador', 'Falkland Islands (Malvinas)',
+                         'French Guyana', 'Guyana', 'Paraguay', 'Peru', 'Suriname', 'Uruguay', 'Venezuela (Bolivarian Republic of)',
+                         'South Georgia and the South Sandwich Islands']
 
-    africa = ['Algeria', 'Angola', 'Benin', 'Botswana', 'Burkina Faso', 'Burundi', 'Cabo Verde', 'Cameroon', 'Central African Republic',
-              'Chad', 'Comoros', 'Congo', 'Côte d\'Ivoire', "C?te d'Ivoire", 'Democratic Republic of the Congo', 'Djibouti', 'Egypt', 'Equatorial Guinea',
-              'Eritrea', 'Eswatini', 'Ethiopia', 'Ethiopia PDR', 'Gabon', 'Gambia', 'Ghana', 'Guinea', 'Guinea-Bissau', 'Kenya', 'Lesotho',
-              'Liberia', 'Libya', 'Madagascar', 'Malawi', 'Mali', 'Mauritania', 'Mauritius', 'Mayotte', 'Morocco', 'Mozambique', 'Namibia',
-              'Niger', 'Nigeria', 'Rwanda', 'Sao Tome and Principe', 'Senegal', 'Seychelles', 'Sierra Leone', 'Somalia', 'South Africa',
-              'South Sudan', 'Sudan', 'Sudan (former)', 'Togo', 'Tunisia', 'Uganda', 'United Republic of Tanzania', 'Zambia', 'Zimbabwe',
-              'Réunion', 'R?union', 'Saint Helena, Ascension and Tristan da Cunha', 'Western Sahara']
+        africa = ['Algeria', 'Angola', 'Benin', 'Botswana', 'Burkina Faso', 'Burundi', 'Cabo Verde', 'Cameroon', 'Central African Republic',
+                  'Chad', 'Comoros', 'Congo', 'Côte d\'Ivoire', "C?te d'Ivoire", 'Democratic Republic of the Congo', 'Djibouti', 'Egypt', 'Equatorial Guinea',
+                  'Eritrea', 'Eswatini', 'Ethiopia', 'Ethiopia PDR', 'Gabon', 'Gambia', 'Ghana', 'Guinea', 'Guinea-Bissau', 'Kenya', 'Lesotho',
+                  'Liberia', 'Libya', 'Madagascar', 'Malawi', 'Mali', 'Mauritania', 'Mauritius', 'Mayotte', 'Morocco', 'Mozambique', 'Namibia',
+                  'Niger', 'Nigeria', 'Rwanda', 'Sao Tome and Principe', 'Senegal', 'Seychelles', 'Sierra Leone', 'Somalia', 'South Africa',
+                  'South Sudan', 'Sudan', 'Sudan (former)', 'Togo', 'Tunisia', 'Uganda', 'United Republic of Tanzania', 'Zambia', 'Zimbabwe',
+                  'Réunion', 'R?union', 'Saint Helena, Ascension and Tristan da Cunha', 'Western Sahara']
 
-    oceania = ['American Samoa', 'Australia', 'Christmas Island', 'Cocos (Keeling) Islands', 'Cook Islands', 'Fiji', 'French Polynesia',
-               'Kiribati', 'Marshall Islands', 'Micronesia (Federated States of)', 'Midway Island', 'Nauru', 'New Caledonia', 'New Zealand',
-               'Niue', 'Norfolk Island', 'Pacific Islands Trust Territory', 'Palau', 'Papua New Guinea', 'Pitcairn', 'Samoa', 'Solomon Islands',
-               'Tokelau', 'Tonga', 'Tuvalu', 'Vanuatu', 'Wallis and Futuna Islands', 'Wake Island']
+        oceania = ['American Samoa', 'Australia', 'Christmas Island', 'Cocos (Keeling) Islands', 'Cook Islands', 'Fiji', 'French Polynesia',
+                   'Kiribati', 'Marshall Islands', 'Micronesia (Federated States of)', 'Midway Island', 'Nauru', 'New Caledonia', 'New Zealand',
+                   'Niue', 'Norfolk Island', 'Pacific Islands Trust Territory', 'Palau', 'Papua New Guinea', 'Pitcairn', 'Samoa', 'Solomon Islands',
+                   'Tokelau', 'Tonga', 'Tuvalu', 'Vanuatu', 'Wallis and Futuna Islands', 'Wake Island']
 
-    antarctica = ['Antarctica', 'French Southern Territories']
+        antarctica = ['Antarctica', 'French Southern Territories']
 
-    if country in asia:
-        return 'Asia'
-    elif country in europe:
-        return 'Europe'
-    elif country in north_america:
-        return 'North America'
-    elif country in south_america:
-        return 'South America'
-    elif country in africa:
-        return 'Africa'
-    elif country in oceania:
-        return 'Oceania'
-    elif country in antarctica:
-        return 'Antarctica'
-    else:
-        return 'Unknown'
+        if country in asia:
+            return 'Asia'
+        elif country in europe:
+            return 'Europe'
+        elif country in north_america:
+            return 'North America'
+        elif country in south_america:
+            return 'South America'
+        elif country in africa:
+            return 'Africa'
+        elif country in oceania:
+            return 'Oceania'
+        elif country in antarctica:
+            return 'Antarctica'
+        else:
+            return 'Unknown'
 
-df = kaggle_temp_yearly.copy()
-df['Continent'] = df['Entity'].apply(assign_continents)
-annual_avg_temp_change = df.groupby('Year')['Value'].mean().dropna()
+    df = kaggle_temp_yearly.copy()
+    df['Continent'] = df['Entity'].apply(assign_continents)
+    annual_avg_temp_change = df.groupby('Year')['Value'].mean().dropna()
 
-# Page 2 - Data Visualization
+# Page 2 - Data Visualization - Kaggle Graphs - Surf Temp
 if page == pages[2] :
     st.markdown("## Kaggle - Surface Temperature Anomalies ")
 
@@ -762,7 +810,7 @@ if page == pages[2] :
             </div>
             """, unsafe_allow_html=True)
 
-# Page 2 - Data Visualization
+# Page 2 - Data Visualization - OWID Graphs - Surf Temp
 if page == pages[2] :
     st.markdown("## OWID - Surface Temperature Anomalies ")
     with st.expander("**Graph 01 - Annual Average Temperature Change (Global)**"):
@@ -847,11 +895,29 @@ if page == pages[2] :
             </div>
             """, unsafe_allow_html=True)
 
+# Target Variable Choice
 if page == pages[3] :
+    st.markdown(
+    """
+    <style>
+    .centered-title {
+        font-size: 28px;
+        text-align: center;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+        padding: 10px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+    )
+    st.markdown('<h1 class="centered-title">Target Variable Choice</h1>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
     Kaggle_mean_surf_temp_2022 = pd.read_csv("CS_Kaggle_mean_surf_temp_2022_03.csv")
     Kaggle_mean_surf_temp_NoFlag = pd.read_csv("CS_Kaggle_mean_surf_temp_NoFlag_04.csv")
     owid_surf_temp_anom  = pd.read_csv("CS_owid_surface_temp_anom_countries_02.csv")
-    st.header("Target Variable Choice")
+
     text = """
     For our Machine Learning models, the team had to choose which target variable for the Surface Temperture Anomalies to predict. 
     Given our initial databases, we had the chance to select between three main sources: 
@@ -940,11 +1006,7 @@ if page == pages[3] :
 # Continuare aggiustando il grafico delle temperature, e poi resta solo la parte del modello e delle prediction
 
 
-
-
-
-
-
+# Preprocessing 
 if page == pages[4] :
     st.markdown(
         """
@@ -967,7 +1029,7 @@ if page == pages[4] :
         """,
         unsafe_allow_html=True,
     )
-    st.markdown('<h1 class="centered-title">Pre-processing</h1>', unsafe_allow_html=True)
+    st.markdown('<h1 class="centered-title">Pre-processing and Data Cleaning</h1>', unsafe_allow_html=True)
     st.markdown("<br><br>", unsafe_allow_html=True)
 
     with st.expander("Datasets"):
@@ -1034,9 +1096,10 @@ if page == pages[4] :
     This pre-processing and merging of datasets ensured that our data was ready for the modeling process.
     """)
 
-    
+
+# Modelling 
 if page == pages[5] :
-    st.title('Machine Learning Models')
+
     st.markdown(
         """
         <style>
@@ -1074,8 +1137,9 @@ if page == pages[5] :
         Represents the average of the squared prediction errors, placing more weight on larger errors. A smaller MSE means a better model.
     - **Root Mean Squared Error (RMSE)**:
         Represents the square root of MSE, providing an error measure in the same units as the original data. Lower RMSE values are better, and it's more sensitive to larger errors than MAE    
-""")
+    """)
     
+# Modelling - First Dataset
 if page == pages[5] :
   with st.expander("**First Dataset**"):
     st.markdown("""
@@ -1172,7 +1236,7 @@ if page == pages[5] :
     st.title("Models with timespan 1960-2017")
 
     # Display
-    st.dataframe(metrics_df.style.highlight_max(axis=0))
+    st.dataframe(metrics_df.style.highlight_max(axis=0), use_container_width=True)
 
 
     data2 = {
@@ -1256,7 +1320,7 @@ if page == pages[5] :
 
     st.title("Models with timespan 1850-2017")
 
-    st.dataframe(metrics_df2.style.highlight_max(axis=0))
+    st.dataframe(metrics_df2.style.highlight_max(axis=0), use_container_width=True)
 
     st.markdown("""
     **Key findings**: 
@@ -1265,7 +1329,7 @@ if page == pages[5] :
         - The Lasso Regressor consistently performs the worst among all models.
     """)
 
-
+# Modelling - Second Dataset
 if page == pages[5] :
   with st.expander("**Second Dataset**"):
     st.markdown("""
@@ -1296,8 +1360,9 @@ if page == pages[5] :
     st.title("Model Performance Metrics for Temperature Change")
 
     # Display
-    st.dataframe(metrics_df3.style.highlight_max(axis=0))
+    st.dataframe(metrics_df3.style.highlight_max(axis=0), use_container_width=True)
 
+# Modelling - Final Comments
 if page == pages[5] :
   st.markdown(
                 """
@@ -1325,13 +1390,6 @@ if page == pages[5] :
     
 if page == pages[6] :
     #add ur predicition here
-         st.title('Predictions')
-
-
-
-
-if page == pages[7] :
-    st.title('Conclusion')
     st.markdown(
         """
         <style>
@@ -1346,6 +1404,29 @@ if page == pages[7] :
         """,
         unsafe_allow_html=True,
      )
+    st.markdown('<h1 class="centered-title">Predictions</h1>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
+
+
+if page == pages[7] :
+    st.markdown(
+    """
+    <style>
+    .centered-title {
+        font-size: 28px;
+        text-align: center;
+        border-top: 2px solid black;
+        border-bottom: 2px solid black;
+        padding: 10px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+    )
+    st.markdown('<h1 class="centered-title">Conclusions</h1>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
     st.markdown("""
     ## Conclusion
     **Random Forest Regressor** outperformed both the Decision Tree and Linear Regression models, demonstrating its ability to better generalize and provide more accurate predictions for this dataset.
