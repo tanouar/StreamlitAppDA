@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
+import json
 
 def wide_space_default():
     st.set_page_config(layout="wide")
@@ -1463,9 +1464,38 @@ if page == pages[6] :
      )
     st.markdown('<h1 class="centered-title">Predictions</h1>', unsafe_allow_html=True)
     st.markdown("<br><br>", unsafe_allow_html=True)
+    
+    # Charger le modèle à partir du fichier Pickle
+    def load_model_pickle():
+        with open('MichaelaRandomForestModel.pkl', 'rb') as template_model:
+            model = pickle.load(template_model)
+        return model
+    
+    # Charger les valeurs min et max des caractéristiques depuis le fichier JSON
+    def charger_min_max():
+        with open('feature_min_max.json', 'r') as json_file:
+            min_max_dict = json.load(json_file)
+        return min_max_dict
 
+    #Creating the sliders
+    min_max_dict = charger_min_max()
+    st.title("Pickle test")
 
+    #Creating the Exploratory Variables
+    model_exploratory_variables = []
+    for feature, limits in min_max_dict.items():
+        exploratory_variable = st.slider(
+            f"{feature}", 
+            float(limits['min']), 
+            float(limits['max']), 
+            float((limits['min'] + limits['max']) / 2)
+        )
+        model_exploratory_variables.append(exploratory_variable)
+    # Loading the model for the prediction
+    Michaela_RandomForest_Model = load_model_pickle()
 
+    exploratory_variables = np.array([model_exploratory_variables])
+    st.write(exploratory_variables)
 if page == pages[7] :
     st.markdown(
     """
