@@ -8,6 +8,8 @@ import seaborn as sns
 import pickle
 import json
 import os
+import zipfile
+
 def wide_space_default():
     st.set_page_config(layout="wide")
 wide_space_default()
