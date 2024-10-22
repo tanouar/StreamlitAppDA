@@ -94,7 +94,6 @@ if page == pages[0] :
     """, unsafe_allow_html=True)
 
 
-
 # Page 1 Data Exploration
 if page == pages[1] :
     st.markdown(
@@ -983,29 +982,87 @@ if page == pages[3] :
         - **OWID**: 1850 - 2017
         """
         st.markdown(text)
-    temp = pd.merge(Kaggle_mean_surf_temp_2022,Kaggle_mean_surf_temp_NoFlag, on=['Entity', "Code", 'Year', 'Continent'],  how='outer')
-    temp = temp.drop(columns="Mean_surf_temp_change_kaggle_Noflag_std_dev")
-    temp = pd.merge(temp,owid_surf_temp_anom, on=['Entity', "Code", 'Year', 'Continent'],  how='outer')
-    plt.figure(figsize=(14,6))
+    with st.expander("Graph Comparison - China"):
+        col1, col2 = st.columns([7,4])  # Adjust the ratio as needed
+        with col1:
+            temp = pd.merge(Kaggle_mean_surf_temp_2022,Kaggle_mean_surf_temp_NoFlag, on=['Entity', "Code", 'Year', 'Continent'],  how='outer')
+            temp = temp.drop(columns="Mean_surf_temp_change_kaggle_Noflag_std_dev")
+            temp = pd.merge(temp,owid_surf_temp_anom, on=['Entity', "Code", 'Year', 'Continent'],  how='outer')
+            plt.figure(figsize=(14,6))
 
-    country_check = temp.loc[temp["Entity"] == "China"]
+            country_check = temp.loc[temp["Entity"] == "China"]
 
-    sns.lineplot(country_check, x="Year", y="Mean_surf_temp_change_kaggle", errorbar=None, label="Kaggle Mean Temp Change")
-    sns.lineplot(country_check, x="Year", y="Mean_surf_temp_change_kaggle_Noflag", errorbar=None, label="Kaggle Mean Temp Change NoFlag")
-    sns.lineplot(country_check, x="Year", y="Mean_Surf_temp_anomaly_owid", errorbar="ci", label="OWID Temp Anomaly")
+            sns.lineplot(country_check, x="Year", y="Mean_surf_temp_change_kaggle", errorbar=None, label="Kaggle Mean Temp Change")
+            sns.lineplot(country_check, x="Year", y="Mean_surf_temp_change_kaggle_Noflag", errorbar=None, label="Kaggle Mean Temp Change NoFlag")
+            sns.lineplot(country_check, x="Year", y="Mean_Surf_temp_anomaly_owid", errorbar="ci", label="OWID Temp Anomaly")
 
-    plt.legend(title="Temperature Data")
-    plt.title(' Mean Surface Temperature - Database Comparison - China')
-    # Add labels to the axes
-    plt.xlabel("Year")
-    plt.grid()
-    plt.ylabel("Temperature Change (°C)")
+            plt.legend(title="Temperature Data")
+            plt.title(' Mean Surface Temperature - Database Comparison - China')
+            # Add labels to the axes
+            plt.xlabel("Year")
+            plt.grid()
+            plt.ylabel("Temperature Change (°C)")
 
-    # Display the plot
-    st.pyplot(plt)
-# Continuare aggiustando il grafico delle temperature, e poi resta solo la parte del modello e delle prediction
+            # Display the plot
+            st.pyplot(plt)
+        with col2:
+            text = """
+            To determine the most suitable dataset for further testing, we decided to compare the three and evaluate which offered the best starting point for our analysis.
+            We compared the mean surface temperature anomaly data across various countries to identify strong justifications for selecting one of the three datasets.
+            """
+            st.markdown(f"""
+            <div style="text-align: justify;; margin-top: 20px;">
+            <p>{text}</p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.markdown("**Interpretation:**")
+            text = """In the graph on the left, the mean surface temperature anomaly is plotted over time. 
+            It's clear that the OWID database (HADCRUT information on surface temperature, with historical data until 2017) 
+            provides data starting from 1850, while the other two datasets begin in 1960. 
+            To make a fair comparison between the datasets, we chose to focus only on the years they all had in common.
+            """
+            st.markdown(f"""
+            <div style="text-align: justify;; margin-top: 20px;">
+            {text}
+            </div>
+            """, unsafe_allow_html=True)
+    with st.expander("Graph Comparison - Germany"):
+        col1, col2 = st.columns([7,4])  # Adjust the ratio as needed
+        with col1:
+            plt.figure(figsize=(14,6))
+            country_check = temp.loc[(temp["Entity"] == "Germany") & (temp["Year"] >= 1960)]
 
+            sns.lineplot(country_check, x="Year", y="Mean_surf_temp_change_kaggle", errorbar=None, label="Kaggle Mean Temp Change")
+            sns.lineplot(country_check, x="Year", y="Mean_surf_temp_change_kaggle_Noflag", errorbar=None, label="Kaggle Mean Temp Change NoFlag")
+            sns.lineplot(country_check, x="Year", y="Mean_Surf_temp_anomaly_owid", errorbar="ci", label="OWID Temp Anomaly")
 
+            plt.legend(title="Temperature Data")
+            plt.title(' Mean Surface Temperature - Database Comparison - Germany')
+            # Add labels to the axes
+            plt.xlabel("Year")
+            plt.grid()
+            plt.ylabel("Temperature Change (°C)")
+            st.pyplot(plt)
+        with col2:
+            st.markdown("**Interpretation:**")
+            text = """
+            To support this hypothesis, the graph on the left shows the data for Germany.
+            Once again, the two Kaggle datasets display identical values. 
+            Additionally, it’s worth noting that the "No Flag" dataset is missing values for 2020.
+            """
+            st.markdown(f"""
+            <div style="text-align: justify;; margin-top: 20px;">
+            <p>{text}</p>
+            </div>
+            """, unsafe_allow_html=True)
+    st.markdown("### Final Decision")
+    text = """
+    To ensure a good range of the datasets we used 2 merges with one focused on the **"HADCRUT Information about Surface Temperature, historical data until 2017"** and the second one the **“Kaggle Temperature change (No Flag)”**
+    dataset. 
+    For consistency between the explanatory variables and the target variable, we chose a similar time span for both.
+    """
+    st.markdown(text)
+    
 # Preprocessing 
 if page == pages[4] :
     st.markdown(
