@@ -1,0 +1,20 @@
+{
+    "Asia": [
+        "Continent_Asia"
+    ],
+    "Europe": [
+        "Continent_Europe"
+    ],
+    "Africa": [
+        "Continent_Africa"
+    ],
+    "North America": [
+        "Continent_North America"
+    ],
+    "South America": [
+        "Continent_South America"
+    ],
+    "Oceania": [
+        "Continent_Oceania"
+    ]
+}

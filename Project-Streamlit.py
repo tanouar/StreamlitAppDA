@@ -1104,52 +1104,65 @@ if page == pages[4] :
     st.markdown("""
     ### Pre-processing Steps
      1. **Dataset decisions:**
+
          - First Dataset: Base: CO2 and Greenhouse Gas Emissions
          - Second Dataset Base: FAOSTAT Temperature change NOFLAG - from Kaggle
-    (why 2?: The massive amount of available data sources, allows us for more then one data analysis) 
+    
 
     2. **Data Merge options:**
-        First Dataset:
+
+        **First Dataset:**
             - FAOSTAT Temperature Change
             - FAOSTAT Temperature Change NO Flag
             - HARDCRUT Information about Surf Temperature (historical data till 2017)
-        Second Dataset:
+
+        **Second Dataset:**
             - World Regions - According to Our World in Data
             - CO2 and Greenhouse Gas Emissions
 
     3. **Preparation:**
-            First & Second Dataset:
-            - Standardize column names and checking for common entries between datasets
-            - checking for missing values and duplicates
-            - understanding the datatypes and dataframe
-        First Dataset:
-            - merging all dataframes based on country and year
-            - choosing a timespan (1850+)
-            - choosing a second timespan (1960+)
-            - drop of unrealated columns with industrie categorisation and high NaN values
-            - missing values: numerical variables, no categorical
-            - 1. using KNN imputer for Nan values
-            - 2. NaN values were dropped
-        Second Dataset:
-            - structure change of base dataset to create a "year" and "temp-change" column
-            - merging all dataframes (adding only choosen columns from each dataset to the base)
-            - drop of unused columns after merge
-            - timespan 1961+ (Base timespan)
-            - missing values: numerical variables, no categorical, nothing in temperature data
-            - missing values: only in Greenhouse dataset for small island countries (no CO2 informations)
-            - we drop the few NaN values of this countries
+
+        First & Second Dataset:
+
+        - Standardize column names and checking for common entries between datasets
+        - checking for missing values and duplicates
+        - understanding the datatypes and dataframe
+
+        **First Dataset:**
+
+        - merging all dataframes based on country and year
+        - choosing a timespan (1850+)
+        - choosing a second timespan (1960+)
+        - drop of unrealated columns with industrie categorisation and high NaN values
+        - missing values: numerical variables, no categorical
+        - 1. using KNN imputer for Nan values
+        - 2. NaN values were dropped
+    
+        **Second Dataset:**
+
+        - structure change of base dataset to create a "year" and "temp-change" column
+        - merging all dataframes (adding only choosen columns from each dataset to the base)
+        - drop of unused columns after merge
+        - timespan 1961+ (Base timespan)
+        - missing values: numerical variables, no categorical, nothing in temperature data
+        - missing values: only in Greenhouse dataset for small island countries (no CO2 informations)
+        - we drop the few NaN values of this countries
 
     4. **Final Datasets:**
-        Methodes used to work with categorical values:
-            - factorize methode
-            - get_dummies methode
-        First Dataset:
-            - df_project_dropped_dummies.csv
-            - df_project_dropped_factorized.csv
-            - df_project_KNN_dummies.csv
-            - df_project_KNN_factorized.csv
-        Second Dataset:
-            - Data_World_temperature.csv
+
+        **Methods used to work with categorical values:**
+
+        - factorize methode
+        - get_dummies methode
+        
+        **First Dataset:**
+        - df_project_dropped_dummies.csv
+        - df_project_dropped_factorized.csv
+        - df_project_KNN_dummies.csv
+        - df_project_KNN_factorized.csv
+        
+        **Second Dataset:**
+        - Data_World_temperature.csv
 
     This pre-processing and merging of datasets ensured that our data was ready for the modeling process.
     """)
@@ -1531,42 +1544,300 @@ if page == pages[6] :
      )
     st.markdown('<h1 class="centered-title">Predictions</h1>', unsafe_allow_html=True)
     st.markdown("<br><br>", unsafe_allow_html=True)
-    
-    # Charger le modèle à partir du fichier Pickle
-    def load_model_pickle():
-        with open('MichaelaRandomForestModel.pkl', 'rb') as template_model:
-            model = pickle.load(template_model)
-        return model
-    
-    # Charger les valeurs min et max des caractéristiques depuis le fichier JSON
-    def charger_min_max():
-        with open('feature_min_max.json', 'r') as json_file:
-            min_max_dict = json.load(json_file)
-        return min_max_dict
 
-    #Creating the sliders
-    min_max_dict = charger_min_max()
-    st.title("Pickle test")
+    col1, col2, col3 = st.columns([4,7,1])  # Adjust the ratio as needed
+    with col1:
+        # PREDICTION PART
+        @st.cache_resource
 
-    #Creating the Exploratory Variables
-    model_exploratory_variables = []
-    for feature, limits in min_max_dict.items():
-        exploratory_variable = st.slider(
-            f"{feature}", 
-            float(limits['min']), 
-            float(limits['max']), 
-            float((limits['min'] + limits['max']) / 2)
+        # Loading the model for the prediction
+        def load_model_pickle():
+            with open('CS_RandomForestModel_get_dummies.pkl', 'rb') as template_model:
+                model = pickle.load(template_model)
+            return model
+        RandomForest_Model = load_model_pickle()
+
+
+        @st.cache_resource
+
+        def load_min_max():
+            with open('CS_feature_min_max_dummies.json', 'r') as json_file:
+                min_max_dict = json.load(json_file)
+            return min_max_dict
+
+        min_max_dict = load_min_max()
+
+        #Creating the Exploratory Variables
+        model_exploratory_variables = []
+
+
+        #Creating the sliders
+        for feature, limits in min_max_dict.items():
+            exploratory_variable = st.slider(
+                f"{feature}", 
+                float(limits['min']), 
+                float(limits['max']), 
+                float((limits['min'] + limits['max']) / 2)
+            )
+            model_exploratory_variables.append(exploratory_variable)
+
+
+        # Loading the model for the prediction
+        exploratory_variables = np.array([model_exploratory_variables])
+
+        num_values = [
+            'Year',
+            'Population',
+            'temperature_change_from_co2',
+            'temperature_change_from_ch4',
+            'temperature_change_from_n2o',
+            'temperature_change_from_ghg',
+            'co2',
+            'co2_including_luc',
+            'land_use_change_co2']
+
+        model_exploratory_variables_dataframe = pd.DataFrame(exploratory_variables, columns=num_values)
+
+
+        # Loading the Encoding for Continents and Countries
+        with open('CS_target_encoding_dummies_Continent.json') as f:
+            continent_encodings = json.load(f)
+
+        with open("CS_target_encoding_dummies_Entity.json") as f:
+            entity_encodings = json.load(f)
+
+        # Load the continent-entity match dataframe
+        mapping_df = pd.read_csv("continent_Entity_Match.csv")
+
+    with col2:
+        # Select continent and filter corresponding countries
+        continent = st.selectbox("Select a Continent", list(continent_encodings.keys()))
+        filtered_countries = mapping_df[mapping_df['Continent'] == continent]['Entity']
+        country = st.selectbox("Select a Country", filtered_countries)
+
+        # Get the one-hot encoded columns for the selected continent and country
+        encoded_continent_columns = continent_encodings[continent]
+        encoded_entity_columns = entity_encodings[country]
+
+        encoded_columns = [
+            'Entity_Afghanistan',
+            'Entity_Albania',
+            'Entity_Algeria',
+            'Entity_Andorra',
+            'Entity_Angola',
+            'Entity_Antigua and Barbuda',
+            'Entity_Argentina',
+            'Entity_Armenia',
+            'Entity_Australia',
+            'Entity_Austria',
+            'Entity_Azerbaijan',
+            'Entity_Bahamas',
+            'Entity_Bahrain',
+            'Entity_Bangladesh',
+            'Entity_Barbados',
+            'Entity_Belarus',
+            'Entity_Belgium',
+            'Entity_Belize',
+            'Entity_Benin',
+            'Entity_Bhutan',
+            'Entity_Bolivia',
+            'Entity_Bosnia and Herzegovina',
+            'Entity_Botswana',
+            'Entity_Brazil',
+            'Entity_Brunei',
+            'Entity_Bulgaria',
+            'Entity_Burkina Faso',
+            'Entity_Burundi',
+            'Entity_Cambodia',
+            'Entity_Cameroon',
+            'Entity_Canada',
+            'Entity_Cape Verde',
+            'Entity_Central African Republic',
+            'Entity_Chad',
+            'Entity_Chile',
+            'Entity_China',
+            'Entity_Colombia',
+            'Entity_Comoros',
+            'Entity_Congo',
+            'Entity_Costa Rica',
+            "Entity_Cote d'Ivoire",
+            'Entity_Croatia',
+            'Entity_Cuba',
+            'Entity_Cyprus',
+            'Entity_Czechia',
+            'Entity_Democratic Republic of Congo',
+            'Entity_Denmark',
+            'Entity_Djibouti',
+            'Entity_Dominica',
+            'Entity_Dominican Republic',
+            'Entity_East Timor',
+            'Entity_Ecuador',
+            'Entity_Egypt',
+            'Entity_El Salvador',
+            'Entity_Equatorial Guinea',
+            'Entity_Eritrea',
+            'Entity_Estonia',
+            'Entity_Eswatini',
+            'Entity_Ethiopia',
+            'Entity_Fiji',
+            'Entity_Finland',
+            'Entity_France',
+            'Entity_Gabon',
+            'Entity_Gambia',
+            'Entity_Georgia',
+            'Entity_Germany',
+            'Entity_Ghana',
+            'Entity_Greece',
+            'Entity_Grenada',
+            'Entity_Guatemala',
+            'Entity_Guinea',
+            'Entity_Guinea-Bissau',
+            'Entity_Guyana',
+            'Entity_Haiti',
+            'Entity_Honduras',
+            'Entity_Hungary',
+            'Entity_Iceland',
+            'Entity_India',
+            'Entity_Indonesia',
+            'Entity_Iran',
+            'Entity_Iraq',
+            'Entity_Ireland',
+            'Entity_Israel',
+            'Entity_Italy',
+            'Entity_Jamaica',
+            'Entity_Japan',
+            'Entity_Jordan',
+            'Entity_Kazakhstan',
+            'Entity_Kenya',
+            'Entity_Kiribati',
+            'Entity_Kuwait',
+            'Entity_Kyrgyzstan',
+            'Entity_Laos',
+            'Entity_Latvia',
+            'Entity_Lebanon',
+            'Entity_Lesotho',
+            'Entity_Liberia',
+            'Entity_Libya',
+            'Entity_Liechtenstein',
+            'Entity_Lithuania',
+            'Entity_Luxembourg',
+            'Entity_Madagascar',
+            'Entity_Malawi',
+            'Entity_Malaysia',
+            'Entity_Maldives',
+            'Entity_Mali',
+            'Entity_Malta',
+            'Entity_Marshall Islands',
+            'Entity_Mauritania',
+            'Entity_Mauritius',
+            'Entity_Mexico',
+            'Entity_Micronesia (country)',
+            'Entity_Moldova',
+            'Entity_Mongolia',
+            'Entity_Montenegro',
+            'Entity_Morocco',
+            'Entity_Mozambique',
+            'Entity_Myanmar',
+            'Entity_Namibia',
+            'Entity_Nauru',
+            'Entity_Nepal',
+            'Entity_Netherlands',
+            'Entity_New Zealand',
+            'Entity_Nicaragua',
+            'Entity_Niger',
+            'Entity_Nigeria',
+            'Entity_North Korea',
+            'Entity_North Macedonia',
+            'Entity_Norway',
+            'Entity_Oman',
+            'Entity_Pakistan',
+            'Entity_Palau',
+            'Entity_Panama',
+            'Entity_Papua New Guinea',
+            'Entity_Paraguay',
+            'Entity_Peru',
+            'Entity_Philippines',
+            'Entity_Poland',
+            'Entity_Portugal',
+            'Entity_Qatar',
+            'Entity_Romania',
+            'Entity_Russia',
+            'Entity_Rwanda',
+            'Entity_Saint Kitts and Nevis',
+            'Entity_Saint Lucia',
+            'Entity_Saint Vincent and the Grenadines',
+            'Entity_Samoa',
+            'Entity_Sao Tome and Principe',
+            'Entity_Saudi Arabia',
+            'Entity_Senegal',
+            'Entity_Serbia',
+            'Entity_Seychelles',
+            'Entity_Sierra Leone',
+            'Entity_Singapore',
+            'Entity_Slovakia',
+            'Entity_Slovenia',
+            'Entity_Solomon Islands',
+            'Entity_Somalia',
+            'Entity_South Africa',
+            'Entity_South Korea',
+            'Entity_South Sudan',
+            'Entity_Spain',
+            'Entity_Sri Lanka',
+            'Entity_Sudan',
+            'Entity_Suriname',
+            'Entity_Sweden',
+            'Entity_Switzerland',
+            'Entity_Syria',
+            'Entity_Tajikistan',
+            'Entity_Tanzania',
+            'Entity_Thailand',
+            'Entity_Togo',
+            'Entity_Tonga',
+            'Entity_Trinidad and Tobago',
+            'Entity_Tunisia',
+            'Entity_Turkey',
+            'Entity_Turkmenistan',
+            'Entity_Tuvalu',
+            'Entity_Uganda',
+            'Entity_Ukraine',
+            'Entity_United Arab Emirates',
+            'Entity_United Kingdom',
+            'Entity_United States',
+            'Entity_Uruguay',
+            'Entity_Uzbekistan',
+            'Entity_Vanuatu',
+            'Entity_Venezuela',
+            'Entity_Vietnam',
+            'Entity_Yemen',
+            'Entity_Zambia',
+            'Entity_Zimbabwe',
+            'Continent_Africa',
+            'Continent_Asia',
+            'Continent_Europe',
+            'Continent_North America',
+            'Continent_Oceania',
+            'Continent_South America'
+        ]
+
+        continent_coutry_vector = np.zeros(len(encoded_columns))
+
+        # Set the selected continent and country to 1 in the feature vector
+        for col in encoded_continent_columns + encoded_entity_columns:
+            if col in encoded_columns:
+                continent_coutry_vector[encoded_columns.index(col)] = 1
+        continent_coutry_vector = continent_coutry_vector.reshape(1, -1)
+
+        continent_coutry_dataframe = pd.DataFrame(continent_coutry_vector, columns=encoded_columns)
+
+        # Concatenate the DataFrames along the columns (axis=1)
+        merged_dataframe = pd.concat([model_exploratory_variables_dataframe, continent_coutry_dataframe], axis=1)
+
+        predicted_value = RandomForest_Model.predict(merged_dataframe)[0] # Assuming a single prediction
+        st.markdown(
+        f"<p style='font-size:24px; font-weight:bold;'>The Predicted temperature is : {predicted_value}</p>", 
+        unsafe_allow_html=True
         )
-        model_exploratory_variables.append(exploratory_variable)
-    # Loading the model for the prediction
-    Michaela_RandomForest_Model = load_model_pickle()
 
-    exploratory_variables = np.array([model_exploratory_variables])
-    prediction_encoded = Michaela_RandomForest_Model.predict(exploratory_variables)
-    st.markdown(
-    f"<p style='font-size:24px; font-weight:bold;'>La prédiction de l'espèce est : {prediction_decoded}</p>", 
-    unsafe_allow_html=True
-    )
 if page == pages[7] :
     st.markdown(
     """

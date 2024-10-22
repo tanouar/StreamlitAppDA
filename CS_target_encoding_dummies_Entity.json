@@ -1,0 +1,575 @@
+{
+    "Afghanistan": [
+        "Entity_Afghanistan"
+    ],
+    "Albania": [
+        "Entity_Albania"
+    ],
+    "Algeria": [
+        "Entity_Algeria"
+    ],
+    "Andorra": [
+        "Entity_Andorra"
+    ],
+    "Angola": [
+        "Entity_Angola"
+    ],
+    "Antigua and Barbuda": [
+        "Entity_Antigua and Barbuda"
+    ],
+    "Argentina": [
+        "Entity_Argentina"
+    ],
+    "Armenia": [
+        "Entity_Armenia"
+    ],
+    "Australia": [
+        "Entity_Australia"
+    ],
+    "Austria": [
+        "Entity_Austria"
+    ],
+    "Azerbaijan": [
+        "Entity_Azerbaijan"
+    ],
+    "Bahamas": [
+        "Entity_Bahamas"
+    ],
+    "Bahrain": [
+        "Entity_Bahrain"
+    ],
+    "Bangladesh": [
+        "Entity_Bangladesh"
+    ],
+    "Barbados": [
+        "Entity_Barbados"
+    ],
+    "Belarus": [
+        "Entity_Belarus"
+    ],
+    "Belgium": [
+        "Entity_Belgium"
+    ],
+    "Belize": [
+        "Entity_Belize"
+    ],
+    "Benin": [
+        "Entity_Benin"
+    ],
+    "Bhutan": [
+        "Entity_Bhutan"
+    ],
+    "Bolivia": [
+        "Entity_Bolivia"
+    ],
+    "Bosnia and Herzegovina": [
+        "Entity_Bosnia and Herzegovina"
+    ],
+    "Botswana": [
+        "Entity_Botswana"
+    ],
+    "Brazil": [
+        "Entity_Brazil"
+    ],
+    "Brunei": [
+        "Entity_Brunei"
+    ],
+    "Bulgaria": [
+        "Entity_Bulgaria"
+    ],
+    "Burkina Faso": [
+        "Entity_Burkina Faso"
+    ],
+    "Burundi": [
+        "Entity_Burundi"
+    ],
+    "Cambodia": [
+        "Entity_Cambodia"
+    ],
+    "Cameroon": [
+        "Entity_Cameroon"
+    ],
+    "Canada": [
+        "Entity_Canada"
+    ],
+    "Cape Verde": [
+        "Entity_Cape Verde"
+    ],
+    "Central African Republic": [
+        "Entity_Central African Republic"
+    ],
+    "Chad": [
+        "Entity_Chad"
+    ],
+    "Chile": [
+        "Entity_Chile"
+    ],
+    "China": [
+        "Entity_China"
+    ],
+    "Colombia": [
+        "Entity_Colombia"
+    ],
+    "Comoros": [
+        "Entity_Comoros"
+    ],
+    "Congo": [
+        "Entity_Congo"
+    ],
+    "Costa Rica": [
+        "Entity_Costa Rica"
+    ],
+    "Cote d'Ivoire": [
+        "Entity_Cote d'Ivoire"
+    ],
+    "Croatia": [
+        "Entity_Croatia"
+    ],
+    "Cuba": [
+        "Entity_Cuba"
+    ],
+    "Cyprus": [
+        "Entity_Cyprus"
+    ],
+    "Czechia": [
+        "Entity_Czechia"
+    ],
+    "Democratic Republic of Congo": [
+        "Entity_Democratic Republic of Congo"
+    ],
+    "Denmark": [
+        "Entity_Denmark"
+    ],
+    "Djibouti": [
+        "Entity_Djibouti"
+    ],
+    "Dominica": [
+        "Entity_Dominica"
+    ],
+    "Dominican Republic": [
+        "Entity_Dominican Republic"
+    ],
+    "East Timor": [
+        "Entity_East Timor"
+    ],
+    "Ecuador": [
+        "Entity_Ecuador"
+    ],
+    "Egypt": [
+        "Entity_Egypt"
+    ],
+    "El Salvador": [
+        "Entity_El Salvador"
+    ],
+    "Equatorial Guinea": [
+        "Entity_Equatorial Guinea"
+    ],
+    "Eritrea": [
+        "Entity_Eritrea"
+    ],
+    "Estonia": [
+        "Entity_Estonia"
+    ],
+    "Eswatini": [
+        "Entity_Eswatini"
+    ],
+    "Ethiopia": [
+        "Entity_Ethiopia"
+    ],
+    "Fiji": [
+        "Entity_Fiji"
+    ],
+    "Finland": [
+        "Entity_Finland"
+    ],
+    "France": [
+        "Entity_France"
+    ],
+    "Gabon": [
+        "Entity_Gabon"
+    ],
+    "Gambia": [
+        "Entity_Gambia"
+    ],
+    "Georgia": [
+        "Entity_Georgia"
+    ],
+    "Germany": [
+        "Entity_Germany"
+    ],
+    "Ghana": [
+        "Entity_Ghana"
+    ],
+    "Greece": [
+        "Entity_Greece"
+    ],
+    "Grenada": [
+        "Entity_Grenada"
+    ],
+    "Guatemala": [
+        "Entity_Guatemala"
+    ],
+    "Guinea": [
+        "Entity_Guinea"
+    ],
+    "Guinea-Bissau": [
+        "Entity_Guinea-Bissau"
+    ],
+    "Guyana": [
+        "Entity_Guyana"
+    ],
+    "Haiti": [
+        "Entity_Haiti"
+    ],
+    "Honduras": [
+        "Entity_Honduras"
+    ],
+    "Hungary": [
+        "Entity_Hungary"
+    ],
+    "Iceland": [
+        "Entity_Iceland"
+    ],
+    "India": [
+        "Entity_India"
+    ],
+    "Indonesia": [
+        "Entity_Indonesia"
+    ],
+    "Iran": [
+        "Entity_Iran"
+    ],
+    "Iraq": [
+        "Entity_Iraq"
+    ],
+    "Ireland": [
+        "Entity_Ireland"
+    ],
+    "Israel": [
+        "Entity_Israel"
+    ],
+    "Italy": [
+        "Entity_Italy"
+    ],
+    "Jamaica": [
+        "Entity_Jamaica"
+    ],
+    "Japan": [
+        "Entity_Japan"
+    ],
+    "Jordan": [
+        "Entity_Jordan"
+    ],
+    "Kazakhstan": [
+        "Entity_Kazakhstan"
+    ],
+    "Kenya": [
+        "Entity_Kenya"
+    ],
+    "Kiribati": [
+        "Entity_Kiribati"
+    ],
+    "Kuwait": [
+        "Entity_Kuwait"
+    ],
+    "Kyrgyzstan": [
+        "Entity_Kyrgyzstan"
+    ],
+    "Laos": [
+        "Entity_Laos"
+    ],
+    "Latvia": [
+        "Entity_Latvia"
+    ],
+    "Lebanon": [
+        "Entity_Lebanon"
+    ],
+    "Lesotho": [
+        "Entity_Lesotho"
+    ],
+    "Liberia": [
+        "Entity_Liberia"
+    ],
+    "Libya": [
+        "Entity_Libya"
+    ],
+    "Liechtenstein": [
+        "Entity_Liechtenstein"
+    ],
+    "Lithuania": [
+        "Entity_Lithuania"
+    ],
+    "Luxembourg": [
+        "Entity_Luxembourg"
+    ],
+    "Madagascar": [
+        "Entity_Madagascar"
+    ],
+    "Malawi": [
+        "Entity_Malawi"
+    ],
+    "Malaysia": [
+        "Entity_Malaysia"
+    ],
+    "Maldives": [
+        "Entity_Maldives"
+    ],
+    "Mali": [
+        "Entity_Mali"
+    ],
+    "Malta": [
+        "Entity_Malta"
+    ],
+    "Marshall Islands": [
+        "Entity_Marshall Islands"
+    ],
+    "Mauritania": [
+        "Entity_Mauritania"
+    ],
+    "Mauritius": [
+        "Entity_Mauritius"
+    ],
+    "Mexico": [
+        "Entity_Mexico"
+    ],
+    "Micronesia (country)": [
+        "Entity_Micronesia (country)"
+    ],
+    "Moldova": [
+        "Entity_Moldova"
+    ],
+    "Mongolia": [
+        "Entity_Mongolia"
+    ],
+    "Montenegro": [
+        "Entity_Montenegro"
+    ],
+    "Morocco": [
+        "Entity_Morocco"
+    ],
+    "Mozambique": [
+        "Entity_Mozambique"
+    ],
+    "Myanmar": [
+        "Entity_Myanmar"
+    ],
+    "Namibia": [
+        "Entity_Namibia"
+    ],
+    "Nauru": [
+        "Entity_Nauru"
+    ],
+    "Nepal": [
+        "Entity_Nepal"
+    ],
+    "Netherlands": [
+        "Entity_Netherlands"
+    ],
+    "New Zealand": [
+        "Entity_New Zealand"
+    ],
+    "Nicaragua": [
+        "Entity_Nicaragua"
+    ],
+    "Niger": [
+        "Entity_Niger"
+    ],
+    "Nigeria": [
+        "Entity_Nigeria"
+    ],
+    "North Korea": [
+        "Entity_North Korea"
+    ],
+    "North Macedonia": [
+        "Entity_North Macedonia"
+    ],
+    "Norway": [
+        "Entity_Norway"
+    ],
+    "Oman": [
+        "Entity_Oman"
+    ],
+    "Pakistan": [
+        "Entity_Pakistan"
+    ],
+    "Palau": [
+        "Entity_Palau"
+    ],
+    "Panama": [
+        "Entity_Panama"
+    ],
+    "Papua New Guinea": [
+        "Entity_Papua New Guinea"
+    ],
+    "Paraguay": [
+        "Entity_Paraguay"
+    ],
+    "Peru": [
+        "Entity_Peru"
+    ],
+    "Philippines": [
+        "Entity_Philippines"
+    ],
+    "Poland": [
+        "Entity_Poland"
+    ],
+    "Portugal": [
+        "Entity_Portugal"
+    ],
+    "Qatar": [
+        "Entity_Qatar"
+    ],
+    "Romania": [
+        "Entity_Romania"
+    ],
+    "Russia": [
+        "Entity_Russia"
+    ],
+    "Rwanda": [
+        "Entity_Rwanda"
+    ],
+    "Saint Kitts and Nevis": [
+        "Entity_Saint Kitts and Nevis"
+    ],
+    "Saint Lucia": [
+        "Entity_Saint Lucia"
+    ],
+    "Saint Vincent and the Grenadines": [
+        "Entity_Saint Vincent and the Grenadines"
+    ],
+    "Samoa": [
+        "Entity_Samoa"
+    ],
+    "Sao Tome and Principe": [
+        "Entity_Sao Tome and Principe"
+    ],
+    "Saudi Arabia": [
+        "Entity_Saudi Arabia"
+    ],
+    "Senegal": [
+        "Entity_Senegal"
+    ],
+    "Serbia": [
+        "Entity_Serbia"
+    ],
+    "Seychelles": [
+        "Entity_Seychelles"
+    ],
+    "Sierra Leone": [
+        "Entity_Sierra Leone"
+    ],
+    "Singapore": [
+        "Entity_Singapore"
+    ],
+    "Slovakia": [
+        "Entity_Slovakia"
+    ],
+    "Slovenia": [
+        "Entity_Slovenia"
+    ],
+    "Solomon Islands": [
+        "Entity_Solomon Islands"
+    ],
+    "Somalia": [
+        "Entity_Somalia"
+    ],
+    "South Africa": [
+        "Entity_South Africa"
+    ],
+    "South Korea": [
+        "Entity_South Korea"
+    ],
+    "South Sudan": [
+        "Entity_South Sudan"
+    ],
+    "Spain": [
+        "Entity_Spain"
+    ],
+    "Sri Lanka": [
+        "Entity_Sri Lanka"
+    ],
+    "Sudan": [
+        "Entity_Sudan"
+    ],
+    "Suriname": [
+        "Entity_Suriname"
+    ],
+    "Sweden": [
+        "Entity_Sweden"
+    ],
+    "Switzerland": [
+        "Entity_Switzerland"
+    ],
+    "Syria": [
+        "Entity_Syria"
+    ],
+    "Tajikistan": [
+        "Entity_Tajikistan"
+    ],
+    "Tanzania": [
+        "Entity_Tanzania"
+    ],
+    "Thailand": [
+        "Entity_Thailand"
+    ],
+    "Togo": [
+        "Entity_Togo"
+    ],
+    "Tonga": [
+        "Entity_Tonga"
+    ],
+    "Trinidad and Tobago": [
+        "Entity_Trinidad and Tobago"
+    ],
+    "Tunisia": [
+        "Entity_Tunisia"
+    ],
+    "Turkey": [
+        "Entity_Turkey"
+    ],
+    "Turkmenistan": [
+        "Entity_Turkmenistan"
+    ],
+    "Tuvalu": [
+        "Entity_Tuvalu"
+    ],
+    "Uganda": [
+        "Entity_Uganda"
+    ],
+    "Ukraine": [
+        "Entity_Ukraine"
+    ],
+    "United Arab Emirates": [
+        "Entity_United Arab Emirates"
+    ],
+    "United Kingdom": [
+        "Entity_United Kingdom"
+    ],
+    "United States": [
+        "Entity_United States"
+    ],
+    "Uruguay": [
+        "Entity_Uruguay"
+    ],
+    "Uzbekistan": [
+        "Entity_Uzbekistan"
+    ],
+    "Vanuatu": [
+        "Entity_Vanuatu"
+    ],
+    "Venezuela": [
+        "Entity_Venezuela"
+    ],
+    "Vietnam": [
+        "Entity_Vietnam"
+    ],
+    "Yemen": [
+        "Entity_Yemen"
+    ],
+    "Zambia": [
+        "Entity_Zambia"
+    ],
+    "Zimbabwe": [
+        "Entity_Zimbabwe"
+    ]
+}
