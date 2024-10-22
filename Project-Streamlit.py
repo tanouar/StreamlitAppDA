@@ -1051,9 +1051,9 @@ if page == pages[5] :
         """,
         unsafe_allow_html=True,
      )
-     st.markdown('<h1 class="centered-title">Machine Learning Model Selection</h1>', unsafe_allow_html=True)
-     st.markdown("<br><br>", unsafe_allow_html=True)
-     st.markdown("""
+    st.markdown('<h1 class="centered-title">Machine Learning Model Selection</h1>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown("""
 The objective of this analysis was to identify the best-performing machine learning model for predicting surface temperature anomalies using different regression techniques.
 We evaluated and compared the performance of six  models:
 
