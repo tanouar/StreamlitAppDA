@@ -1,0 +1,10 @@
+pandas
+np
+plotly
+matplotlib
+seaborn
+folium
+streamlit_folium
+streamlit_extras
+scikit-learn==1.2.2
+statsmodels
