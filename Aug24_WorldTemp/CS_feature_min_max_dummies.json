@@ -1,0 +1,38 @@
+{
+    "Year": {
+        "min": 1960.0,
+        "max": 2017.0
+    },
+    "Population": {
+        "min": 5426.0,
+        "max": 1410275968.0
+    },
+    "temperature_change_from_co2": {
+        "min": 0.0,
+        "max": 0.225
+    },
+    "temperature_change_from_ch4": {
+        "min": -0.001,
+        "max": 0.056
+    },
+    "temperature_change_from_n2o": {
+        "min": 0.0,
+        "max": 0.01
+    },
+    "temperature_change_from_ghg": {
+        "min": 0.0,
+        "max": 0.271
+    },
+    "co2": {
+        "min": 0.0,
+        "max": 10011.151
+    },
+    "co2_including_luc": {
+        "min": -187.847,
+        "max": 10472.555
+    },
+    "land_use_change_co2": {
+        "min": -238.351,
+        "max": 2973.366
+    }
+}

@@ -1,0 +1,31 @@
+# Essential packages for Streamlit
+streamlit==1.39.0
+
+# Data handling and analysis
+pandas==2.2.2
+numpy==1.26.4
+scipy==1.13.1
+joblib==1.4.2
+
+# Visualization and plotting
+matplotlib==3.8.4
+seaborn==0.13.2
+altair==5.0.1
+plotly==5.22.0
+
+# For interacting with external data sources
+requests==2.32.2
+urllib3==2.2.2
+
+# Optional: For machine learning (if used)
+scikit-learn==1.4.2
+
+# Optional: To work with files (if needed)
+openpyxl==3.1.2
+
+# Optional: For geographical visualizations (if your app uses maps)
+folium==0.14.0
+geopandas==0.14.2
+
+# Optional: For Jupyter notebook integration (if your app interacts with notebooks)
+ipykernel==6.28.0
