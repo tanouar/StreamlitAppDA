@@ -758,14 +758,14 @@ if page == pages[3] :
   if st.button("Gradient Boosting visualization") :
     st.subheader("Residuals of the Gradient Boosting model")
     st.write("")
-    image = Image.open("residuals.png")
+    image = Image.open("Jun24da_WorldHapiness/residuals.png")
     st.image(image, width=800)
 
     st.write("")
 
   if st.button("Feature Importance") :
     st.subheader("Feature importance of the Gradient Boosting model")
-    image2 = Image.open("feature_importance.png")
+    image2 = Image.open("Jun24da_WorldHapiness/feature_importance.png")
     st.image(image2, width=800)        
     
 
