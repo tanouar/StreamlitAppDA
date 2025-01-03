@@ -13,7 +13,7 @@ from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegress
 import json
 
 
-df_2021 = pd.read_csv("world-happiness-report-2021.csv")
+df_2021 = pd.read_csv("Jun24da_WorldHapiness/world-happiness-report-2021.csv")
 df_pre2021 = pd.read_csv("world-happiness-report.csv")
 df_all_notencoded = pd.read_csv("df_all_notencoded.csv")
 
