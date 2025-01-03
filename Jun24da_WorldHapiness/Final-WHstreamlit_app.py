@@ -781,12 +781,12 @@ if page == pages[4] :
         return gb_reg
       
   def load_dict():
-        with open("feature_min_max.json", "r") as json_file:
+        with open("Jun24da_WorldHapiness/feature_min_max.json", "r") as json_file:
             min_max_dict = json.load(json_file)
         return min_max_dict    
 
   def load_target_mapping():
-        with open('target_variable.json', 'r') as json_file:
+        with open('Jun24da_WorldHapiness/target_variable.json', 'r') as json_file:
             target = json.load(json_file)
         return target
       
