@@ -776,7 +776,7 @@ if page == pages[4] :
   st.markdown(header_html, unsafe_allow_html=True)
 
   def load_model():
-        with open('gb_reg.pkl', 'rb') as file:
+        with open('Jun24da_WorldHapiness/gb_reg.pkl', 'rb') as file:
             gb_reg = pickle.load(file)
         return gb_reg
       
