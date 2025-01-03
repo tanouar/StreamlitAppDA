@@ -20,7 +20,7 @@ df_all_notencoded = pd.read_csv("Jun24da_WorldHapiness/df_all_notencoded.csv")
 
 ### SIDEBAR CONFIGURATION ###
 
-st.sidebar.image("happiness_pic_1.jpg", width=300)
+st.sidebar.image("Jun24da_WorldHapiness/happiness_pic_1.jpg", width=300)
 
 st.sidebar.title("Table of contents")
 pages=["Introduction", "Data Exploration and Preprocessing", "Data Visualization", "Data Modelling", "Prediction", "Conclusion"]
@@ -833,7 +833,7 @@ if page == pages[5] :
   st.write("However happiness is very complex to measure and more attention needs to be brought into how it can properly be measured.")
 
   st.write("")
-  image3 = Image.open("money_everything.jpg")
+  image3 = Image.open("Jun24da_WorldHapiness/money_everything.jpg")
   st.image(image3, width=700)
 
   if st.button("Special Thanks") :
