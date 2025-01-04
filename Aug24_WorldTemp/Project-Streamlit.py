@@ -15,13 +15,13 @@ def wide_space_default():
 wide_space_default()
 
 # Main Code
-github_co2_data = pd.read_csv("owid-co2-data.csv")
-github_explanation = pd.read_csv("owid-co2-codebook.csv")
-owid_surf_temp_anom = pd.read_csv("OWID_01_Surface_Temp_anomaly_historical_data.csv")
-kaggle_temp_change_NOFLAG = pd.read_csv("Environment_Temperature_change_E_All_Data_NOFLAG.csv", encoding='cp1252')
-owid_country_infos = pd.read_csv("OWID_02_CountryInfos.csv")
-kaggle_temp_change_1 = pd.read_csv("FAOSTAT_data_1-10-2022_part1.csv")
-kaggle_temp_change_2 = pd.read_csv("FAOSTAT_data_1-10-2022_part1.csv")
+github_co2_data = pd.read_csv("Aug24_WorldTemp/owid-co2-data.csv")
+github_explanation = pd.read_csv("Aug24_WorldTemp/owid-co2-codebook.csv")
+owid_surf_temp_anom = pd.read_csv("Aug24_WorldTemp/OWID_01_Surface_Temp_anomaly_historical_data.csv")
+kaggle_temp_change_NOFLAG = pd.read_csv("Aug24_WorldTemp/Environment_Temperature_change_E_All_Data_NOFLAG.csv", encoding='cp1252')
+owid_country_infos = pd.read_csv("Aug24_WorldTemp/OWID_02_CountryInfos.csv")
+kaggle_temp_change_1 = pd.read_csv("Aug24_WorldTemp/FAOSTAT_data_1-10-2022_part1.csv")
+kaggle_temp_change_2 = pd.read_csv("Aug24_WorldTemp/FAOSTAT_data_1-10-2022_part1.csv")
 kaggle_temp_change = pd.concat([kaggle_temp_change_1, kaggle_temp_change_2], ignore_index=True)
 
 
@@ -916,9 +916,9 @@ if page == pages[3] :
     st.markdown('<h1 class="centered-title">Target Variable Choice</h1>', unsafe_allow_html=True)
     st.markdown("<br><br>", unsafe_allow_html=True)
 
-    Kaggle_mean_surf_temp_2022 = pd.read_csv("CS_Kaggle_mean_surf_temp_2022_03.csv")
-    Kaggle_mean_surf_temp_NoFlag = pd.read_csv("CS_Kaggle_mean_surf_temp_NoFlag_04.csv")
-    owid_surf_temp_anom  = pd.read_csv("CS_owid_surface_temp_anom_countries_02.csv")
+    Kaggle_mean_surf_temp_2022 = pd.read_csv("Aug24_WorldTemp/CS_Kaggle_mean_surf_temp_2022_03.csv")
+    Kaggle_mean_surf_temp_NoFlag = pd.read_csv("Aug24_WorldTemp/CS_Kaggle_mean_surf_temp_NoFlag_04.csv")
+    owid_surf_temp_anom  = pd.read_csv("Aug24_WorldTemp/CS_owid_surface_temp_anom_countries_02.csv")
 
     text = """
     For our Machine Learning models, the team had to choose which target variable for the Surface Temperture Anomalies to predict. 
@@ -1567,7 +1567,7 @@ if page == pages[6] :
             return model
             
         model_filename = 'CS_RandomForestModel_get_dummies.pkl'
-        zip_file_path = 'Zip_Model.zip'
+        zip_file_path = 'Aug24_WorldTemp/Zip_Model.zip'
         
         # Check if the .pkl file exists and load directly, otherwise try loading from zip
         if os.path.exists(model_filename):
@@ -1578,7 +1578,7 @@ if page == pages[6] :
         @st.cache_resource
 
         def load_min_max():
-            with open('CS_feature_min_max_dummies.json', 'r') as json_file:
+            with open('Aug24_WorldTemp/CS_feature_min_max_dummies.json', 'r') as json_file:
                 min_max_dict = json.load(json_file)
             return min_max_dict
 
@@ -1617,14 +1617,14 @@ if page == pages[6] :
 
 
         # Loading the Encoding for Continents and Countries
-        with open('CS_target_encoding_dummies_Continent.json') as f:
+        with open('Aug24_WorldTemp/CS_target_encoding_dummies_Continent.json') as f:
             continent_encodings = json.load(f)
 
-        with open("CS_target_encoding_dummies_Entity.json") as f:
+        with open("Aug24_WorldTemp/CS_target_encoding_dummies_Entity.json") as f:
             entity_encodings = json.load(f)
 
         # Load the continent-entity match dataframe
-        mapping_df = pd.read_csv("continent_Entity_Match.csv")
+        mapping_df = pd.read_csv("Aug24_WorldTemp/continent_Entity_Match.csv")
 
     with col2:
         # Select continent and filter corresponding countries
