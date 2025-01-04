@@ -41,7 +41,7 @@ def data_exploration():
 	st.header("Data Sources")
 
 	# Load OWID data
-	owid_df = pd.read_csv("owid.csv")
+	owid_df = pd.read_csv("mar24da_worldtemp/owid.csv")
 	"""This project utilizes two main datasets:"""
 	with st.expander("**OWID Data**"):
 		"""
@@ -61,7 +61,7 @@ def data_exploration():
 		st.write(missing_info_df)
 
 	# Load Surface Temperature Anomaly data
-	temp_df = pd.read_csv("surface-temperature.csv")
+	temp_df = pd.read_csv("mar24da_worldtemp/surface-temperature.csv")
 	with st.expander("**Surface Temperature Anomaly Data**"):
 		"""
 		- Contains data on surface temperature anomalies for different countries over time.
@@ -83,7 +83,7 @@ def data_exploration():
 	- Clean the data by removing rows with missing values.
 	- Enrich the dataset by adding continent information."""
 
-	data =pd.read_csv("perfect_data.csv")
+	data =pd.read_csv("mar24da_worldtemp/perfect_data.csv")
 	with st.expander("**Cleaned Data**"):
 	   
 		st.write("Preview of the Cleaned Data:")
@@ -166,7 +166,7 @@ def visualization():
    
 	st.header("Visualization of Surface Temperature Anomaly")
 	  
-	data =pd.read_csv("perfect_data.csv") 
+	data =pd.read_csv("mar24da_worldtemp/perfect_data.csv") 
 	data['year'] = pd.to_datetime(data['year'], format='%Y').dt.year.apply(lambda x: '{:0}'.format(x))
 
 	group_continent_year = data.groupby(['Continent', 'year'])['Surface temperature anomaly'].mean().reset_index()
@@ -213,7 +213,7 @@ def dashboard():
 	
 	st.header("Dashboard")
 	
-	data =pd.read_csv("perfect_data.csv") 
+	data =pd.read_csv("mar24da_worldtemp/perfect_data.csv") 
 	year_range = st.sidebar.slider("Select Year Range", min(data["year"]), max(data["year"]), (min(data["year"]), max(data["year"])), 1)
 	Continent = st.sidebar.multiselect("Select Continent", data["Continent"].unique())
 	filtered_data = data[(data["year"].between(year_range[0], year_range[1])) & (data["Continent"].isin(Continent))]
@@ -288,7 +288,7 @@ def conclusion():
 	""" - Moving forward, I believe further research with higher quality datasets can lead to even more robust models for climate change prediction."""
 def prediction():
 	def load_model():
-		with open('rfrm_2.pkl', 'rb') as model_file:
+		with open('mar24da_worldtemp/rfrm_2.pkl', 'rb') as model_file:
 			model = pickle.load(model_file)
 		return model
 
@@ -305,7 +305,7 @@ def prediction():
 	st.subheader('Prediction Simulation with Random Forest Regressor')
 
 	# Load the DataFrame
-	data = pd.read_csv("perfect_data.csv")
+	data = pd.read_csv("mar24da_worldtemp/perfect_data.csv")
 	df3 = data.copy()
 
 	# Get the minimum and maximum values for each feature from the DataFrame
@@ -362,7 +362,7 @@ def a():
 	st.header("Random Forest Regressor Model")
 
 	# Load data
-	df3 = pd.read_csv("perfect_data.csv")
+	df3 = pd.read_csv("mar24da_worldtemp/perfect_data.csv")
 
 	# Encoding categorical columns
 	df3['ID_country'] = pd.factorize(df3['country'])[0]
@@ -464,7 +464,7 @@ def a():
 def b():
 	st.header("Linear Regression Model")	
    # Load data
-	df3 = pd.read_csv("perfect_data.csv")
+	df3 = pd.read_csv("mar24da_worldtemp/perfect_data.csv")
 
 	# Encoding categorical columns
 	df3['ID_country'] = pd.factorize(df3['country'])[0]
