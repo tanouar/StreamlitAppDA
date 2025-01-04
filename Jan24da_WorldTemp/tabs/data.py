@@ -22,7 +22,7 @@ def run():
     ########### dataset n°1 ########### 
     st.write("\n\n")
     st.write('**1- Dataset n°1**') 
-    df=pd.read_csv("Data/owid.csv")
+    df=pd.read_csv("Jan24da_worldTemp/Data/owid.csv")
 
     with st.expander('**Origine des données**'):
         st.write("➽ Le dataset n°1 concerne les émissions annualisées de gaz à effet de serre depuis 1850 par zone géographique, majoritairement des pays, mais des zones plus larges ou plus petites y sont présentent.\n\n➽ Ces données sont enrichies par de nombreuses autres données (PIB, populations, sources de combustibles, ...) provenant de multiples sources (cf *codebook*).\n\n➽ Les données brutes sont disponibles aux formats *csv*, *xlsx* et *json*.\n\n➽ Un fichier additionnel au format *csv* comprend les métadonnées du fichier de données brutes.\n\n➽ Ces fichiers sont téléchargeables via un [dépôt GitHub](https://github.com/owid/co2-data/tree/master)")
@@ -77,7 +77,7 @@ df = df.loc[~df.country.isin(A_retirer)]
     ########### codebook dataset n°1 ########### 
     # Affichage 5 premières lignes codebook dataset n°1
     with st.expander("**Codebook du dataset n°1**"):
-        df=pd.read_csv("Data/owid-co2-codebook.csv")
+        df=pd.read_csv("Jan24da_worldTemp/Data/owid-co2-codebook.csv")
         st.dataframe(df.head())
 
 
@@ -85,7 +85,7 @@ df = df.loc[~df.country.isin(A_retirer)]
     st.write("\n\n")
 
     st.write('**2- Dataset n°2**') 
-    df=pd.read_csv("Data/hadcrut-surface-temperature-anomaly.csv")  
+    df=pd.read_csv("Jan24da_worldTemp/Data/hadcrut-surface-temperature-anomaly.csv")  
 
     with st.expander('**Origine des données**'):
         st.write("➽ Le dataset n°2 comprend les anomalies de températures annuelles de surface par année par pays depuis 1850. Ces données d'évolution de température sont basées sur les anomalies de température de surface mesurées (ou collectées) par le *Hadley Centre* et le *Climatic Research Unit* de l'Université d'East Anglia. Elles fournissent des informations sur les variations de température à long terme.\n\n➽ Ce fichier de données est téléchargeable au format *csv* sur le site de l'organisation *'Our World in Data'* via [une page dédiée](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)")
@@ -140,7 +140,7 @@ df2.drop(df2[df2['Code'] == 'OWID_CYN'].index, inplace = True)
     st.write('➽ Les données mises en qualité comprennent : **19** colonnes (vs **79** et **4** dans les fichiers initiaux) et **29 136** lignes (vs **48 058** et **29 566**)') 
 
     with st.expander("**Détail de la fusion des dataframes et données mises en qualité**"):   
-        df=pd.read_csv("Data/merged_owid_temp.csv", index_col=0)  
+        df=pd.read_csv("Jan24da_worldTemp/Data/merged_owid_temp.csv", index_col=0)  
         python_code =  '''
 df2.rename(columns={'Code' : 'iso_code', 'Year':'year','Surface temperature anomaly': 'temperature'}, inplace=True)
 df = pd.merge(df, df2,  how='inner',  on=['year', 'iso_code'])

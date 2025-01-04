@@ -30,7 +30,7 @@ sidebar_name = "Modélisation"
 def run():
 # LOAD JEU DE DONNEES et TRAITEMENTS (split etc.)
   #  Jeu avec les zones geographiques
-  df_ctpzi=pd.read_csv("Data/ctpzi.csv", encoding='latin-1')
+  df_ctpzi=pd.read_csv("Jan24da_worldTemp/Data/ctpzi.csv", encoding='latin-1')
   df_ctpzi.drop(columns=['Num-3', 'Alpha-2','Notes de bas de page'], inplace=True)
   df_ctpzi.Code = df_ctpzi.Code // 1000
   df_ctpzi["continent"] = df_ctpzi.Code // 10
@@ -38,7 +38,7 @@ def run():
   df_ctpzi.rename(columns={'Alpha-3' : 'iso_code', 'Code':'zone_geo', 'Pays et zones d\'intérêt' : 'pays'}, inplace=True)
 
   # Jeu avec toutes les donnees pays de Co2, températures etc.
-  df_init=pd.read_csv("Data/merged_owid_temp_zones.csv", index_col=0)
+  df_init=pd.read_csv("Jan24da_worldTemp/Data/merged_owid_temp_zones.csv", index_col=0)
   # On retire tout de suite certaines mesures qui sont directement liées aux autres (donc pas utiles pour notre Machine Learning)
   df = df_init.drop(["co2_per_capita", "temperature_change_from_ch4","temperature_change_from_co2","temperature_change_from_n2o"], axis= 1)
   df.reset_index(drop=True, inplace=True)
@@ -106,8 +106,8 @@ def run():
     return modele
 
   # Charger les modèles
-  modeleXGB = charger_modele('Data/XGB.pkl')
-  modeleRF = charger_modele('Data/RF.pkl')
+  modeleXGB = charger_modele('Jan24da_worldTemp/Data/XGB.pkl')
+  modeleRF = charger_modele('Jan24da_worldTemp/Data/RF.pkl')
 
 
 # FONCTIONS DE VISU POUR LES MODELES
@@ -334,11 +334,11 @@ def run():
       all_ml_models = ["RandomForestRegressor","XGBoostRegressor"]
       model_choice = st.selectbox("Selectionner le modèle à étudier :",all_ml_models)
       if model_choice == "RandomForestRegressor":     
-        st.image("Data/ML.jpg", width=700)
+        st.image("Jan24da_worldTemp/Data/ML.jpg", width=700)
         # y_predRF = modeleRF.predict(X_test_processed)
         # residus(y_test, y_predRF, 'Résidus pour le RandomForest')
       elif model_choice == "XGBoostRegressor":
-        st.image("Data/fleche.jpg", width=700)        
+        st.image("Jan24da_worldTemp/Data/fleche.jpg", width=700)        
         # st.image("Data/ResidusXGB.jpg", width=700)
         # y_predXGB = modeleXGB.predict(X_test_processed)
         # residus(y_test, y_predXGB, 'Résidus pour le XGBoost')
@@ -349,10 +349,10 @@ def run():
  
       with col1:
           #  utiliser plt.savefig(save_path)
-        st.image("Data/LCurveRF.jpg", width=380)
+        st.image("Jan24da_worldTemp/Data/LCurveRF.jpg", width=380)
  
       with col2:  
-        st.image("Data/LCurveXGB.jpg", width=380)
+        st.image("Jan24da_worldTemp/Data/LCurveXGB.jpg", width=380)
       
       # plot_learning_curve(modeleXGB, X_train_processed, y_train, "Courbe d'apprentissage pour le XGBoost")
       st.write("➽ Le modèle pourrait être amélioré avec un plus grand jeu d'apprentissage")

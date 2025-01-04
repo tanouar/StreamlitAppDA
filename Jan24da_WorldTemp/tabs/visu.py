@@ -12,7 +12,7 @@ def run():
     st.write("  ")
     st.header("Data visualisation")
     st.markdown("---")
-    df = pd.read_csv("Data/owid.csv")
+    df = pd.read_csv("Jan24da_worldTemp/Data/owid.csv")
    
     # Filtre pour ne garder que les pays du top 15
     top15_countries = ['United States', 'China', 'Russia', 'Germany', 'Japan', 'India', 'United Kingdom', 'Canada', 'France', 'Italy', 'Poland', 'South Africa', 'Mexico', 'South Korea', 'Ukraine', 'World']
@@ -72,7 +72,7 @@ def run():
 
     st.write('**3- Carte pour visualiser l\'évolution de températures par année et par pays**') 
 
-    df_merged = pd.read_csv("Data/merged_owid_temp.csv")
+    df_merged = pd.read_csv("Jan24da_worldTemp/Data/merged_owid_temp.csv")
     
     df_recent = df_merged[(df_merged.year>=1980) & (df_merged.year<=2017) ]
     fig_temp = px.choropleth(df_recent, locations="iso_code", color="temperature",
