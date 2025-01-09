@@ -14,7 +14,7 @@ def run():
     st.write("  ")
     st.header("Statistiques")
     st.markdown("---")
-    df=pd.read_csv("Jan24da_worldTemp/Data/merged_owid_temp.csv", index_col=0) 
+    df=pd.read_csv("Jan24da_WorldTemp/Data/merged_owid_temp.csv", index_col=0) 
     top15_countries = ['United States', 'China', 'Russia', 'Germany', 'Japan', 'India', 'United Kingdom', 'Canada', 'France', 'Italy', 'Poland', 'South Africa', 'Mexico', 'South Korea', 'Ukraine', 'World']
     df_recent = df[(df.year>=1980) & (df.year<=2017) ]
     temp_world=df_recent[df_recent['country'].isin(top15_countries)].copy()
